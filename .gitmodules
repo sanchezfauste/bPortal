@@ -1,0 +1,3 @@
+[submodule "suitepy"]
+	path = suitepy
+	url = https://github.com/sanchezfauste/SuitePY.git
