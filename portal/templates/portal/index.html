@@ -1,9 +1,41 @@
-{% if accounts %}
-    <ul>
-    {% for account in accounts %}
-        <li>{{ account.name }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
+{% extends "portal/basepage.html" %}
+{% block title %}Accounts{% endblock %}
+{% block content %}
+
+    {% if accounts %}
+        <h1>Accounts</h1>
+        <table class="table table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Name</th>
+                    <th>Street</th>
+                    <th>City</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts %}
+                    <tr>
+                        <td>{{ account.name }}</td>
+                        <td>{{ account.billing_address_street }}</td>
+                        <td>{{ account.billing_address_city }}</td>
+                        <td>{{ account.phone_office }}</td>
+                        <td>{{ account.email1 }}</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
     <p>No accounts available.</p>
-{% endif %}
+    {% endif %}
+
+{% endblock %}
