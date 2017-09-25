@@ -1,0 +1,26 @@
+{% extends "portal/basepage.html" %}
+{% block title %}Accounts{% endblock %}
+{% block content %}
+
+    {% if modules %}
+        <table class="table table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Module key</th>
+                    <th>Module label</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for module in modules %}
+                <tr>
+                    <td>{{ module.module_key }}</td>
+                    <td>{{ module.module_label }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+    <p>No modules available.</p>
+    {% endif %}
+
+{% endblock %}

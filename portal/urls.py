@@ -24,4 +24,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^modules/$', views.modules, name='modules'),
 ]

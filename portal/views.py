@@ -36,3 +36,11 @@ def index(request):
         'accounts' : accounts
     }
     return HttpResponse(template.render(context, request))
+
+def modules(request):
+    modules = SuiteCRM().get_available_modules()
+    template = loader.get_template('portal/modules.html')
+    context = {
+        'modules' : modules['modules']
+    }
+    return HttpResponse(template.render(context, request))
