@@ -44,3 +44,15 @@ def modules(request):
         'modules' : modules['modules']
     }
     return HttpResponse(template.render(context, request))
+
+def module_list(request, module):
+    records = SuiteCRM().get_bean_list(module, max_results = 10)
+    fields_list = records[0].fields[:7]
+    module_fields = SuiteCRM().get_module_fields(module, fields_list)
+    template = loader.get_template('portal/module_list.html')
+    context = {
+        'module_key' : module,
+        'records' : records,
+        'module_fields' : module_fields['module_fields']
+    }
+    return HttpResponse(template.render(context, request))

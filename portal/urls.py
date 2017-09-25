@@ -25,4 +25,5 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^modules/$', views.modules, name='modules'),
+    url(r'^module/(?P<module>\w+)/list$', views.module_list, name='module_list'),
 ]
