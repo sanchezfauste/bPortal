@@ -56,3 +56,13 @@ def module_list(request, module):
         'module_fields' : module_fields['module_fields']
     }
     return HttpResponse(template.render(context, request))
+
+def edit_list_layout(request, module):
+    module_fields = SuiteCRM().get_module_fields(module)
+    template = loader.get_template('portal/edit_list_layout.html')
+    context = {
+        'module_key' : module,
+        'module_fields' : {},
+        'available_fields' : module_fields['module_fields']
+    }
+    return HttpResponse(template.render(context, request))

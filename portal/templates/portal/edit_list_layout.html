@@ -1,0 +1,61 @@
+{% extends "portal/basepage.html" %}
+{% block title %}Editar vista lista - {{ module_key }}{% endblock %}
+{% block content %}
+
+<h2>Vista lista del módulo {{ module_key }}</h2><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Campos disponibles</h4>
+                    <p class="card-text">
+                        <div class="card">
+                            <ul class="list-group list-group-flush sortable-ul" id="available-fields">
+                                {% for field, def in available_fields.items %}
+                                    <li class="list-group-item justify-content-between">
+                                        {{ def.label }}
+                                        <span class="text-muted">[{{ field }}]</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </p>
+                    <p class="card-text"><small class="text-muted">Arrastrar un campo aquí para no mostrarlo.</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Campos</h4>
+                    <p class="card-text">
+                        <div class="card">
+                            <ul class="list-group list-group-flush sortable-ul" id="selected-fields">
+                                {% for field, def in module_fields.items %}
+                                    <li class="list-group-item justify-content-between">
+                                        {{ def.label }}
+                                        <span class="text-muted">[{{ field }}]</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </p>
+                    <p class="card-text"><small class="text-muted">Campos que se mostrarán en la vista lista.</small></p>
+                    <a href="#" class="btn btn-primary">Guardar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $( function() {
+      $( "#selected-fields, #available-fields" ).sortable({
+        connectWith: ".sortable-ul"
+      }).disableSelection();
+    } );
+</script>
+
+{% endblock %}

@@ -1,3 +1,9 @@
 body {
   padding-top: 5rem;
 }
+
+.sortable-ul {
+  min-height: 30px;
+  max-height: 534px;
+  overflow-y: auto;
+}
