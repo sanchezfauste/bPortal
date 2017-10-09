@@ -11,6 +11,7 @@
     {% bootstrap_messages %}
     <link rel="stylesheet" type="text/css" href="{% static 'portal/basepage.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'portal/jquery-ui.min.css' %}" />
+    {% block static_files %}{% endblock %}
     <title>{% block title %}bPortal{% endblock %}</title>
 </head>
 

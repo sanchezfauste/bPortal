@@ -23,9 +23,10 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from suitepy.suitecrm import SuiteCRM
+import json
 
 # Create your views here.
 
@@ -58,11 +59,23 @@ def module_list(request, module):
     return HttpResponse(template.render(context, request))
 
 def edit_list_layout(request, module):
-    module_fields = SuiteCRM().get_module_fields(module)
-    template = loader.get_template('portal/edit_list_layout.html')
-    context = {
-        'module_key' : module,
-        'module_fields' : {},
-        'available_fields' : module_fields['module_fields']
-    }
-    return HttpResponse(template.render(context, request))
+    if request.method == 'POST':
+        post_data = json.loads(request.body.decode("utf-8"))
+        try:
+            selected_fields = post_data['selected_fields']
+        except KeyError:
+            return JsonResponse({
+                "status" : "Error",
+                "error" : "Please specify 'selected_fields'."
+            }, status = 400)
+        print "Save", module, "list view. Fields:", json.dumps(selected_fields, indent=4)
+        return JsonResponse({"status" : "Success"})
+    elif request.method == 'GET':
+        module_fields = SuiteCRM().get_module_fields(module)
+        template = loader.get_template('portal/edit_list_layout.html')
+        context = {
+            'module_key' : module,
+            'module_fields' : {},
+            'available_fields' : module_fields['module_fields']
+        }
+        return HttpResponse(template.render(context, request))

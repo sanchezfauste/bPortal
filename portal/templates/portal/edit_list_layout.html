@@ -1,4 +1,8 @@
 {% extends "portal/basepage.html" %}
+{% block static_files %}
+{% load staticfiles %}
+<script src="{% static 'portal/save_layouts.js' %}"></script>
+{% endblock %}
 {% block title %}Editar vista lista - {{ module_key }}{% endblock %}
 {% block content %}
 
@@ -14,7 +18,7 @@
                         <div class="card">
                             <ul class="list-group list-group-flush sortable-ul" id="available-fields">
                                 {% for field, def in available_fields.items %}
-                                    <li class="list-group-item justify-content-between">
+                                    <li class="list-group-item justify-content-between" id="{{ field }}">
                                         {{ def.label }}
                                         <span class="text-muted">[{{ field }}]</span>
                                     </li>
@@ -43,7 +47,7 @@
                         </div>
                     </p>
                     <p class="card-text"><small class="text-muted">Campos que se mostrarán en la vista lista.</small></p>
-                    <a href="#" class="btn btn-primary">Guardar</a>
+                    <a href="#" class="btn btn-primary" onclick="save_list_layout();">Guardar</a>
                 </div>
             </div>
         </div>
