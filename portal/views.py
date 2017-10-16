@@ -26,6 +26,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from suitepy.suitecrm import SuiteCRM
+from .models import Layout
+from collections import OrderedDict
 import json
 
 # Create your views here.
@@ -68,14 +70,29 @@ def edit_list_layout(request, module):
                 "status" : "Error",
                 "error" : "Please specify 'selected_fields'."
             }, status = 400)
-        print "Save", module, "list view. Fields:", json.dumps(selected_fields, indent=4)
+        view = None
+        try:
+            view = Layout.objects.get(module=module, view='list')
+        except:
+            view = Layout(module=module, view='list')
+        view.fields = json.dumps(selected_fields)
+        view.save()
         return JsonResponse({"status" : "Success"})
     elif request.method == 'GET':
-        module_fields = SuiteCRM().get_module_fields(module)
+        available_fields = SuiteCRM().get_module_fields(module)['module_fields']
+        module_fields = OrderedDict()
         template = loader.get_template('portal/edit_list_layout.html')
+        try:
+            view = Layout.objects.get(module=module, view='list')
+            for field in json.loads(view.fields):
+                if field in available_fields:
+                    module_fields[field] = available_fields[field]
+                    del available_fields[field]
+        except:
+            pass
         context = {
             'module_key' : module,
-            'module_fields' : {},
-            'available_fields' : module_fields['module_fields']
+            'module_fields' : module_fields,
+            'available_fields' : available_fields
         }
         return HttpResponse(template.render(context, request))

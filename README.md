@@ -23,7 +23,6 @@ virtualenv env
 source env/bin/activate
 pip install -r requirements.txt
 pip install -r suitepy/requirements.txt
-python manage.py makemigrations
 python manage.py migrate
 ```
 
