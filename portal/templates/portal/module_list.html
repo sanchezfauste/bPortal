@@ -1,38 +1,46 @@
 {% extends "portal/basepage.html" %}
-{% block title %}Accounts{% endblock %}
+{% block title %}{{ module_key }}{% endblock %}
 {% block content %}
 {% load filters %}
 
     <h1>{{ module_key }}</h1>
-    <table class="table table-striped">
-        <thead class="thead-inverse">
-            <tr>
-                {% for field, def in module_fields.items %}
-                    <th id="{{ field.name }}_label">{{ def.label }}</th>
-                {% endfor %}
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for record in records %}
-                <tr>
-                    {% for field, def in module_fields.items %}
-                        <td id="{{ field.name }}">{{ record|get:field }}</td>
+    {% if module_fields %}
+        {% if records %}
+            <table class="table table-striped table-sm">
+                <thead class="thead-inverse">
+                    <tr>
+                        {% for field, def in module_fields.items %}
+                            <th id="{{ field.name }}_label">{{ def.label }}</th>
+                        {% endfor %}
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                        <tr>
+                            {% for field, def in module_fields.items %}
+                                <td id="{{ field.name }}">{{ record|get:field }}</td>
+                            {% endfor %}
+                            <td>
+                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
+                            </td>
+                        </tr>
                     {% endfor %}
-                    <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td>No records found!</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No se han encontrado registros.
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            El módulo {{ module_key }} no tiene definida la vista lista.
+        </div>
+    {% endif %}
 
 {% endblock %}

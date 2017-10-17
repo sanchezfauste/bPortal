@@ -29,6 +29,7 @@ from suitepy.suitecrm import SuiteCRM
 from .models import Layout
 from collections import OrderedDict
 import json
+from utils import *
 
 # Create your views here.
 
@@ -49,14 +50,21 @@ def modules(request):
     return HttpResponse(template.render(context, request))
 
 def module_list(request, module):
-    records = SuiteCRM().get_bean_list(module, max_results = 10)
-    fields_list = records[0].fields[:7]
-    module_fields = SuiteCRM().get_module_fields(module, fields_list)
+    records = []
+    module_fields = {}
+    try:
+        view = Layout.objects.get(module=module, view='list')
+        fields_list = json.loads(view.fields)
+        module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
+        remove_colon_of_field_labels(module_fields)
+        records = SuiteCRM().get_bean_list(module, max_results = 10)
+    except:
+        pass
     template = loader.get_template('portal/module_list.html')
     context = {
         'module_key' : module,
         'records' : records,
-        'module_fields' : module_fields['module_fields']
+        'module_fields' : module_fields
     }
     return HttpResponse(template.render(context, request))
 
