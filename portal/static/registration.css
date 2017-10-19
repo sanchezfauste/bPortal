@@ -1,0 +1,14 @@
+body {
+  padding-top: 5rem;
+}
+
+.container {
+  max-width: max-content;
+  margin: auto;
+}
+
+.login_form {
+  max-width: max-content;
+  margin: auto;
+   padding-top: 25px;
+}

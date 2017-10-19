@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    <script src="{% static 'portal/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'portal/tether.min.js' %}"></script>
+    <script src="{% static 'portal/jquery-ui.min.js' %}"></script>
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'portal/jquery-ui.min.css' %}" />
+    {% block static_files %}{% endblock %}
+    <title>{% block title %}bPortal{% endblock %}</title>
+</head>
+
+<body>
+
+   <div class="container">
+       {% block content %}{% endblock %}
+   </div><!-- /.container -->
+
+ </body>
+
+</html>

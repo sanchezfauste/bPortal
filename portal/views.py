@@ -30,9 +30,11 @@ from .models import Layout
 from collections import OrderedDict
 import json
 from utils import *
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required
 def index(request):
     accounts = SuiteCRM().get_bean_list('Accounts', max_results = 10)
     template = loader.get_template('portal/index.html')
@@ -41,6 +43,7 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def modules(request):
     modules = SuiteCRM().get_available_modules()
     template = loader.get_template('portal/modules.html')
@@ -49,6 +52,7 @@ def modules(request):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def module_list(request, module):
     records = []
     module_fields = {}
@@ -68,6 +72,7 @@ def module_list(request, module):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def edit_list_layout(request, module):
     if request.method == 'POST':
         post_data = json.loads(request.body.decode("utf-8"))
