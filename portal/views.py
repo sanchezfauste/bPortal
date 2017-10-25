@@ -31,6 +31,8 @@ from collections import OrderedDict
 import json
 from utils import *
 from django.contrib.auth.decorators import login_required
+from processors import *
+from django.template import RequestContext
 
 # Create your views here.
 
@@ -38,18 +40,20 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     accounts = SuiteCRM().get_bean_list('Accounts', max_results = 10)
     template = loader.get_template('portal/index.html')
-    context = {
+    context = basepage_processor(request)
+    context.update({
         'accounts' : accounts
-    }
+    })
     return HttpResponse(template.render(context, request))
 
 @login_required
 def modules(request):
     modules = SuiteCRM().get_available_modules()
     template = loader.get_template('portal/modules.html')
-    context = {
+    context = basepage_processor(request)
+    context.update({
         'modules' : modules['modules']
-    }
+    })
     return HttpResponse(template.render(context, request))
 
 @login_required
@@ -65,11 +69,12 @@ def module_list(request, module):
     except:
         pass
     template = loader.get_template('portal/module_list.html')
-    context = {
+    context = basepage_processor(request)
+    context.update({
         'module_key' : module,
         'records' : records,
         'module_fields' : module_fields
-    }
+    })
     return HttpResponse(template.render(context, request))
 
 @login_required
@@ -103,9 +108,10 @@ def edit_list_layout(request, module):
                     del available_fields[field]
         except:
             pass
-        context = {
+        context = basepage_processor(request)
+        context.update({
             'module_key' : module,
             'module_fields' : module_fields,
             'available_fields' : available_fields
-        }
+        })
         return HttpResponse(template.render(context, request))

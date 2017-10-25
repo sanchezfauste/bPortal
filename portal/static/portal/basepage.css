@@ -7,3 +7,8 @@ body {
   max-height: 534px;
   overflow-y: auto;
 }
+
+.scrollable-dropdown {
+    max-height: 600px;
+    overflow-y: auto;
+}
