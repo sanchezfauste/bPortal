@@ -1,41 +1,20 @@
 {% extends "portal/basepage.html" %}
-{% block title %}Accounts{% endblock %}
+{% block title %}Inicio{% endblock %}
 {% block content %}
 
-    {% if accounts %}
-        <h1>Accounts</h1>
-        <table class="table table-striped">
-            <thead class="thead-inverse">
-                <tr>
-                    <th>Name</th>
-                    <th>Street</th>
-                    <th>City</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for account in accounts %}
-                    <tr>
-                        <td>{{ account.name }}</td>
-                        <td>{{ account.billing_address_street }}</td>
-                        <td>{{ account.billing_address_city }}</td>
-                        <td>{{ account.phone_office }}</td>
-                        <td>{{ account.email1 }}</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-    <p>No accounts available.</p>
-    {% endif %}
+{% if modules %}
+  <div class="card-columns">
+    {% for module in modules %}
+      <a id="modules_dropdown_{{ module.module_key }}" href="{% url 'module_list' module.module_key %}" class="card p-3 card-inverse" style="background-color: #292b2c; border-color: #292b2c;">
+        <h3 class="card-title" style="text-align: center;"><img src="/static/portal/img/modules/light/{{ module.module_key }}.svg" width="128px"></h3>
+        <p class="card-text" style="text-align: center;">{{ module.module_label }}</p>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-info" role="alert">
+    No tiene acceso a ningún módulo.
+  </div>
+{% endif %}
 
 {% endblock %}

@@ -38,12 +38,8 @@ from django.template import RequestContext
 
 @login_required
 def index(request):
-    accounts = SuiteCRM().get_bean_list('Accounts', max_results = 10)
     template = loader.get_template('portal/index.html')
     context = basepage_processor(request)
-    context.update({
-        'accounts' : accounts
-    })
     return HttpResponse(template.render(context, request))
 
 @login_required
