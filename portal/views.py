@@ -119,3 +119,20 @@ def edit_list_layout(request, module):
             'available_fields' : available_fields
         })
         return HttpResponse(template.render(context, request))
+
+@login_required
+def edit_role(request, role):
+    if request.method == 'GET':
+        available_modules = SuiteCRM().get_available_modules()
+        template = loader.get_template('portal/edit_role.html')
+        context = basepage_processor(request)
+        context.update({
+            'available_modules' : available_modules['modules'],
+            'role' : role
+        })
+        return HttpResponse(template.render(context, request))
+    elif request.method == 'POST':
+        post_data = json.loads(request.body.decode("utf-8"))
+        import sys
+        sys.stdout.write('Receiving role: %s\n%s' % (role, json.dumps(post_data)))
+        return JsonResponse({"status" : "Success"})
