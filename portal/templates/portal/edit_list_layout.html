@@ -1,6 +1,7 @@
 {% extends "portal/basepage.html" %}
 {% block static_files %}
 {% load staticfiles %}
+<script src="{% static 'portal/session.js' %}"></script>
 <script src="{% static 'portal/save_layouts.js' %}"></script>
 {% endblock %}
 {% block title %}Editar vista lista - {{ module_key }}{% endblock %}
