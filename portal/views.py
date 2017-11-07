@@ -27,6 +27,7 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from suitepy.suitecrm import SuiteCRM
 from .models import Layout
+from .models import Role, RolePermission, RoleUser
 from collections import OrderedDict
 import json
 from utils import *
@@ -123,16 +124,45 @@ def edit_list_layout(request, module):
 @login_required
 def edit_role(request, role):
     if request.method == 'GET':
+        role_bean = None
+        try:
+            role_bean = Role.objects.get(name=role)
+        except:
+            pass
         available_modules = SuiteCRM().get_available_modules()
         template = loader.get_template('portal/edit_role.html')
         context = basepage_processor(request)
         context.update({
             'available_modules' : available_modules['modules'],
-            'role' : role
+            'role' : role,
+            'role_bean' : role_bean
         })
         return HttpResponse(template.render(context, request))
     elif request.method == 'POST':
         post_data = json.loads(request.body.decode("utf-8"))
-        import sys
-        sys.stdout.write('Receiving role: %s\n%s' % (role, json.dumps(post_data)))
+        role_bean = None
+        try:
+            permissions = post_data['permissions']
+        except KeyError:
+            return JsonResponse({
+                "status" : "Error",
+                "error" : "Please specify 'permissions'."
+            }, status = 400)
+        try:
+            role_bean = Role.objects.get(name=role)
+        except:
+            return JsonResponse({
+                "status" : "Error",
+                "error" : "Role '" + role + "' does not exist."
+            }, status = 400)
+        RolePermission.objects.filter(role=role).delete()
+        for i, permission in enumerate(permissions):
+            if permission[2]:
+                RolePermission(
+                    role=role_bean,
+                    module=permission[0],
+                    action=permission[1],
+                    grant=permission[2],
+                    order=i
+                ).save()
         return JsonResponse({"status" : "Success"})

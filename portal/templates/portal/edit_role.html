@@ -9,41 +9,48 @@
 
 <h2>Configuración del rol <b>{{ role }}</b></h2><br>
 
-    {% if available_modules %}
-        <table class="table table-striped">
-            <thead class="thead-inverse">
-                <tr>
-                    <th>Módulo</th>
-                    <th>Leer</th>
-                    <th>Crear</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-            <tbody id="module_permissions">
-                {% for module in available_modules %}
-                    <tr id="{{ module.module_key }}_permissions">
-                        <td>{{ module.module_label }}</td>
-                        <td><input type="checkbox" checked module="{{ module.module_key }}" permission="access" id="{{ module.module_key }}_access"></td>
-                        <td><input type="checkbox" module="{{ module.module_key }}" permission="create" id="{{ module.module_key }}_create"></td>
-                        <td><input type="checkbox" module="{{ module.module_key }}" permission="edit" id="{{ module.module_key }}_edit"></td>
-                        <td><input type="checkbox" module="{{ module.module_key }}" permission="delete" id="{{ module.module_key }}_delete"></td>
+    {% if role_bean %}
+
+        {% if available_modules %}
+            <table class="table table-striped">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Módulo</th>
+                        <th>Leer</th>
+                        <th>Crear</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table><br>
-        <a href="#" class="btn btn-primary float-right" onclick="save_role_permissions();">Guardar</a><br>
+                </thead>
+                <tbody id="module_permissions">
+                    {% for module in available_modules %}
+                        <tr id="{{ module.module_key }}_permissions">
+                            <td>{{ module.module_label }}</td>
+                            <td><input type="checkbox" checked module="{{ module.module_key }}" permission="read" id="{{ module.module_key }}_read"></td>
+                            <td><input type="checkbox" module="{{ module.module_key }}" permission="create" id="{{ module.module_key }}_create"></td>
+                            <td><input type="checkbox" module="{{ module.module_key }}" permission="edit" id="{{ module.module_key }}_edit"></td>
+                            <td><input type="checkbox" module="{{ module.module_key }}" permission="delete" id="{{ module.module_key }}_delete"></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table><br>
+            <a href="#" class="btn btn-primary float-right" onclick="save_role_permissions();">Guardar</a><br>
+            <script>
+                $( function() {
+                    $( "#module_permissions" ).sortable();
+                    $( "#module_permissions" ).disableSelection();
+                } );
+            </script>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                No hay módulos disponibles.
+            </div>
+        {% endif %}
+
     {% else %}
         <div class="alert alert-danger" role="alert">
-            No hay módulos disponibles.
+            El rol <b>{{ role }}</b> no existe.
         </div>
     {% endif %}
-
-    <script>
-        $( function() {
-            $( "#module_permissions" ).sortable();
-            $( "#module_permissions" ).disableSelection();
-        } );
-    </script>
 
 {% endblock %}
