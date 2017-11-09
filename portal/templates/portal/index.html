@@ -4,7 +4,7 @@
 
 {% if modules %}
   <div class="card-columns">
-    {% for module in modules %}
+    {% for module_key, module in modules.items %}
       <a id="modules_dropdown_{{ module.module_key }}" href="{% url 'module_list' module.module_key %}" class="card p-3 card-inverse" style="background-color: #292b2c; border-color: #292b2c;">
         <h3 class="card-title" style="text-align: center;"><img src="/static/portal/img/modules/light/{{ module.module_key }}.svg" width="128px"></h3>
         <p class="card-text" style="text-align: center;">{{ module.module_label }}</p>

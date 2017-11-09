@@ -28,7 +28,7 @@
          <li class="nav-item dropdown">
            <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Módulos</a>
            <div class="dropdown-menu scrollable-dropdown" aria-labelledby="modules_dropdown">
-                {% for module in modules %}
+                {% for module_key, module in modules.items %}
                     <a class="dropdown-item" id="modules_dropdown_{{ module.module_key }}" href="{% url 'module_list' module.module_key %}">{{ module.module_label }}</a>
                 {% endfor %}
            </div>

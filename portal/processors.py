@@ -19,9 +19,9 @@
 #######################################################################
 
 from suitepy.suitecrm import SuiteCRM
+from utils import *
 
 def basepage_processor(request):
-    modules = SuiteCRM().get_available_modules()
     return {
-        'modules' : modules['modules']
+        'modules' : get_user_accesible_modules(request.user.id)
     }

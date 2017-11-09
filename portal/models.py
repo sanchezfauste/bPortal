@@ -46,6 +46,7 @@ class RolePermission(models.Model):
 
     class Meta:
         unique_together = ("role", "module", "action")
+        ordering = ['order']
 
     def __str__(self):
         return self.role.name + ' - ' + self.action.title() + ' ' + self.module
