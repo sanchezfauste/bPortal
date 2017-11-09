@@ -11,7 +11,8 @@
 
     {% if role_bean %}
 
-        {% if available_modules %}
+        {% if module_permissions %}
+            <a href="#" class="btn btn-primary float-right" onclick="save_role_permissions();">Guardar</a><br><br>
             <table class="table table-striped">
                 <thead class="thead-inverse">
                     <tr>
@@ -23,13 +24,13 @@
                     </tr>
                 </thead>
                 <tbody id="module_permissions">
-                    {% for module in available_modules %}
-                        <tr id="{{ module.module_key }}_permissions">
-                            <td>{{ module.module_label }}</td>
-                            <td><input type="checkbox" checked module="{{ module.module_key }}" permission="read" id="{{ module.module_key }}_read"></td>
-                            <td><input type="checkbox" module="{{ module.module_key }}" permission="create" id="{{ module.module_key }}_create"></td>
-                            <td><input type="checkbox" module="{{ module.module_key }}" permission="edit" id="{{ module.module_key }}_edit"></td>
-                            <td><input type="checkbox" module="{{ module.module_key }}" permission="delete" id="{{ module.module_key }}_delete"></td>
+                    {% for module_key, def in module_permissions.items %}
+                        <tr id="{{ module_key }}_permissions">
+                            <td>{{ def.module_label }}</td>
+                            <td><input type="checkbox" {% if def.read %} checked {% endif %} module="{{ module_key }}" permission="read" id="{{ module_key }}_read"></td>
+                            <td><input type="checkbox" {% if def.create %} checked {% endif %} module="{{ module_key }}" permission="create" id="{{ module_key }}_create"></td>
+                            <td><input type="checkbox" {% if def.edit %} checked {% endif %} module="{{ module_key }}" permission="edit" id="{{ module_key }}_edit"></td>
+                            <td><input type="checkbox" {% if def.delete %} checked {% endif %} module="{{ module_key }}" permission="delete" id="{{ module_key }}_delete"></td>
                         </tr>
                     {% endfor %}
                 </tbody>

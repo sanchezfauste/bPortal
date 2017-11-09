@@ -130,10 +130,41 @@ def edit_role(request, role):
         except:
             pass
         available_modules = SuiteCRM().get_available_modules()
+        module_labels = {}
+        for available_module in available_modules['modules']:
+            module_labels[available_module['module_key']] = \
+                available_module['module_label']
+        role_permissions = RolePermission.objects.filter(role=role, grant=1)
+        modules_order = role_permissions.values_list('module').distinct()
+        module_permissions = OrderedDict()
+        for module in modules_order:
+            module_key = module[0]
+            if module_key in module_labels:
+                module_permissions[module_key] = {
+                    'module_label' : module_labels[module_key],
+                    'read' : False,
+                    'create' : False,
+                    'edit' : False,
+                    'delete' : False
+                }
+                del module_labels[module_key]
+        for role_permission in role_permissions:
+            module = role_permission.module
+            action = role_permission.action
+            if module in module_permissions:
+                module_permissions[module][action] = True
+        for module_key in module_labels:
+            module_permissions[module_key] = {
+                'module_label' : module_labels[module_key],
+                'read' : False,
+                'create' : False,
+                'edit' : False,
+                'delete' : False
+            }
         template = loader.get_template('portal/edit_role.html')
         context = basepage_processor(request)
         context.update({
-            'available_modules' : available_modules['modules'],
+            'module_permissions' : module_permissions,
             'role' : role,
             'role_bean' : role_bean
         })
