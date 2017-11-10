@@ -41,3 +41,23 @@ def get_user_accesible_modules(user):
             "module_label" : module_key
         }
     return modules
+
+def user_can_read_module(user, module):
+    return _user_can_perform_action_on_module(user, "read", module)
+
+def user_can_create_module(user, module):
+    return _user_can_perform_action_on_module(user, "create", module)
+
+def user_can_edit_module(user, module):
+    return _user_can_perform_action_on_module(user, "edit", module)
+
+def user_can_delete_module(user, module):
+    return _user_can_perform_action_on_module(user, "delete", module)
+
+def _user_can_perform_action_on_module(user, action, module):
+    return RolePermission.objects.filter(
+        role=user.roleuser.role,
+        module=module,
+        grant=True,
+        action=action
+    ).exists()

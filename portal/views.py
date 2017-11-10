@@ -55,31 +55,35 @@ def modules(request):
 
 @login_required
 def module_list(request, module):
-    records = []
-    module_fields = {}
-    limit = request.GET.get('limit')
-    if limit:
-        limit = int(limit)
+    if user_can_read_module(request.user, module):
+        records = []
+        module_fields = {}
+        limit = request.GET.get('limit')
+        if limit:
+            limit = int(limit)
+        else:
+            limit = 10
+        offset = request.GET.get('offset')
+        if offset:
+            offset = int(offset)
+        try:
+            view = Layout.objects.get(module=module, view='list')
+            fields_list = json.loads(view.fields)
+            module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
+            remove_colon_of_field_labels(module_fields)
+            records = SuiteCRM().get_bean_list(module, max_results = limit, offset = offset)
+        except:
+            pass
+        template = loader.get_template('portal/module_list.html')
+        context = basepage_processor(request)
+        context.update({
+            'module_key' : module,
+            'records' : records,
+            'module_fields' : module_fields
+        })
     else:
-        limit = 10
-    offset = request.GET.get('offset')
-    if offset:
-        offset = int(offset)
-    try:
-        view = Layout.objects.get(module=module, view='list')
-        fields_list = json.loads(view.fields)
-        module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
-        remove_colon_of_field_labels(module_fields)
-        records = SuiteCRM().get_bean_list(module, max_results = limit, offset = offset)
-    except:
-        pass
-    template = loader.get_template('portal/module_list.html')
-    context = basepage_processor(request)
-    context.update({
-        'module_key' : module,
-        'records' : records,
-        'module_fields' : module_fields
-    })
+        template = loader.get_template('portal/insufficient_permissions.html')
+        context = basepage_processor(request)
     return HttpResponse(template.render(context, request))
 
 @login_required

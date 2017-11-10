@@ -1,0 +1,11 @@
+{% extends "portal/basepage.html" %}
+{% block title %}Permisos insuficientes{% endblock %}
+{% load staticfiles %}
+{% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/icons/favicon/ban.ico' %}">{% endblock %}
+{% block content %}
+
+    <div class="alert alert-danger" role="alert">
+        No tiene permisos suficientes para realizar esta acción o está intentando acceder a un módulo inexistente.
+    </div>
+
+{% endblock %}
