@@ -23,5 +23,5 @@ from utils import *
 
 def basepage_processor(request):
     return {
-        'modules' : get_user_accesible_modules(request.user.id)
+        'modules' : get_user_accesible_modules(request.user)
     }

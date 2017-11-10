@@ -27,14 +27,11 @@ def remove_colon_of_field_labels(module_fields):
         if len(label) > 0 and label[-1] == ':':
             module_fields[field]['label'] = label[:-1]
 
-def get_user_accesible_modules(user_id):
-    role_permissions = RolePermission.objects.raw(
-        'SELECT rp.id, rp.module\
-            FROM portal_rolepermission rp\
-                INNER JOIN portal_roleuser ru\
-                    ON rp.role_id = ru.role_id\
-                        AND ru.user_id = \'' + str(user_id) + '\'\
-            WHERE rp.grant = 1'
+def get_user_accesible_modules(user):
+    role_permissions = RolePermission.objects.filter(
+        role=user.roleuser.role,
+        grant=True,
+        action="read"
     )
     modules = OrderedDict()
     for role_permission in role_permissions:
