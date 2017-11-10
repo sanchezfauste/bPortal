@@ -28,19 +28,22 @@ def remove_colon_of_field_labels(module_fields):
             module_fields[field]['label'] = label[:-1]
 
 def get_user_accesible_modules(user):
-    role_permissions = RolePermission.objects.filter(
-        role=user.roleuser.role,
-        grant=True,
-        action="read"
-    )
-    modules = OrderedDict()
-    for role_permission in role_permissions:
-        module_key = role_permission.module
-        modules[module_key] = {
-            "module_key" : module_key,
-            "module_label" : module_key
-        }
-    return modules
+    try:
+        role_permissions = RolePermission.objects.filter(
+            role=user.roleuser.role,
+            grant=True,
+            action="read"
+        )
+        modules = OrderedDict()
+        for role_permission in role_permissions:
+            module_key = role_permission.module
+            modules[module_key] = {
+                "module_key" : module_key,
+                "module_label" : module_key
+            }
+        return modules
+    except:
+        return OrderedDict()
 
 def user_can_read_module(user, module):
     return _user_can_perform_action_on_module(user, "read", module)
@@ -55,9 +58,12 @@ def user_can_delete_module(user, module):
     return _user_can_perform_action_on_module(user, "delete", module)
 
 def _user_can_perform_action_on_module(user, action, module):
-    return RolePermission.objects.filter(
-        role=user.roleuser.role,
-        module=module,
-        grant=True,
-        action=action
-    ).exists()
+    try:
+        return RolePermission.objects.filter(
+            role=user.roleuser.role,
+            module=module,
+            grant=True,
+            action=action
+        ).exists()
+    except:
+        return False
