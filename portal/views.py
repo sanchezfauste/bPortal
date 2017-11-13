@@ -71,7 +71,12 @@ def module_list(request, module):
             fields_list = json.loads(view.fields)
             module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
             remove_colon_of_field_labels(module_fields)
-            records = SuiteCRM().get_bean_list(module, max_results = limit, offset = offset)
+            records = SuiteCRM().get_bean_list(
+                module,
+                max_results = limit,
+                offset = offset,
+                order_by = request.GET.get('order_by')
+            )
         except:
             pass
         template = loader.get_template('portal/module_list.html')
