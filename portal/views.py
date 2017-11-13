@@ -75,7 +75,8 @@ def module_list(request, module):
                 module,
                 max_results = limit,
                 offset = offset,
-                order_by = request.GET.get('order_by')
+                order_by = request.GET.get('order_by'),
+                query = get_filter_query(module, module_fields, request.GET)
             )
         except:
             pass
@@ -84,7 +85,8 @@ def module_list(request, module):
         context.update({
             'module_key' : module,
             'records' : records,
-            'module_fields' : module_fields
+            'module_fields' : module_fields,
+            'current_filters' : get_listview_filter_urlencoded(request.GET)
         })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')

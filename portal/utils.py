@@ -20,6 +20,7 @@
 
 from .models import RolePermission
 from collections import OrderedDict
+import urllib
 
 def remove_colon_of_field_labels(module_fields):
     for field in module_fields:
@@ -67,3 +68,27 @@ def _user_can_perform_action_on_module(user, action, module):
         ).exists()
     except:
         return False
+
+def get_filter_query(module, fields, parameters):
+    table = module.lower()
+    query = ''
+    for field_name, field_def in fields.items():
+        if field_name in parameters:
+            field_table = table if field_name[-2:] != '_c' else table + '_cstm'
+            field_type = field_def['type']
+            if field_type in ['double', 'float', 'decimal', 'int', 'bool']:
+                value = parameters[field_name]
+            else:
+                value = '\'' + parameters[field_name] + '\''
+            if query:
+                query += " AND "
+            query += field_table + '.' + field_name + ' = ' + value
+    return query
+
+def get_listview_filter_urlencoded(parameters):
+    filters = parameters.copy()
+    if 'limit' in filters:
+        del filters['limit']
+    if 'offset' in filters:
+        del filters['offset']
+    return urllib.urlencode(filters)

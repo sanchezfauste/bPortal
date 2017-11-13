@@ -37,14 +37,14 @@
             <nav aria-label="Pagination">
               <ul class="pagination justify-content-end">
                   {% if records.previous_offset != None %}
-                    <li class="page-item"><a class="page-link" href="{% url 'module_list' module_key %}?limit={{ records.current_limit }}&offset={{ records.previous_offset }}">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="{% url 'module_list' module_key %}?limit={{ records.current_limit }}&offset={{ records.previous_offset }}{% if current_filters %}&{{ current_filters }}{% endif %}">Previous</a></li>
                   {% else %}
                     <li class="page-item disabled">
                       <a class="page-link" href="#" tabindex="-1">Previous</a>
                     </li>
                   {% endif %}
                   {% if records.next_offset != None %}
-                    <li class="page-item"><a class="page-link" href="{% url 'module_list' module_key %}?limit={{ records.current_limit }}&offset={{ records.next_offset }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="{% url 'module_list' module_key %}?limit={{ records.current_limit }}&offset={{ records.next_offset }}{% if current_filters %}&{{ current_filters }}{% endif %}">Next</a></li>
                   {% else %}
                     <li class="page-item disabled">
                       <a class="page-link" href="#" tabindex="-1">Next</a>
