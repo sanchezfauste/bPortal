@@ -91,4 +91,8 @@ def get_listview_filter_urlencoded(parameters):
         del filters['limit']
     if 'offset' in filters:
         del filters['offset']
+    if 'order_by' in filters:
+        del filters['order_by']
+    if 'order' in filters:
+        del filters['order']
     return urllib.urlencode(filters)

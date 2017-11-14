@@ -71,11 +71,21 @@ def module_list(request, module):
             fields_list = json.loads(view.fields)
             module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
             remove_colon_of_field_labels(module_fields)
+            order_by = request.GET.get('order_by')
+            order = request.GET.get('order')
+            if order_by in fields_list:
+                order_by_string = order_by
+            else:
+                order_by = None
+            if order_by and order in ['asc', 'desc']:
+                order_by_string += ' ' + order
+            else:
+                order = None
             records = SuiteCRM().get_bean_list(
                 module,
                 max_results = limit,
                 offset = offset,
-                order_by = request.GET.get('order_by'),
+                order_by = order_by_string,
                 query = get_filter_query(module, module_fields, request.GET)
             )
         except:
@@ -86,7 +96,9 @@ def module_list(request, module):
             'module_key' : module,
             'records' : records,
             'module_fields' : module_fields,
-            'current_filters' : get_listview_filter_urlencoded(request.GET)
+            'current_filters' : get_listview_filter_urlencoded(request.GET),
+            'order_by' : order_by,
+            'order' : order
         })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')

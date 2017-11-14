@@ -12,7 +12,23 @@
                 <thead class="thead-inverse">
                     <tr>
                         {% for field, def in module_fields.items %}
-                            <th id="{{ field }}_label">{{ def.label }}</th>
+                            <th id="{{ field }}_label" class="align-middle">{{ def.label }}</th>
+                            <th class="align-middle text-right" style="min-width: 40px;">
+                                {% if order_by == field and order != "desc" %}
+                                    <span class="oi oi-arrow-top selected-arrow"></span>
+                                {% else %}
+                                    <a href="{% url 'module_list' module_key %}?order_by={{ field }}{% if current_filters %}&{{ current_filters }}{% endif %}" id="order_by_{{ field }}_asc">
+                                        <span class="oi oi-arrow-top"></span>
+                                    </a>
+                                {% endif %}
+                                {% if order_by == field and order == "desc" %}
+                                    <span class="oi oi-arrow-bottom selected-arrow"></span>
+                                {% else %}
+                                    <a href="{% url 'module_list' module_key %}?order_by={{ field }}&order=desc{% if current_filters %}&{{ current_filters }}{% endif %}" id="order_by_{{ field }}_desc">
+                                        <span class="oi oi-arrow-bottom"></span>
+                                    </a>
+                                {% endif %}
+                            </th>
                         {% endfor %}
                         <th></th>
                         <th></th>
@@ -22,7 +38,7 @@
                     {% for record in records.entry_list %}
                         <tr>
                             {% for field, def in module_fields.items %}
-                                <td id="{{ field }}">{{ record|get:field }}</td>
+                                <td id="{{ field }}" colspan="2">{{ record|get:field }}</td>
                             {% endfor %}
                             <td>
                                 <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
@@ -37,14 +53,14 @@
             <nav aria-label="Pagination">
               <ul class="pagination justify-content-end">
                   {% if records.previous_offset != None %}
-                    <li class="page-item"><a class="page-link" href="{% url 'module_list' module_key %}?limit={{ records.current_limit }}&offset={{ records.previous_offset }}{% if current_filters %}&{{ current_filters }}{% endif %}">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="{% url 'module_list' module_key %}?limit={{ records.current_limit }}&offset={{ records.previous_offset }}{% if current_filters %}&{{ current_filters }}{% endif %}{% if order_by %}&order_by={{ order_by }}{% endif %}">Previous</a></li>
                   {% else %}
                     <li class="page-item disabled">
                       <a class="page-link" href="#" tabindex="-1">Previous</a>
                     </li>
                   {% endif %}
                   {% if records.next_offset != None %}
-                    <li class="page-item"><a class="page-link" href="{% url 'module_list' module_key %}?limit={{ records.current_limit }}&offset={{ records.next_offset }}{% if current_filters %}&{{ current_filters }}{% endif %}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="{% url 'module_list' module_key %}?limit={{ records.current_limit }}&offset={{ records.next_offset }}{% if current_filters %}&{{ current_filters }}{% endif %}{% if order_by %}&order_by={{ order_by }}{% endif %}">Next</a></li>
                   {% else %}
                     <li class="page-item disabled">
                       <a class="page-link" href="#" tabindex="-1">Next</a>
