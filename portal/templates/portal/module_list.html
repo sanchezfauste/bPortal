@@ -12,7 +12,7 @@
                 <thead class="thead-inverse">
                     <tr>
                         {% for field, def in module_fields.items %}
-                            <th id="{{ field.name }}_label">{{ def.label }}</th>
+                            <th id="{{ field }}_label">{{ def.label }}</th>
                         {% endfor %}
                         <th></th>
                         <th></th>
@@ -22,7 +22,7 @@
                     {% for record in records.entry_list %}
                         <tr>
                             {% for field, def in module_fields.items %}
-                                <td id="{{ field.name }}">{{ record|get:field }}</td>
+                                <td id="{{ field }}">{{ record|get:field }}</td>
                             {% endfor %}
                             <td>
                                 <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
