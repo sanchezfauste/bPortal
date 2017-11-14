@@ -66,13 +66,14 @@ def module_list(request, module):
         offset = request.GET.get('offset')
         if offset:
             offset = int(offset)
+        order_by = request.GET.get('order_by')
+        order = request.GET.get('order')
         try:
             view = Layout.objects.get(module=module, view='list')
             fields_list = json.loads(view.fields)
             module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
             remove_colon_of_field_labels(module_fields)
-            order_by = request.GET.get('order_by')
-            order = request.GET.get('order')
+            order_by_string = None
             if order_by in fields_list:
                 order_by_string = order_by
             else:
