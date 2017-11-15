@@ -96,3 +96,22 @@ def get_listview_filter_urlencoded(parameters):
     if 'order' in filters:
         del filters['order']
     return urllib.urlencode(filters)
+
+NON_SORTABLE_FIELD_TYPES=[
+    'html',
+    'text',
+    'encrypt'
+]
+NON_SORTABLE_FIELD_NAMES=[
+    'email1',
+    'email2',
+    'parent_name'
+]
+
+def set_sortable_atribute_on_module_fields(module_fields):
+    for field_name, field_def in module_fields.items():
+        if field_def['type'] in NON_SORTABLE_FIELD_TYPES\
+                or field_name in NON_SORTABLE_FIELD_NAMES:
+            field_def['sortable'] = False
+        else:
+            field_def['sortable'] = True

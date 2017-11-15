@@ -14,19 +14,21 @@
                         {% for field, def in module_fields.items %}
                             <th id="{{ field }}_label" class="align-middle">{{ def.label }}</th>
                             <th class="align-middle text-right" style="min-width: 40px;">
-                                {% if order_by == field and order != "desc" %}
-                                    <span class="oi oi-arrow-top selected-arrow"></span>
-                                {% else %}
-                                    <a href="{% url 'module_list' module_key %}?order_by={{ field }}{% if current_filters %}&{{ current_filters }}{% endif %}" id="order_by_{{ field }}_asc">
-                                        <span class="oi oi-arrow-top"></span>
-                                    </a>
-                                {% endif %}
-                                {% if order_by == field and order == "desc" %}
-                                    <span class="oi oi-arrow-bottom selected-arrow"></span>
-                                {% else %}
-                                    <a href="{% url 'module_list' module_key %}?order_by={{ field }}&order=desc{% if current_filters %}&{{ current_filters }}{% endif %}" id="order_by_{{ field }}_desc">
-                                        <span class="oi oi-arrow-bottom"></span>
-                                    </a>
+                                {% if def.sortable %}
+                                    {% if order_by == field and order != "desc" %}
+                                        <span class="oi oi-arrow-top selected-arrow"></span>
+                                    {% else %}
+                                        <a href="{% url 'module_list' module_key %}?order_by={{ field }}{% if current_filters %}&{{ current_filters }}{% endif %}" id="order_by_{{ field }}_asc">
+                                            <span class="oi oi-arrow-top"></span>
+                                        </a>
+                                    {% endif %}
+                                    {% if order_by == field and order == "desc" %}
+                                        <span class="oi oi-arrow-bottom selected-arrow"></span>
+                                    {% else %}
+                                        <a href="{% url 'module_list' module_key %}?order_by={{ field }}&order=desc{% if current_filters %}&{{ current_filters }}{% endif %}" id="order_by_{{ field }}_desc">
+                                            <span class="oi oi-arrow-bottom"></span>
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
                             </th>
                         {% endfor %}

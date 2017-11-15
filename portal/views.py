@@ -73,8 +73,9 @@ def module_list(request, module):
             fields_list = json.loads(view.fields)
             module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
             remove_colon_of_field_labels(module_fields)
+            set_sortable_atribute_on_module_fields(module_fields)
             order_by_string = None
-            if order_by in fields_list:
+            if order_by in fields_list and module_fields[order_by]['sortable']:
                 order_by_string = order_by
             else:
                 order_by = None
