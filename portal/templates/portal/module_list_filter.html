@@ -1,0 +1,25 @@
+{% if module_fields %}
+    {% load filters %}
+    <form class="container"
+        id="{{ module_key }}_filter"
+        action="{% url 'module_list' module_key %}"
+        method="post"
+    >
+        {% csrf_token %}
+        {% for field, def in module_fields.items %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>{{ def.label }}</label>
+                    <input type="text"
+                        class="form-control"
+                        placeholder="{{ def.label }}"
+                        value="{% if field in current_filters %}{{ current_filters|get:field }}{% endif %}"
+                        name="{{ field }}"
+                    >
+                </div>
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">Filtrar</button>
+    </form>
+    <br>
+{% endif %}

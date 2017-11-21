@@ -19,8 +19,11 @@
 #######################################################################
 
 from .models import RolePermission
+from .models import Layout
+from suitepy.suitecrm import SuiteCRM
 from collections import OrderedDict
 import urllib
+import json
 
 def remove_colon_of_field_labels(module_fields):
     for field in module_fields:
@@ -73,7 +76,7 @@ def get_filter_query(module, fields, parameters):
     table = module.lower()
     query = ''
     for field_name, field_def in fields.items():
-        if field_name in parameters:
+        if field_name in parameters and parameters[field_name]:
             field_table = table if field_name[-2:] != '_c' else table + '_cstm'
             field_type = field_def['type']
             if field_type in ['double', 'float', 'decimal', 'int', 'bool']:
@@ -85,7 +88,7 @@ def get_filter_query(module, fields, parameters):
             query += field_table + '.' + field_name + ' = ' + value
     return query
 
-def get_listview_filter_urlencoded(parameters):
+def get_listview_filter(parameters):
     filters = parameters.copy()
     if 'limit' in filters:
         del filters['limit']
@@ -95,7 +98,12 @@ def get_listview_filter_urlencoded(parameters):
         del filters['order_by']
     if 'order' in filters:
         del filters['order']
-    return urllib.urlencode(filters)
+    if 'csrfmiddlewaretoken' in filters:
+        del filters['csrfmiddlewaretoken']
+    for key, value in filters.items():
+        if not value:
+            del filters[key]
+    return filters
 
 NON_SORTABLE_FIELD_TYPES=[
     'html',
@@ -115,3 +123,50 @@ def set_sortable_atribute_on_module_fields(module_fields):
             field_def['sortable'] = False
         else:
             field_def['sortable'] = True
+
+def retrieve_list_view_records(module, arguments):
+    records = []
+    module_fields = {}
+    limit = arguments.get('limit')
+    if limit:
+        limit = int(limit)
+    else:
+        limit = 10
+    offset = arguments.get('offset')
+    if offset:
+        offset = int(offset)
+    order_by = arguments.get('order_by')
+    order = arguments.get('order')
+    try:
+        view = Layout.objects.get(module=module, view='list')
+        fields_list = json.loads(view.fields)
+        module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
+        remove_colon_of_field_labels(module_fields)
+        set_sortable_atribute_on_module_fields(module_fields)
+        order_by_string = None
+        if order_by in fields_list and module_fields[order_by]['sortable']:
+            order_by_string = order_by
+        else:
+            order_by = None
+        if order_by and order in ['asc', 'desc']:
+            order_by_string += ' ' + order
+        else:
+            order = None
+        records = SuiteCRM().get_bean_list(
+            module,
+            max_results = limit,
+            offset = offset,
+            order_by = order_by_string,
+            query = get_filter_query(module, module_fields, arguments)
+        )
+    except:
+        pass
+
+    return {
+        'module_key' : module,
+        'records' : records,
+        'module_fields' : module_fields,
+        'current_filters' : get_listview_filter(arguments),
+        'order_by' : order_by,
+        'order' : order
+    }

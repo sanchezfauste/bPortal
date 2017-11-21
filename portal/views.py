@@ -56,52 +56,13 @@ def modules(request):
 @login_required
 def module_list(request, module):
     if user_can_read_module(request.user, module):
-        records = []
-        module_fields = {}
-        limit = request.GET.get('limit')
-        if limit:
-            limit = int(limit)
+        if request.method == 'POST':
+            records = retrieve_list_view_records(module,request.POST)
         else:
-            limit = 10
-        offset = request.GET.get('offset')
-        if offset:
-            offset = int(offset)
-        order_by = request.GET.get('order_by')
-        order = request.GET.get('order')
-        try:
-            view = Layout.objects.get(module=module, view='list')
-            fields_list = json.loads(view.fields)
-            module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
-            remove_colon_of_field_labels(module_fields)
-            set_sortable_atribute_on_module_fields(module_fields)
-            order_by_string = None
-            if order_by in fields_list and module_fields[order_by]['sortable']:
-                order_by_string = order_by
-            else:
-                order_by = None
-            if order_by and order in ['asc', 'desc']:
-                order_by_string += ' ' + order
-            else:
-                order = None
-            records = SuiteCRM().get_bean_list(
-                module,
-                max_results = limit,
-                offset = offset,
-                order_by = order_by_string,
-                query = get_filter_query(module, module_fields, request.GET)
-            )
-        except:
-            pass
+            records = retrieve_list_view_records(module,request.GET)
         template = loader.get_template('portal/module_list.html')
         context = basepage_processor(request)
-        context.update({
-            'module_key' : module,
-            'records' : records,
-            'module_fields' : module_fields,
-            'current_filters' : get_listview_filter_urlencoded(request.GET),
-            'order_by' : order_by,
-            'order' : order
-        })
+        context.update(records)
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
         context = basepage_processor(request)
