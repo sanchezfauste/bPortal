@@ -93,7 +93,13 @@
                     {% for record in records.entry_list %}
                         <tr>
                             {% for field, def in module_fields.items %}
-                                <td id="{{ field }}" colspan="2">{{ record|get:field }}</td>
+                                {% with value=record|get:field %}
+                                    {% if def.type == 'enum' %}
+                                        <td id="{{ field }}" colspan="2">{{def.options|get:value|get:"value"}}</td>
+                                    {% else %}
+                                        <td id="{{ field }}" colspan="2">{{ value }}</td>
+                                    {% endif %}
+                                {% endwith %}
                             {% endfor %}
                             <td>
                                 <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>

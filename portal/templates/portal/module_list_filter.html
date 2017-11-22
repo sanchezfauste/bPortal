@@ -10,12 +10,28 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label>{{ def.label }}</label>
-                    <input type="text"
-                        class="form-control"
-                        placeholder="{{ def.label }}"
-                        value="{% if field in current_filters %}{{ current_filters|get:field }}{% endif %}"
-                        name="{{ field }}"
-                    >
+                    {% if def.type == 'enum' %}
+                        <select class="form-control" name="{{ field }}" id="filter_{{field}}">
+                            {% if not "" in def.options %}
+                                <option value=""></option>
+                            {% endif %}
+                            {% for key, definition in def.options.items %}
+                                <option value="{{key}}">{{definition.value}}</option>
+                            {% endfor %}
+                        </select>
+                        {% if field in current_filters %}
+                            <script type="text/javascript">
+                                $("#filter_{{field}}").val("{{ current_filters|get:field }}");
+                            </script>
+                        {% endif %}
+                    {% else %}
+                        <input type="text"
+                            class="form-control"
+                            placeholder="{{ def.label }}"
+                            value="{% if field in current_filters %}{{ current_filters|get:field }}{% endif %}"
+                            name="{{ field }}"
+                        >
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
