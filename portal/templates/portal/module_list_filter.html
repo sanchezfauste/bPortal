@@ -24,6 +24,17 @@
                                 $("#filter_{{field}}").val("{{ current_filters|get:field }}");
                             </script>
                         {% endif %}
+                    {% elif def.type == 'bool' %}
+                        <select class="form-control" name="{{ field }}" id="filter_{{field}}">
+                            <option value=""></option>
+                            <option value="0">No</option>
+                            <option value="1">Sí</option>
+                        </select>
+                        {% if field in current_filters %}
+                            <script type="text/javascript">
+                                $("#filter_{{field}}").val("{{ current_filters|get:field }}");
+                            </script>
+                        {% endif %}
                     {% else %}
                         <input type="text"
                             class="form-control"
