@@ -24,4 +24,7 @@ register = template.Library()
 
 @register.filter(name='get')
 def get(dict, key):
-    return dict[key]
+    try:
+        return dict[key]
+    except KeyError:
+        return ''
