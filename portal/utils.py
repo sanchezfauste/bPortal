@@ -141,6 +141,10 @@ def retrieve_list_view_records(module, arguments):
         view = Layout.objects.get(module=module, view='list')
         fields_list = json.loads(view.fields)
         module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
+        ordered_module_fields = OrderedDict()
+        for field in fields_list:
+            if field in module_fields:
+                ordered_module_fields[field] = module_fields[field]
         remove_colon_of_field_labels(module_fields)
         set_sortable_atribute_on_module_fields(module_fields)
         order_by_string = None
@@ -165,7 +169,7 @@ def retrieve_list_view_records(module, arguments):
     return {
         'module_key' : module,
         'records' : records,
-        'module_fields' : module_fields,
+        'module_fields' : ordered_module_fields,
         'current_filters' : get_listview_filter(arguments),
         'order_by' : order_by,
         'order' : order
