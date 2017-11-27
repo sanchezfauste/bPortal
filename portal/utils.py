@@ -79,13 +79,23 @@ def get_filter_query(module, fields, parameters):
         if field_name in parameters and parameters[field_name]:
             field_table = table if field_name[-2:] != '_c' else table + '_cstm'
             field_type = field_def['type']
-            if field_type in ['double', 'float', 'decimal', 'int', 'bool']:
-                value = parameters[field_name]
+            if field_type in ['date', 'datetime', 'datetimecombo']:
+                date_filter = get_datetime_option_in_mysql_format(
+                    parameters[field_name],
+                    field_table + '.' + field_name
+                )
+                if date_filter:
+                    if query:
+                        query += " AND "
+                    query += date_filter
             else:
-                value = '\'' + parameters[field_name] + '\''
-            if query:
-                query += " AND "
-            query += field_table + '.' + field_name + ' = ' + value
+                if field_type in ['double', 'float', 'decimal', 'int', 'bool']:
+                    value = parameters[field_name]
+                else:
+                    value = '\'' + parameters[field_name] + '\''
+                if query:
+                    query += " AND "
+                query += field_table + '.' + field_name + ' = ' + value
     return query
 
 def get_listview_filter(parameters):
@@ -174,3 +184,51 @@ def retrieve_list_view_records(module, arguments):
         'order_by' : order_by,
         'order' : order
     }
+
+def get_datetime_option_in_mysql_format(option, field_name, params = []):
+    if option == '=':
+        return 'DATE(' + field_name + ') = DATE(' + params[0] + ')'
+    if option == 'not_equal':
+        return 'DATE(' + field_name + ') != DATE(' + params[0] + ')'
+    if option == 'greater_than':
+        return 'DATE(' + field_name + ') > DATE(' + params[0] + ')'
+    if option == 'less_than':
+        return 'DATE(' + field_name + ') < DATE(' + params[0] + ')'
+    if option == 'between':
+        return 'DATE(' + field_name + ') BETWEEN DATE(' + params[0] \
+            + ') AND DATE(' + params[1] + ')'
+    if option == 'last_7_days':
+        return 'DATE(' + field_name + ') >= DATE_ADD(UTC_DATE(), INTERVAL - 6 DAY)' \
+                + ' AND ' + 'DATE(' + field_name + ') <= UTC_DATE()'
+    if option == 'next_7_days':
+        return 'DATE(' + field_name + ') >= UTC_DATE() ' \
+                + ' AND ' + 'DATE(' + field_name + ') <= DATE_ADD(UTC_DATE(), INTERVAL + 6 DAY)'
+    if option == 'last_30_days':
+        return 'DATE(' + field_name + ') >= DATE_ADD(UTC_DATE(), INTERVAL - 29 DAY)' \
+                + ' AND ' + 'DATE(' + field_name + ') <= UTC_DATE()'
+    if option == 'next_30_days':
+        return 'DATE(' + field_name + ') >= UTC_DATE() ' \
+                + ' AND ' + 'DATE(' + field_name + ') <= DATE_ADD(UTC_DATE(), INTERVAL + 29 DAY)'
+    if option == 'last_month':
+        return 'YEAR(' + field_name \
+                + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL - 1 MONTH)) ' \
+                + 'AND MONTH(' + field_name \
+                + ') = MONTH(DATE_ADD(UTC_DATE(), INTERVAL - 1 MONTH))'
+    if option == 'this_month':
+        return 'YEAR(' + field_name + ') = YEAR(UTC_DATE()) AND MONTH(' \
+                + field_name + ') = MONTH(UTC_DATE())'
+    if option == 'next_month':
+        return 'YEAR(' + field_name \
+                + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL + 1 MONTH)) ' \
+                + 'AND MONTH(' + field_name \
+                + ') = MONTH(DATE_ADD(UTC_DATE(), INTERVAL + 1 MONTH))'
+    if option == 'last_year':
+        return 'YEAR(' + field_name \
+                + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL - 1 YEAR))'
+    if option == 'this_year':
+        return 'YEAR(' + field_name \
+                + ') = YEAR(UTC_DATE())'
+    if option == 'next_year':
+        return 'YEAR(' + field_name \
+                + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL + 1 YEAR))'
+    return None
