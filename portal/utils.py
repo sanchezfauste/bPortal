@@ -127,6 +127,7 @@ def set_sortable_atribute_on_module_fields(module_fields):
 def retrieve_list_view_records(module, arguments):
     records = []
     module_fields = {}
+    ordered_module_fields = OrderedDict()
     limit = arguments.get('limit')
     if limit:
         limit = int(limit)
@@ -141,7 +142,6 @@ def retrieve_list_view_records(module, arguments):
         view = Layout.objects.get(module=module, view='list')
         fields_list = json.loads(view.fields)
         module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
-        ordered_module_fields = OrderedDict()
         for field in fields_list:
             if field in module_fields:
                 ordered_module_fields[field] = module_fields[field]
