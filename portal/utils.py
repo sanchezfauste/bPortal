@@ -80,9 +80,15 @@ def get_filter_query(module, fields, parameters):
             field_table = table if field_name[-2:] != '_c' else table + '_cstm'
             field_type = field_def['type']
             if field_type in ['date', 'datetime', 'datetimecombo']:
+                date_filter_params = []
+                if field_name + '_1' in parameters:
+                    date_filter_params.append(parameters[field_name + '_1'])
+                    if field_name + '_2' in parameters:
+                        date_filter_params.append(parameters[field_name + '_2'])
                 date_filter = get_datetime_option_in_mysql_format(
                     parameters[field_name],
-                    field_table + '.' + field_name
+                    field_table + '.' + field_name,
+                    date_filter_params
                 )
                 if date_filter:
                     if query:
@@ -186,17 +192,17 @@ def retrieve_list_view_records(module, arguments):
     }
 
 def get_datetime_option_in_mysql_format(option, field_name, params = []):
-    if option == '=':
-        return 'DATE(' + field_name + ') = DATE(' + params[0] + ')'
-    if option == 'not_equal':
-        return 'DATE(' + field_name + ') != DATE(' + params[0] + ')'
-    if option == 'greater_than':
-        return 'DATE(' + field_name + ') > DATE(' + params[0] + ')'
-    if option == 'less_than':
-        return 'DATE(' + field_name + ') < DATE(' + params[0] + ')'
-    if option == 'between':
-        return 'DATE(' + field_name + ') BETWEEN DATE(' + params[0] \
-            + ') AND DATE(' + params[1] + ')'
+    if option == '=' and params[0]:
+        return 'DATE(' + field_name + ') = DATE(\'' + params[0] + '\')'
+    if option == 'not_equal' and params[0]:
+        return 'DATE(' + field_name + ') != DATE(\'' + params[0] + '\')'
+    if option == 'greater_than' and params[0]:
+        return 'DATE(' + field_name + ') > DATE(\'' + params[0] + '\')'
+    if option == 'less_than' and params[0]:
+        return 'DATE(' + field_name + ') < DATE(\'' + params[0] + '\')'
+    if option == 'between' and params[0] and params[1]:
+        return 'DATE(' + field_name + ') BETWEEN DATE(\'' + params[0] \
+            + '\') AND DATE(\'' + params[1] + '\')'
     if option == 'last_7_days':
         return 'DATE(' + field_name + ') >= DATE_ADD(UTC_DATE(), INTERVAL - 6 DAY)' \
                 + ' AND ' + 'DATE(' + field_name + ') <= UTC_DATE()'

@@ -14,22 +14,71 @@
             <div class="col-md-6 mb-3">
                 <label>{{ def.label }}</label>
                 {% if def.type == 'enum' or def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' %}
-                    <select class="form-control" name="{{ field }}" id="filter_{{field}}">
-                        {% if not "" in def.options %}
-                            <option value=""></option>
-                        {% endif %}
-                        {% for key, definition in def.options.items %}
-                            <option value="{{key}}">{{definition.value}}</option>
-                        {% endfor %}
-                    </select>
-                    {% if field in current_filters %}
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" name="{{ field }}" id="filter_{{field}}">
+                                {% if not "" in def.options %}
+                                    <option value=""></option>
+                                {% endif %}
+                                {% for key, definition in def.options.items %}
+                                    <option value="{{key}}">{{definition.value}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% if def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' %}
+                        <div class="col" style="display: none;" id="filter_{{field}}_1_div">
+                            <input class="form-control"
+                                type="date"
+                                id="filter_{{field}}_1"
+                                name="{{field}}_1"
+                                {% with field1=field|stringformat:"s_1" %}
+                                    {% if field1 in current_filters %}
+                                        value="{{ current_filters|get:field1 }}"
+                                    {% endif %}
+                                {% endwith %}
+                            >
+                        </div>
+                        <div class="col" style="display: none;" id="filter_{{field}}_2_div">
+                            <input class="form-control"
+                                type="date"
+                                id="filter_{{field}}_2"
+                                name="{{field}}_2"
+                                {% with field2=field|stringformat:"s_2" %}
+                                    {% if field2 in current_filters %}
+                                        value="{{ current_filters|get:field2 }}"
+                                    {% endif %}
+                                {% endwith %}
+                            >
+                        </div>
                         <script type="text/javascript">
-                            $("#filter_{{field}}").val("{{ current_filters|get:field }}");
+                            $(document).ready(function() {
+                                $('#filter_{{field}}').on('change', function() {
+                                    if (this.value == '='
+                                            || this.value == 'not_equal'
+                                            || this.value == 'greater_than'
+                                            || this.value == 'less_than') {
+                                        $("#filter_{{field}}_1_div").show();
+                                    } else {
+                                        $("#filter_{{field}}_1_div").hide();
+                                    }
+                                    if (this.value == 'between') {
+                                        $("#filter_{{field}}_1_div").show();
+                                        $("#filter_{{field}}_2_div").show();
+                                    } else {
+                                        $("#filter_{{field}}_2_div").hide();
+                                    }
+                                });
+                            });
                         </script>
                     {% endif %}
-                    {% if def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' %}
-                        <!--TODO-->
+                    {% if field in current_filters %}
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#filter_{{field}}").val("{{ current_filters|get:field }}").change();
+                            });
+                        </script>
                     {% endif %}
+                    </div>
                 {% elif def.type == 'bool' %}
                     <select class="form-control" name="{{ field }}" id="filter_{{field}}">
                         <option value=""></option>
@@ -38,7 +87,7 @@
                     </select>
                     {% if field in current_filters %}
                         <script type="text/javascript">
-                            $("#filter_{{field}}").val("{{ current_filters|get:field }}");
+                            $("#filter_{{field}}").val("{{ current_filters|get:field }}").change();
                         </script>
                     {% endif %}
                 {% else %}
