@@ -94,6 +94,11 @@ def get_filter_query(module, fields, parameters):
                     if query:
                         query += " AND "
                     query += date_filter
+            elif field_type in ['text', 'varchar', 'name']:
+                value = '\'%' + parameters[field_name] + '%\''
+                if query:
+                    query += " AND "
+                query += field_table + '.' + field_name + ' like ' + value
             else:
                 if field_type in ['double', 'float', 'decimal', 'int', 'bool']:
                     value = parameters[field_name]
@@ -102,6 +107,7 @@ def get_filter_query(module, fields, parameters):
                 if query:
                     query += " AND "
                 query += field_table + '.' + field_name + ' = ' + value
+    print query
     return query
 
 def get_listview_filter(parameters):
