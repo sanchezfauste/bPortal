@@ -107,7 +107,6 @@ def get_filter_query(module, fields, parameters):
                 if query:
                     query += " AND "
                 query += field_table + '.' + field_name + ' = ' + value
-    print query
     return query
 
 def get_listview_filter(parameters):
