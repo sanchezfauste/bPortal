@@ -80,6 +80,7 @@ def module_list(request, module):
     return HttpResponse(template.render(context, request))
 
 @login_required
+@permission_required('is_superuser')
 def edit_list_layout(request, module):
     if request.method == 'POST':
         post_data = json.loads(request.body.decode("utf-8"))
@@ -119,6 +120,7 @@ def edit_list_layout(request, module):
         return HttpResponse(template.render(context, request))
 
 @login_required
+@permission_required('is_superuser')
 def edit_role(request, role):
     if request.method == 'GET':
         role_bean = None
