@@ -94,7 +94,7 @@
                         <tr>
                             {% for field, def in module_fields.items %}
                                 {% with value=record|get:field %}
-                                    {% if def.type == 'enum' %}
+                                    {% if def.type == 'enum' or def.type == 'dynamicenum' %}
                                         <td id="{{ field }}" colspan="2">{{def.options|get:value|get:"value"}}</td>
                                     {% elif def.type == 'bool' %}
                                         <td id="{{ field }}" colspan="2">

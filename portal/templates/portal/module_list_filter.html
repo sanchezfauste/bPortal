@@ -13,7 +13,7 @@
 
             <div class="col-md-6 mb-3">
                 <label>{{ def.label }}</label>
-                {% if def.type == 'enum' or def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' %}
+                {% if def.type == 'enum' or def.type == 'dynamicenum' or def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' %}
                     <div class="row">
                         <div class="col">
                             <select class="form-control" name="{{ field }}" id="filter_{{field}}">
