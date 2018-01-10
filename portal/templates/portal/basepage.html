@@ -34,6 +34,14 @@
                 {% endfor %}
            </div>
          </li>
+         {% if request.user.is_superuser %}
+           <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Configuración del portal</a>
+             <div class="dropdown-menu scrollable-dropdown" aria-labelledby="modules_dropdown">
+               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_layouts' %}">Editar vistas</a>
+             </div>
+            </li>
+         {% endif %}
        </ul>
        <form class="form-inline my-2 my-lg-0">
          <input class="form-control mr-sm-2" type="text" placeholder="Search">

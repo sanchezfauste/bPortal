@@ -31,7 +31,7 @@ from .models import Role, RolePermission, RoleUser
 from collections import OrderedDict
 import json
 from utils import *
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from processors import *
 from django.template import RequestContext
 
@@ -47,6 +47,17 @@ def index(request):
 def modules(request):
     modules = SuiteCRM().get_available_modules()
     template = loader.get_template('portal/modules.html')
+    context = basepage_processor(request)
+    context.update({
+        'modules' : modules['modules']
+    })
+    return HttpResponse(template.render(context, request))
+
+@login_required
+@permission_required('is_superuser')
+def edit_layouts(request):
+    modules = SuiteCRM().get_available_modules()
+    template = loader.get_template('portal/edit_layouts.html')
     context = basepage_processor(request)
     context.update({
         'modules' : modules['modules']

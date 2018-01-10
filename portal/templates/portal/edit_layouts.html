@@ -1,0 +1,40 @@
+{% extends "portal/basepage.html" %}
+{% block title %}Editar vistas{% endblock %}
+{% block content %}
+
+    {% if modules %}
+        <table class="table table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Módulo</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for module in modules %}
+                <tr>
+                    <td>{{ module.module_label }}</td>
+                    <td>
+                        <a href="{% url 'edit_list_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">Vista lista</a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm">Vista detalle</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm">Vista creación</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm">Vista edición</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+    <p>No modules available.</p>
+    {% endif %}
+
+{% endblock %}
