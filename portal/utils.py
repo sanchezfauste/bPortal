@@ -137,6 +137,20 @@ NON_SORTABLE_FIELD_NAMES=[
     'parent_name'
 ]
 
+NON_FILTERABLE_FIELD_TYPES=[
+    'html',
+    'text',
+    'encrypt',
+    'relate',
+    'assigned_user_name',
+    'id'
+]
+NON_FILTERABLE_FIELD_NAMES=[
+    'email1',
+    'email2',
+    'parent_name'
+]
+
 def set_sortable_atribute_on_module_fields(module_fields):
     for field_name, field_def in module_fields.items():
         if field_def['type'] in NON_SORTABLE_FIELD_TYPES\
@@ -145,10 +159,19 @@ def set_sortable_atribute_on_module_fields(module_fields):
         else:
             field_def['sortable'] = True
 
+def get_filterable_fields(module_fields):
+    filterable_fields = OrderedDict()
+    for field_name, field_def in module_fields.items():
+        if field_def['type'] not in NON_FILTERABLE_FIELD_TYPES\
+                and field_name not in NON_FILTERABLE_FIELD_NAMES:
+            filterable_fields[field_name] = field_def
+    return filterable_fields
+
 def retrieve_list_view_records(module, arguments):
     records = []
     module_fields = {}
     ordered_module_fields = OrderedDict()
+    filterable_fields = OrderedDict()
     limit = arguments.get('limit')
     if limit:
         limit = int(limit)
@@ -168,6 +191,7 @@ def retrieve_list_view_records(module, arguments):
                 ordered_module_fields[field] = module_fields[field]
         remove_colon_of_field_labels(module_fields)
         set_sortable_atribute_on_module_fields(module_fields)
+        filterable_fields = get_filterable_fields(ordered_module_fields)
         order_by_string = None
         if order_by in fields_list and module_fields[order_by]['sortable']:
             order_by_string = order_by
@@ -182,7 +206,7 @@ def retrieve_list_view_records(module, arguments):
             max_results = limit,
             offset = offset,
             order_by = order_by_string,
-            query = get_filter_query(module, module_fields, arguments)
+            query = get_filter_query(module, filterable_fields, arguments)
         )
     except:
         pass
@@ -191,6 +215,7 @@ def retrieve_list_view_records(module, arguments):
         'module_key' : module,
         'records' : records,
         'module_fields' : ordered_module_fields,
+        'filterable_fields' : filterable_fields,
         'current_filters' : get_listview_filter(arguments),
         'order_by' : order_by,
         'order' : order

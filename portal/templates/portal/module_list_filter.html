@@ -1,4 +1,4 @@
-{% if module_fields %}
+{% if filterable_fields %}
     {% load filters %}
     <form class="container"
         id="{{ module_key }}_filter"
@@ -6,7 +6,7 @@
         method="post"
     >
         {% csrf_token %}
-        {% for field, def in module_fields.items %}
+        {% for field, def in filterable_fields.items %}
             {% if forloop.first %}
                 <div class="row">
             {% endif %}
