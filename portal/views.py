@@ -60,7 +60,7 @@ def edit_layouts(request):
     template = loader.get_template('portal/edit_layouts.html')
     context = basepage_processor(request)
     context.update({
-        'modules' : modules['modules']
+        'available_modules' : modules['modules']
     })
     return HttpResponse(template.render(context, request))
 

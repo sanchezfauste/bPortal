@@ -2,7 +2,7 @@
 {% block title %}Editar vistas{% endblock %}
 {% block content %}
 
-    {% if modules %}
+    {% if available_modules %}
         <table class="table table-striped">
             <thead class="thead-inverse">
                 <tr>
@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for module in modules %}
+                {% for module in available_modules %}
                 <tr>
                     <td>{{ module.module_label }}</td>
                     <td>
@@ -34,7 +34,7 @@
             </tbody>
         </table>
     {% else %}
-    <p>No modules available.</p>
+    <p>No available_modules available.</p>
     {% endif %}
 
 {% endblock %}
