@@ -1,0 +1,59 @@
+{% extends "portal/basepage.html" %}
+{% block title %}{{ module_key }}{% endblock %}
+{% load staticfiles %}
+{% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
+{% block content %}
+{% load filters %}
+
+    <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_key }}</h1>
+
+<br>
+
+    {% if module_fields %}
+
+        {% if record %}
+            <div class="card">
+                <div class="card-header">
+                    <b>{{record.name}}</b>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+            {% for field, def in module_fields.items %}
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <b>{{ def.label }}:</b>
+                                    </div>
+                                    <div class="col">
+                                        {{record|get:field}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <b>Número:</b>
+                                    </div>
+                                    <div class="col">
+                                        764748
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                No se ha encontrado el registro solicitado.
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            El módulo {{ module_key }} no tiene definida la vista detalle.
+        </div>
+    {% endif %}
+
+{% endblock %}

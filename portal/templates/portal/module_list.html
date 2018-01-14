@@ -108,7 +108,11 @@
                                             >
                                         </td>
                                     {% else %}
-                                        <td id="{{ field }}" colspan="2">{{ value }}</td>
+                                        {% if forloop.first %}
+                                            <td id="{{ field }}" colspan="2"><a href="{% url 'module_detail' module_key record.id %}">{{ value }}</a></td>
+                                        {% else %}
+                                            <td id="{{ field }}" colspan="2">{{ value }}</td>
+                                        {% endif %}
                                     {% endif %}
                                 {% endwith %}
                             {% endfor %}

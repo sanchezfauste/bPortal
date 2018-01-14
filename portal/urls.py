@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^modules/$', views.modules, name='modules'),
     url(r'^module/(?P<module>\w+)/list$', views.module_list, name='module_list'),
+    url(r'^module/(?P<module>\w+)/detail/(?P<id>[\w-]+)/$', views.module_detail, name='module_detail'),
     url(r'^layouts/$', views.edit_layouts, name='edit_layouts'),
     url(r'^layout/list/(?P<module>\w+)/$', views.edit_list_layout, name='edit_list_layout'),
     url(r'^role/(?P<role>\w+)$', views.edit_role, name='edit_role'),

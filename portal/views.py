@@ -80,6 +80,27 @@ def module_list(request, module):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def module_detail(request, module, id):
+    context = basepage_processor(request)
+    context.update({
+        'module_key' : module,
+        'module_fields' : SuiteCRM().get_module_fields(
+            module, ['name', 'description'])['module_fields']
+    })
+    if user_can_read_module(request.user, module):
+        template = loader.get_template('portal/module_detail.html')
+        try:
+            record = SuiteCRM().get_bean(module, id)
+            context.update({
+                'record' : record
+            })
+        except:
+            pass
+    else:
+        template = loader.get_template('portal/insufficient_permissions.html')
+    return HttpResponse(template.render(context, request))
+
+@login_required
 @permission_required('is_superuser')
 def edit_list_layout(request, module):
     if request.method == 'POST':
