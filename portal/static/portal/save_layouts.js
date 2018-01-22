@@ -20,3 +20,29 @@ function save_list_layout() {
     });
 
 }
+
+function save_detail_layout() {
+
+    var selected_fields = [];
+    $('#selected-fields div.row').map(function() {
+        selected_fields.push($(this).children('div.col.card.sortable-ul').map(function() {
+            return $(this).children().attr('id');
+        }).get());
+    });
+
+    var data = {"selected_fields" : selected_fields};
+
+    $.ajax({
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        error: function(response) {
+            alert(response.responseJSON.error);
+        },
+        success: function(response) {
+            alert("Layout updated successfully");
+        }
+    });
+
+}

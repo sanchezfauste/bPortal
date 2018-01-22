@@ -1,0 +1,84 @@
+{% extends "portal/basepage.html" %}
+{% block static_files %}
+{% load staticfiles %}
+<script src="{% static 'portal/session.js' %}"></script>
+<script src="{% static 'portal/save_layouts.js' %}"></script>
+{% endblock %}
+{% block title %}Editar vista detallada - {{ module_key }}{% endblock %}
+{% block content %}
+
+<h2>Vista detallada del módulo {{ module_key }}</h2><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Campos disponibles</h4>
+                    <p class="card-text">
+                        <div class="card">
+                            <div class="list-group list-group-flush sortable-ul" id="available-fields">
+                                {% for field, def in available_fields.items %}
+                                    <div class="list-group-item justify-content-between" id="{{ field }}">
+                                        {{ def.label }}
+                                        <span class="text-muted">[{{ field }}]</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </p>
+                    <p class="card-text"><small class="text-muted">Arrastrar un campo aquí para no mostrarlo.</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Campos</h4>
+                    <p class="card-text">
+                        <div id="selected-fields">
+                            <div class="list-group list-group-flush">
+                                {% for row in module_fields %}
+                                    <div class="row">
+                                        {% for field, def in row.items %}
+                                            <div class="col card sortable-ul selected-field">
+                                                <div class="list-group-item justify-content-between" id="{{ field }}">
+                                                    {{ def.label }}
+                                                    <span class="text-muted">[{{ field }}]</span>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="col col-2 text-center align-self-center">
+                                            <a class="btn btn-danger" href="#" role="button" onclick="$(this).parent().parent().remove();">
+                                                <span class="oi oi-x"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </p>
+                    <p class="card-text"><small class="text-muted">Campos que se mostrarán en la vista detallada.</small></p>
+                    <a href="#" class="btn btn-primary" onclick="save_detail_layout();">Guardar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $( function() {
+      $( ".selected-field, #available-fields" ).sortable({
+        connectWith: ".sortable-ul"
+      }).disableSelection();
+      $(".selected-field").each(function() {
+        $(this).on("sortreceive", function(event, ui) {
+          if ($(this).children().length > 1) {
+            $(ui.sender).sortable('cancel');
+          }
+        })
+      });
+    } );
+</script>
+
+{% endblock %}

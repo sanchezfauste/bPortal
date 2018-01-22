@@ -142,6 +142,49 @@ def edit_list_layout(request, module):
 
 @login_required
 @permission_required('is_superuser')
+def edit_detail_layout(request, module):
+    if request.method == 'POST':
+        post_data = json.loads(request.body.decode("utf-8"))
+        try:
+            selected_fields = post_data['selected_fields']
+        except KeyError:
+            return JsonResponse({
+                "status" : "Error",
+                "error" : "Please specify 'selected_fields'."
+            }, status = 400)
+        view = None
+        try:
+            view = Layout.objects.get(module=module, view='detail')
+        except:
+            view = Layout(module=module, view='detail')
+        view.fields = json.dumps(selected_fields)
+        view.save()
+        return JsonResponse({"status" : "Success"})
+    elif request.method == 'GET':
+        available_fields = SuiteCRM().get_module_fields(module)['module_fields']
+        module_fields = list()
+        template = loader.get_template('portal/edit_detail_layout.html')
+        try:
+            view = Layout.objects.get(module=module, view='detail')
+            for row in json.loads(view.fields):
+                module_fields_row = OrderedDict()
+                for field in row:
+                    if field in available_fields:
+                        module_fields_row[field] = available_fields[field]
+                        del available_fields[field]
+                module_fields.append(module_fields_row)
+        except:
+            pass
+        context = basepage_processor(request)
+        context.update({
+            'module_key' : module,
+            'module_fields' : module_fields,
+            'available_fields' : available_fields
+        })
+        return HttpResponse(template.render(context, request))
+
+@login_required
+@permission_required('is_superuser')
 def edit_role(request, role):
     if request.method == 'GET':
         role_bean = None

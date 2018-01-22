@@ -11,6 +11,7 @@ class Layout(models.Model):
     module = models.CharField(max_length=50)
     VIEW_CHOICES = (
         ('list', 'List View'),
+        ('detail', 'Detail View'),
         ('edit', 'Edit View'),
         ('create', 'Create View'),
     )
