@@ -1,5 +1,11 @@
 {% extends "portal/basepage.html" %}
-{% block title %}{{ module_key }}{% endblock %}
+{% block title %}
+    {% if record %}
+        {{record.name}}
+    {% else %}
+        {{ module_key }}
+    {% endif %}
+{% endblock %}
 {% load staticfiles %}
 {% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
 {% block content %}
@@ -28,7 +34,22 @@
                                     <b>{{ field.label }}:</b>
                                 </div>
                                 <div class="col">
-                                    {{record|get:field.name}}
+                                    {% with value=record|get:field.name %}
+                                        {% if field.type == 'enum' or field.type == 'dynamicenum' %}
+                                            {{field.options|get:value|get:"value"}}
+                                        {% elif field.type == 'bool' %}
+                                            <input class="checkbox"
+                                                id="{{ field }}"
+                                                disabled="true"
+                                                {% if value == '1' %}
+                                                    checked="checked"
+                                                {% endif %}
+                                                type="checkbox"
+                                            >
+                                        {% else %}
+                                            {{ value }}
+                                        {% endif %}
+                                    {% endwith %}
                                 </div>
                             </div>
                         {% endif %}
