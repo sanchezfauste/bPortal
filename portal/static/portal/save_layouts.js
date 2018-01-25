@@ -26,7 +26,12 @@ function save_detail_layout() {
     var selected_fields = [];
     $('#selected-fields div.row').map(function() {
         selected_fields.push($(this).children('div.col.card.sortable-ul').map(function() {
-            return $(this).children().attr('id');
+            var children = $(this).children();
+            if (children.length > 0) {
+                return children.attr('id');
+            } else {
+                return '';
+            }
         }).get());
     });
 

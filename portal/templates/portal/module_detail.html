@@ -18,29 +18,23 @@
                 </div>
                 <div class="card-body">
                     <div class="container">
-            {% for field, def in module_fields.items %}
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <b>{{ def.label }}:</b>
-                                    </div>
-                                    <div class="col">
-                                        {{record|get:field}}
-                                    </div>
+            {% for row in module_fields %}
+                <div class="row">
+                {% for field in row %}
+                    <div class="col">
+                        {% if field %}
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>{{ field.label }}:</b>
+                                </div>
+                                <div class="col">
+                                    {{record|get:field.name}}
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <b>Número:</b>
-                                    </div>
-                                    <div class="col">
-                                        764748
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                </div>
             {% endfor %}
                     </div>
                 </div>

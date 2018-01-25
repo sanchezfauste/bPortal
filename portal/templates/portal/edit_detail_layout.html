@@ -40,12 +40,14 @@
                             <div class="list-group list-group-flush">
                                 {% for row in module_fields %}
                                     <div class="row">
-                                        {% for field, def in row.items %}
+                                        {% for field in row %}
                                             <div class="col card sortable-ul selected-field">
-                                                <div class="list-group-item justify-content-between" id="{{ field }}">
-                                                    {{ def.label }}
-                                                    <span class="text-muted">[{{ field }}]</span>
-                                                </div>
+                                                {% if field %}
+                                                    <div class="list-group-item justify-content-between" id="{{ field.name }}">
+                                                        {{ field.label }}
+                                                        <span class="text-muted">[{{ field.name }}]</span>
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                         {% endfor %}
                                         <div class="col col-2 text-center align-self-center">

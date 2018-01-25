@@ -82,20 +82,31 @@ def module_list(request, module):
 @login_required
 def module_detail(request, module, id):
     context = basepage_processor(request)
-    context.update({
-        'module_key' : module,
-        'module_fields' : SuiteCRM().get_module_fields(
-            module, ['name', 'description'])['module_fields']
-    })
+    record = None
+    ordered_module_fields = []
     if user_can_read_module(request.user, module):
         template = loader.get_template('portal/module_detail.html')
         try:
+            view = Layout.objects.get(module=module, view='detail')
+            fields_detail = json.loads(view.fields)
+            module_fields = SuiteCRM().get_module_fields(module)['module_fields']
+            remove_colon_of_field_labels(module_fields)
+            for row in fields_detail:
+                row_fields = []
+                for field in row:
+                    if field in module_fields:
+                        row_fields.append(module_fields[field])
+                    elif not field:
+                        row_fields.append(None)
+                ordered_module_fields.append(row_fields)
             record = SuiteCRM().get_bean(module, id)
-            context.update({
-                'record' : record
-            })
         except:
             pass
+        context.update({
+            'module_key' : module,
+            'module_fields' : ordered_module_fields,
+            'record' : record
+        })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
     return HttpResponse(template.render(context, request))
@@ -167,11 +178,13 @@ def edit_detail_layout(request, module):
         try:
             view = Layout.objects.get(module=module, view='detail')
             for row in json.loads(view.fields):
-                module_fields_row = OrderedDict()
+                module_fields_row = []
                 for field in row:
                     if field in available_fields:
-                        module_fields_row[field] = available_fields[field]
+                        module_fields_row.append(available_fields[field])
                         del available_fields[field]
+                    elif not field:
+                        module_fields_row.append(None)
                 module_fields.append(module_fields_row)
         except:
             pass
