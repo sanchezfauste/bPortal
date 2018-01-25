@@ -35,9 +35,10 @@
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">Campos</h4>
+                    <a href="#" class="btn btn-primary" onclick="add_detail_row();">Añadir fila</a>
                     <p class="card-text">
                         <div id="selected-fields">
-                            <div class="list-group list-group-flush">
+                            <div class="list-group list-group-flush" id="selected_fields_list_group">
                                 {% for row in module_fields %}
                                     <div class="row">
                                         {% for field in row %}
@@ -51,7 +52,7 @@
                                             </div>
                                         {% endfor %}
                                         <div class="col col-2 text-center align-self-center">
-                                            <a class="btn btn-danger" href="#" role="button" onclick="$(this).parent().parent().remove();">
+                                            <a class="btn btn-danger" href="#" role="button" onclick="remove_detail_row($(this));">
                                                 <span class="oi oi-x"></span>
                                             </a>
                                         </div>
