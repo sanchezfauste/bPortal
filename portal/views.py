@@ -132,7 +132,7 @@ def edit_list_layout(request, module):
         view.save()
         return JsonResponse({"status" : "Success"})
     elif request.method == 'GET':
-        available_fields = SuiteCRM().get_module_fields(module)['module_fields']
+        available_fields = get_allowed_module_fields(module)
         module_fields = OrderedDict()
         template = loader.get_template('portal/edit_list_layout.html')
         try:
@@ -172,7 +172,7 @@ def edit_detail_layout(request, module):
         view.save()
         return JsonResponse({"status" : "Success"})
     elif request.method == 'GET':
-        available_fields = SuiteCRM().get_module_fields(module)['module_fields']
+        available_fields = get_allowed_module_fields(module)
         module_fields = list()
         template = loader.get_template('portal/edit_detail_layout.html')
         try:

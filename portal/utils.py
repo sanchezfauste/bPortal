@@ -151,6 +151,18 @@ NON_FILTERABLE_FIELD_NAMES=[
     'parent_name'
 ]
 
+
+FIELD_TYPES_DISALLOWED_ON_VIEWS=[
+    'id',
+    'function'
+]
+FIELD_NAMES_DISALLOWED_ON_VIEWS=[
+    'modified_user_id',
+    'created_by',
+    'deleted',
+    'assigned_user_id'
+]
+
 def set_sortable_atribute_on_module_fields(module_fields):
     for field_name, field_def in module_fields.items():
         if field_def['type'] in NON_SORTABLE_FIELD_TYPES\
@@ -166,6 +178,15 @@ def get_filterable_fields(module_fields):
                 and field_name not in NON_FILTERABLE_FIELD_NAMES:
             filterable_fields[field_name] = field_def
     return filterable_fields
+
+def get_allowed_module_fields(module):
+    available_fields = SuiteCRM().get_module_fields(module)['module_fields']
+    allowed_fields = OrderedDict()
+    for field_name, field_def in available_fields.items():
+        if field_def['type'] not in FIELD_TYPES_DISALLOWED_ON_VIEWS\
+                and field_name not in FIELD_NAMES_DISALLOWED_ON_VIEWS:
+            allowed_fields[field_name] = field_def
+    return allowed_fields
 
 def retrieve_list_view_records(module, arguments):
     records = []
