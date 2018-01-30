@@ -26,6 +26,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from suitepy.suitecrm import SuiteCRM
+from suitepy.bean import Bean
 from .models import Layout
 from .models import Role, RolePermission, RoleUser
 from collections import OrderedDict
@@ -34,6 +35,7 @@ from utils import *
 from django.contrib.auth.decorators import login_required, permission_required
 from processors import *
 from django.template import RequestContext
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -273,3 +275,33 @@ def edit_role(request, role):
                     order=i
                 ).save()
         return JsonResponse({"status" : "Success"})
+
+def crm_entry_point(request):
+    if request.GET['option'] and request.GET['task'] and request.GET['sug']:
+        if request.GET['option'] == 'com_advancedopenportal' \
+                and request.GET['task'] == 'create':
+            record = None
+            try:
+                record = SuiteCRM().get_bean(
+                    'Contacts',
+                    request.GET['sug'],
+                    ['name', 'email1']
+                )
+            except:
+                return JsonResponse({
+                    "status" : "Error",
+                    "error" : "Error retrieving contact"
+                }, status = 400)
+            password = User.objects.make_random_password()
+            # username = record['email1']
+            # Crear usuario
+            contact = Bean('Contacts')
+            contact['id'] = request.GET['sug']
+            contact['joomla_account_id'] = 12323
+            contact['joomla_account_access'] = password
+            SuiteCRM().save_bean(contact)
+            return JsonResponse({"success" : True})
+    return JsonResponse({
+        "status" : "Error",
+        "error" : "Invalid request"
+    }, status = 400)

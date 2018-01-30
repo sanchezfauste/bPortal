@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^layout/list/(?P<module>\w+)/$', views.edit_list_layout, name='edit_list_layout'),
     url(r'^layout/detail/(?P<module>\w+)/$', views.edit_detail_layout, name='edit_detail_layout'),
     url(r'^role/(?P<role>\w+)$', views.edit_role, name='edit_role'),
+    url(r'^index.php$', views.crm_entry_point, name='crm_entry_point'),
 ]
