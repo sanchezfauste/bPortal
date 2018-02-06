@@ -59,3 +59,12 @@ class RoleUser(models.Model):
 
     def __str__(self):
         return self.role.name + ' - ' + self.user.username
+
+class UserAttr(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    contact_id = models.CharField(max_length=36)
+    account_id = models.CharField(max_length=36)
+
+    def __str__(self):
+        return self.user.username
