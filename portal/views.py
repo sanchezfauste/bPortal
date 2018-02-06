@@ -278,29 +278,30 @@ def edit_role(request, role):
 
 def crm_entry_point(request):
     if request.GET['option'] and request.GET['task'] and request.GET['sug']:
-        if request.GET['option'] == 'com_advancedopenportal' \
-                and request.GET['task'] == 'create':
-            record = None
-            try:
-                record = SuiteCRM().get_bean(
-                    'Contacts',
-                    request.GET['sug'],
-                    ['name', 'email1']
-                )
-            except:
-                return JsonResponse({
-                    "status" : "Error",
-                    "error" : "Error retrieving contact"
-                }, status = 400)
-            password = User.objects.make_random_password()
-            # username = record['email1']
-            # Crear usuario
-            contact = Bean('Contacts')
-            contact['id'] = request.GET['sug']
-            contact['joomla_account_id'] = 12323
-            contact['joomla_account_access'] = password
-            SuiteCRM().save_bean(contact)
-            return JsonResponse({"success" : True})
+        contact = None
+        try:
+            contact = SuiteCRM().get_bean(
+                'Contacts',
+                request.GET['sug'],
+                ['id', 'first_name', 'last_name', 'email1', 'account_id']
+            )
+        except:
+            return JsonResponse({
+                "status" : "Error",
+                "error" : "Error retrieving contact"
+            }, status = 400)
+        if not contact['email1']:
+            return JsonResponse({
+                "status" : "Error",
+                "error" : "Contact has no valid email"
+            }, status = 400)
+        if request.GET['task'] == 'create':
+            return create_portal_user(contact)
+        elif request.GET['task'] == 'disable_user':
+            return disable_portal_user(contact)
+        elif request.GET['task'] == 'enable_user':
+            return enable_portal_user(contact)
+        print request.GET['task']
     return JsonResponse({
         "status" : "Error",
         "error" : "Invalid request"

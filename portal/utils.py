@@ -24,6 +24,10 @@ from suitepy.suitecrm import SuiteCRM
 from collections import OrderedDict
 import urllib
 import json
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from .models import UserAttr
+from suitepy.bean import Bean
 
 def remove_colon_of_field_labels(module_fields):
     for field in module_fields:
@@ -289,3 +293,57 @@ def get_datetime_option_in_mysql_format(option, field_name, params = []):
         return 'YEAR(' + field_name \
                 + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL + 1 YEAR))'
     return None
+
+def create_portal_user(contact):
+    username = contact['email1']
+    password = User.objects.make_random_password()
+    try:
+        user = User.objects.get(username = username)
+        return JsonResponse({
+            "status" : "Error",
+            "error" : "An account with this email already exists"
+        }, status = 400)
+    except:
+        pass
+    user = User.objects.create_user(
+        username = username,
+        email = username,
+        password = password,
+        first_name = contact['first_name'],
+        last_name = contact['last_name']
+     )
+    UserAttr(
+        user = user,
+        contact_id = contact['id'],
+        account_id = contact['account_id']
+    ).save()
+    contact2 = Bean('Contacts')
+    contact2['id'] = contact['id']
+    contact2['joomla_account_id'] = user.id
+    contact2['joomla_account_access'] = password
+    SuiteCRM().save_bean(contact2)
+    return JsonResponse({"success" : True})
+
+def disable_portal_user(contact):
+    try:
+        user = User.objects.get(username = contact['email1'])
+        user.is_active = False
+        user.save()
+        return JsonResponse({"success" : True})
+    except:
+        return JsonResponse({
+            "status" : "Error",
+            "error" : "Error dissabling account"
+        }, status = 400)
+
+def enable_portal_user(contact):
+    try:
+        user = User.objects.get(username = contact['email1'])
+        user.is_active = True
+        user.save()
+        return JsonResponse({"success" : True})
+    except:
+        return JsonResponse({
+            "status" : "Error",
+            "error" : "Error enabling account"
+        }, status = 400)
