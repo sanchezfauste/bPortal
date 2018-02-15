@@ -70,9 +70,17 @@ def edit_layouts(request):
 def module_list(request, module):
     if user_can_read_module(request.user, module):
         if request.method == 'POST':
-            records = retrieve_list_view_records(module,request.POST)
+            records = retrieve_list_view_records(
+                module,
+                request.POST,
+                request.user
+            )
         else:
-            records = retrieve_list_view_records(module,request.GET)
+            records = retrieve_list_view_records(
+                module,
+                request.GET,
+                request.user
+            )
         template = loader.get_template('portal/module_list.html')
         context = basepage_processor(request)
         context.update(records)

@@ -5,197 +5,203 @@
 {% block content %}
 {% load filters %}
 
-    <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_key }}</h1>
-    {% if module_fields %}
-        {% include "portal/module_list_filter.html" %}
-        {% if records.entry_list %}
-            <table class="table table-striped table-sm">
-                <thead class="thead-inverse">
-                    <tr>
-                        {% for field, def in module_fields.items %}
-                            <th id="{{ field }}_label" class="align-middle">{{ def.label }}</th>
-                            <th class="align-middle text-right" style="min-width: 40px;">
-                                {% if def.sortable %}
-                                    {% if order_by == field and order != "desc" %}
-                                        <span class="oi oi-arrow-top selected-arrow"></span>
-                                    {% else %}
-                                        <form class="filtered"
-                                            id="order_by_{{ field }}_asc_form"
-                                            action="{% url 'module_list' module_key %}"
-                                            method="post"
-                                            style="display: inline;"
-                                        >
-                                            {% csrf_token %}
-                                            <input type="hidden"
-                                                value="{{ field }}"
-                                                name="order_by"
-                                            >
-                                            {% if records.current_limit != None %}
-                                                <input type="hidden"
-                                                    value="{{ records.current_limit }}"
-                                                    name="limit"
-                                                >
-                                            {% endif %}
-                                            {% if records.current_offset != None %}
-                                                <input type="hidden"
-                                                    value="{{ records.current_offset }}"
-                                                    name="offset"
-                                                >
-                                            {% endif %}
-                                            <a href="#" onclick="this.parentNode.submit();" id="order_by_{{ field }}_asc">
-                                                <span class="oi oi-arrow-top"></span>
-                                            </a>
-                                        </form>
-                                    {% endif %}
-                                    {% if order_by == field and order == "desc" %}
-                                        <span class="oi oi-arrow-bottom selected-arrow"></span>
-                                    {% else %}
-                                        <form class="filtered"
-                                            id="order_by_{{ field }}_desc_form"
-                                            action="{% url 'module_list' module_key %}"
-                                            method="post"
-                                            style="display: inline;"
-                                        >
-                                            {% csrf_token %}
-                                            <input type="hidden"
-                                                value="{{ field }}"
-                                                name="order_by"
-                                            >
-                                            <input type="hidden"
-                                                value="desc"
-                                                name="order"
-                                            >
-                                            {% if records.current_limit != None %}
-                                                <input type="hidden"
-                                                    value="{{ records.current_limit }}"
-                                                    name="limit"
-                                                >
-                                            {% endif %}
-                                            {% if records.current_offset != None %}
-                                                <input type="hidden"
-                                                    value="{{ records.current_offset }}"
-                                                    name="offset"
-                                                >
-                                            {% endif %}
-                                            <a href="#" onclick="this.parentNode.submit();" id="order_by_{{ field }}_asc">
-                                                <span class="oi oi-arrow-bottom"></span>
-                                            </a>
-                                        </form>
-                                    {% endif %}
-                                {% endif %}
-                            </th>
-                        {% endfor %}
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for record in records.entry_list %}
+    {% if unsupported_module %}
+        <div class="alert alert-danger" role="alert">
+            Error al cargar la definición del módulo <b>{{ module_key }}</b>.
+        </div>
+    {% else %}
+        <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_key }}</h1>
+        {% if module_fields %}
+            {% include "portal/module_list_filter.html" %}
+            {% if records.entry_list %}
+                <table class="table table-striped table-sm">
+                    <thead class="thead-inverse">
                         <tr>
                             {% for field, def in module_fields.items %}
-                                {% with value=record|get:field %}
-                                    {% if def.type == 'enum' or def.type == 'dynamicenum' %}
-                                        <td id="{{ field }}" colspan="2">{{def.options|get:value|get:"value"}}</td>
-                                    {% elif def.type == 'bool' %}
-                                        <td id="{{ field }}" colspan="2">
-                                            <input class="checkbox"
-                                                id="{{ field }}"
-                                                disabled="true"
-                                                {% if value == '1' %}
-                                                    checked="checked"
-                                                {% endif %}
-                                                type="checkbox"
-                                            >
-                                        </td>
-                                    {% else %}
-                                        {% if forloop.first %}
-                                            <td id="{{ field }}" colspan="2"><a href="{% url 'module_detail' module_key record.id %}">{{ value }}</a></td>
+                                <th id="{{ field }}_label" class="align-middle">{{ def.label }}</th>
+                                <th class="align-middle text-right" style="min-width: 40px;">
+                                    {% if def.sortable %}
+                                        {% if order_by == field and order != "desc" %}
+                                            <span class="oi oi-arrow-top selected-arrow"></span>
                                         {% else %}
-                                            <td id="{{ field }}" colspan="2">{{ value }}</td>
+                                            <form class="filtered"
+                                                id="order_by_{{ field }}_asc_form"
+                                                action="{% url 'module_list' module_key %}"
+                                                method="post"
+                                                style="display: inline;"
+                                            >
+                                                {% csrf_token %}
+                                                <input type="hidden"
+                                                    value="{{ field }}"
+                                                    name="order_by"
+                                                >
+                                                {% if records.current_limit != None %}
+                                                    <input type="hidden"
+                                                        value="{{ records.current_limit }}"
+                                                        name="limit"
+                                                    >
+                                                {% endif %}
+                                                {% if records.current_offset != None %}
+                                                    <input type="hidden"
+                                                        value="{{ records.current_offset }}"
+                                                        name="offset"
+                                                    >
+                                                {% endif %}
+                                                <a href="#" onclick="this.parentNode.submit();" id="order_by_{{ field }}_asc">
+                                                    <span class="oi oi-arrow-top"></span>
+                                                </a>
+                                            </form>
+                                        {% endif %}
+                                        {% if order_by == field and order == "desc" %}
+                                            <span class="oi oi-arrow-bottom selected-arrow"></span>
+                                        {% else %}
+                                            <form class="filtered"
+                                                id="order_by_{{ field }}_desc_form"
+                                                action="{% url 'module_list' module_key %}"
+                                                method="post"
+                                                style="display: inline;"
+                                            >
+                                                {% csrf_token %}
+                                                <input type="hidden"
+                                                    value="{{ field }}"
+                                                    name="order_by"
+                                                >
+                                                <input type="hidden"
+                                                    value="desc"
+                                                    name="order"
+                                                >
+                                                {% if records.current_limit != None %}
+                                                    <input type="hidden"
+                                                        value="{{ records.current_limit }}"
+                                                        name="limit"
+                                                    >
+                                                {% endif %}
+                                                {% if records.current_offset != None %}
+                                                    <input type="hidden"
+                                                        value="{{ records.current_offset }}"
+                                                        name="offset"
+                                                    >
+                                                {% endif %}
+                                                <a href="#" onclick="this.parentNode.submit();" id="order_by_{{ field }}_asc">
+                                                    <span class="oi oi-arrow-bottom"></span>
+                                                </a>
+                                            </form>
                                         {% endif %}
                                     {% endif %}
-                                {% endwith %}
+                                </th>
                             {% endfor %}
-                            <td>
-                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
-                            </td>
+                            <th></th>
+                            <th></th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <nav aria-label="Pagination">
-              <ul class="pagination justify-content-end">
-                  {% if records.previous_offset != None %}
-                    <form class="page-item filtered"
-                        id="{{ module_key }}_filter"
-                        action="{% url 'module_list' module_key %}"
-                        method="post"
-                    >
-                        {% csrf_token %}
-                        <input type="hidden"
-                            value="{{ records.current_limit }}"
-                            name="limit"
-                        >
-                        <input type="hidden"
-                            value="{{ records.previous_offset }}"
-                            name="offset"
-                        >
-                        <button class="page-link" type="submit">Previous</button>
-                    </form>
-                  {% else %}
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                  {% endif %}
-                  {% if records.next_offset != None %}
-                      <form class="page-item filtered"
-                          id="{{ module_key }}_filter"
-                          action="{% url 'module_list' module_key %}"
-                          method="post"
-                      >
-                          {% csrf_token %}
-                          <input type="hidden"
-                              value="{{ records.current_limit }}"
-                              name="limit"
-                          >
-                          <input type="hidden"
-                              value="{{ records.next_offset }}"
-                              name="offset"
-                          >
-                          <button class="page-link" type="submit">Next</button>
-                      </form>
-                  {% else %}
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">Next</a>
-                    </li>
-                  {% endif %}
-              </ul>
-            </nav>
-            {% if current_filters %}
-                <script type="text/javascript">
-                    $('.filtered').each(function(index, obj) {
-                        {% for field, value in current_filters.items %}
-                            var attribute = document.createElement("input");
-                            attribute.setAttribute("type", "hidden");
-                            attribute.setAttribute("name", "{{ field }}");
-                            attribute.setAttribute("value", "{{ value }}");
-                            obj.append(attribute);
+                    </thead>
+                    <tbody>
+                        {% for record in records.entry_list %}
+                            <tr>
+                                {% for field, def in module_fields.items %}
+                                    {% with value=record|get:field %}
+                                        {% if def.type == 'enum' or def.type == 'dynamicenum' %}
+                                            <td id="{{ field }}" colspan="2">{{def.options|get:value|get:"value"}}</td>
+                                        {% elif def.type == 'bool' %}
+                                            <td id="{{ field }}" colspan="2">
+                                                <input class="checkbox"
+                                                    id="{{ field }}"
+                                                    disabled="true"
+                                                    {% if value == '1' %}
+                                                        checked="checked"
+                                                    {% endif %}
+                                                    type="checkbox"
+                                                >
+                                            </td>
+                                        {% else %}
+                                            {% if forloop.first %}
+                                                <td id="{{ field }}" colspan="2"><a href="{% url 'module_detail' module_key record.id %}">{{ value }}</a></td>
+                                            {% else %}
+                                                <td id="{{ field }}" colspan="2">{{ value }}</td>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endfor %}
+                                <td>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
+                                </td>
+                            </tr>
                         {% endfor %}
-                    });
-                </script>
+                    </tbody>
+                </table>
+                <nav aria-label="Pagination">
+                  <ul class="pagination justify-content-end">
+                      {% if records.previous_offset != None %}
+                        <form class="page-item filtered"
+                            id="{{ module_key }}_filter"
+                            action="{% url 'module_list' module_key %}"
+                            method="post"
+                        >
+                            {% csrf_token %}
+                            <input type="hidden"
+                                value="{{ records.current_limit }}"
+                                name="limit"
+                            >
+                            <input type="hidden"
+                                value="{{ records.previous_offset }}"
+                                name="offset"
+                            >
+                            <button class="page-link" type="submit">Previous</button>
+                        </form>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                      {% endif %}
+                      {% if records.next_offset != None %}
+                          <form class="page-item filtered"
+                              id="{{ module_key }}_filter"
+                              action="{% url 'module_list' module_key %}"
+                              method="post"
+                          >
+                              {% csrf_token %}
+                              <input type="hidden"
+                                  value="{{ records.current_limit }}"
+                                  name="limit"
+                              >
+                              <input type="hidden"
+                                  value="{{ records.next_offset }}"
+                                  name="offset"
+                              >
+                              <button class="page-link" type="submit">Next</button>
+                          </form>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <a class="page-link" href="#" tabindex="-1">Next</a>
+                        </li>
+                      {% endif %}
+                  </ul>
+                </nav>
+                {% if current_filters %}
+                    <script type="text/javascript">
+                        $('.filtered').each(function(index, obj) {
+                            {% for field, value in current_filters.items %}
+                                var attribute = document.createElement("input");
+                                attribute.setAttribute("type", "hidden");
+                                attribute.setAttribute("name", "{{ field }}");
+                                attribute.setAttribute("value", "{{ value }}");
+                                obj.append(attribute);
+                            {% endfor %}
+                        });
+                    </script>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    No se han encontrado registros.
+                </div>
             {% endif %}
         {% else %}
-            <div class="alert alert-info" role="alert">
-                No se han encontrado registros.
+            <div class="alert alert-danger" role="alert">
+                El módulo {{ module_key }} no tiene definida la vista lista.
             </div>
         {% endif %}
-    {% else %}
-        <div class="alert alert-danger" role="alert">
-            El módulo {{ module_key }} no tiene definida la vista lista.
-        </div>
     {% endif %}
 
 {% endblock %}

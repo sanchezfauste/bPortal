@@ -28,6 +28,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .models import UserAttr
 from suitepy.bean import Bean
+from module_definitions import *
 
 def remove_colon_of_field_labels(module_fields):
     for field in module_fields:
@@ -75,6 +76,15 @@ def _user_can_perform_action_on_module(user, action, module):
         ).exists()
     except:
         return False
+
+def get_filter_related(module, field_name, value):
+    table = module.lower()
+    field_table = table if field_name[-2:] != '_c' else table + '_cstm'
+    return field_table + '.' + field_name + ' = \'' + value + '\''
+
+def get_filter_parent(module, parent_type, parent_id):
+    table = module.lower()
+    return 'parent_type = \'' + parent_type + '\' AND parent_id = \'' + parent_id + '\''
 
 def get_filter_query(module, fields, parameters):
     table = module.lower()
@@ -192,7 +202,21 @@ def get_allowed_module_fields(module):
             allowed_fields[field_name] = field_def
     return allowed_fields
 
-def retrieve_list_view_records(module, arguments):
+def retrieve_list_view_records(module, arguments, user):
+    try:
+        contact_id = user.userattr.contact_id
+    except:
+        return {
+            'module_key' : module,
+            'invalid_contact_id' : True
+        }
+    try:
+        module_def = ModuleDefinitionFactory.get_module_definition(module)
+    except ModuleDefinitionNotFoundException:
+        return {
+            'module_key' : module,
+            'unsupported_module' : True
+        }
     records = []
     module_fields = {}
     ordered_module_fields = OrderedDict()
@@ -226,13 +250,50 @@ def retrieve_list_view_records(module, arguments):
             order_by_string += ' ' + order
         else:
             order = None
-        records = SuiteCRM().get_bean_list(
-            module,
-            max_results = limit,
-            offset = offset,
-            order_by = order_by_string,
-            query = get_filter_query(module, filterable_fields, arguments)
-        )
+        if module_def.contacts_link_type == LinkType.RELATED:
+            filter_query = get_filter_query(module, filterable_fields, arguments)
+            if filter_query:
+                filter_query += " AND "
+            filter_query += get_filter_related(
+                module,
+                module_def.contacts_link_name,
+                contact_id
+            )
+            records = SuiteCRM().get_bean_list(
+                module,
+                max_results = limit,
+                offset = offset,
+                order_by = order_by_string,
+                query = filter_query
+            )
+        elif module_def.contacts_link_type == LinkType.RELATIONSHIP:
+            records = SuiteCRM().get_relationships(
+                'Contacts',
+                contact_id,
+                module_def.contacts_link_name,
+                related_fields = ['id'] + fields_list,
+                limit = limit,
+                offset = offset,
+                order_by = order_by_string,
+                related_module_query = get_filter_query(module, filterable_fields, arguments)
+            )
+        elif module_def.contacts_link_type == LinkType.PARENT:
+            filter_query = get_filter_query(module, filterable_fields, arguments)
+            if filter_query:
+                filter_query += " AND "
+            filter_query += get_filter_parent(
+                module,
+                'Contacts',
+                contact_id
+            )
+            print filter_query
+            records = SuiteCRM().get_bean_list(
+                module,
+                max_results = limit,
+                offset = offset,
+                order_by = order_by_string,
+                query = filter_query
+            )
     except:
         pass
 
