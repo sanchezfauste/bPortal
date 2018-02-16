@@ -44,38 +44,21 @@ class ModuleDefinitionFactory:
 
     @staticmethod
     def get_module_definition(module_name):
-        if module_name == 'Accounts':
-            return Accounts()
-        elif module_name == 'Tasks':
-            return Tasks()
-        elif module_name == 'Calls':
-            return Calls()
-        elif module_name == 'Meetings':
-            return Meetings()
-        elif module_name == 'Emails':
-            return Emails()
-        elif module_name == 'Documents':
-            return Documents()
-        elif module_name == 'Opportunities':
-            return Opportunities()
-        elif module_name == 'Leads':
-            return Leads()
-        elif module_name == 'Campaigns':
-            return Campaigns()
-        elif module_name == 'Cases':
-            return Cases()
-        elif module_name == 'Bugs':
-            return Bugs()
-        elif module_name == 'Contacts':
-            return Contacts()
-        elif module_name == 'AOS_Quotes':
-            return AOS_Quotes()
-        elif module_name == 'AOS_Invoices':
-            return AOS_Invoices()
-        elif module_name == 'AOS_Contracts':
-            return AOS_Contracts()
-        elif module_name == 'FP_events':
-            return FP_events()
-        elif module_name == 'Project':
-            return Project()
+        if module_name == 'Accounts': return Accounts()
+        if module_name == 'Tasks': return Tasks()
+        if module_name == 'Calls': return Calls()
+        if module_name == 'Meetings': return Meetings()
+        if module_name == 'Emails': return Emails()
+        if module_name == 'Documents': return Documents()
+        if module_name == 'Opportunities': return Opportunities()
+        if module_name == 'Leads': return Leads()
+        if module_name == 'Campaigns': return Campaigns()
+        if module_name == 'Cases': return Cases()
+        if module_name == 'Bugs': return Bugs()
+        if module_name == 'Contacts': return Contacts()
+        if module_name == 'AOS_Quotes': return AOS_Quotes()
+        if module_name == 'AOS_Invoices': return AOS_Invoices()
+        if module_name == 'AOS_Contracts': return AOS_Contracts()
+        if module_name == 'FP_events': return FP_events()
+        if module_name == 'Project': return Project()
         raise ModuleDefinitionNotFoundException(module_name)
