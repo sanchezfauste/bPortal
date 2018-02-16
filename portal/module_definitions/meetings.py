@@ -18,25 +18,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 
-from abc import ABCMeta
-from accounts import Accounts
-from tasks import Tasks
-from calls import Calls
-from meetings import Meetings
-from module_definition_not_found_exception import ModuleDefinitionNotFoundException
+from module_definition import ModuleDefinition
+from link_type import LinkType
 
-class ModuleDefinitionFactory:
+class Meetings(ModuleDefinition):
 
-    __metaclass__ = ABCMeta
+    @property
+    def name(self):
+        return 'Meetings'
 
-    @staticmethod
-    def get_module_definition(module_name):
-        if module_name == 'Accounts':
-            return Accounts()
-        elif module_name == 'Tasks':
-            return Tasks()
-        elif module_name == 'Calls':
-            return Calls()
-        elif module_name == 'Meetings':
-            return Meetings()
-        raise ModuleDefinitionNotFoundException(module_name)
+    @property
+    def contacts_link_type(self):
+        return LinkType.RELATIONSHIP
+
+    @property
+    def contacts_link_name(self):
+        return 'meetings'
+
+    @property
+    def accounts_link_type(self):
+        return LinkType.PARENT
+
+    @property
+    def accounts_link_name(self):
+        return 'parent_id'
