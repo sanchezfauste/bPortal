@@ -29,16 +29,16 @@ class Tasks(ModuleDefinition):
 
     @property
     def contacts_link_type(self):
-        return LinkType.RELATED
+        return LinkType.RELATIONSHIP
 
     @property
     def contacts_link_name(self):
-        return 'contact_id'
+        return 'tasks'
 
     @property
     def accounts_link_type(self):
-        return LinkType.PARENT
+        return LinkType.RELATIONSHIP
 
     @property
     def accounts_link_name(self):
-        return 'parent_id'
+        return 'tasks'

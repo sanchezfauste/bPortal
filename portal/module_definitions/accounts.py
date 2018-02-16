@@ -37,8 +37,8 @@ class Accounts(ModuleDefinition):
 
     @property
     def accounts_link_type(self):
-        return LinkType.RELATED
+        return LinkType.RELATIONSHIP
 
     @property
     def accounts_link_name(self):
-        return 'parent_id'
+        return 'members'

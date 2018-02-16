@@ -23,6 +23,19 @@ from accounts import Accounts
 from tasks import Tasks
 from calls import Calls
 from meetings import Meetings
+from emails import Emails
+from documents import Documents
+from opportunities import Opportunities
+from leads import Leads
+from campaigns import Campaigns
+from cases import Cases
+from bugs import Bugs
+from contacts import Contacts
+from aos_quotes import AOS_Quotes
+from aos_invoices import AOS_Invoices
+from aos_contracts import AOS_Contracts
+from fp_events import FP_events
+from project import Project
 from module_definition_not_found_exception import ModuleDefinitionNotFoundException
 
 class ModuleDefinitionFactory:
@@ -39,4 +52,30 @@ class ModuleDefinitionFactory:
             return Calls()
         elif module_name == 'Meetings':
             return Meetings()
+        elif module_name == 'Emails':
+            return Emails()
+        elif module_name == 'Documents':
+            return Documents()
+        elif module_name == 'Opportunities':
+            return Opportunities()
+        elif module_name == 'Leads':
+            return Leads()
+        elif module_name == 'Campaigns':
+            return Campaigns()
+        elif module_name == 'Cases':
+            return Cases()
+        elif module_name == 'Bugs':
+            return Bugs()
+        elif module_name == 'Contacts':
+            return Contacts()
+        elif module_name == 'AOS_Quotes':
+            return AOS_Quotes()
+        elif module_name == 'AOS_Invoices':
+            return AOS_Invoices()
+        elif module_name == 'AOS_Contracts':
+            return AOS_Contracts()
+        elif module_name == 'FP_events':
+            return FP_events()
+        elif module_name == 'Project':
+            return Project()
         raise ModuleDefinitionNotFoundException(module_name)

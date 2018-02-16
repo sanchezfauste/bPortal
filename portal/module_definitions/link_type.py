@@ -25,3 +25,4 @@ class LinkType(Enum):
     RELATIONSHIP = 'relationship'
     RELATED = 'related'
     PARENT = 'parent'
+    NONE = 'none'

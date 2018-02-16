@@ -21,19 +21,19 @@
 from module_definition import ModuleDefinition
 from link_type import LinkType
 
-class Meetings(ModuleDefinition):
+class Contacts(ModuleDefinition):
 
     @property
     def name(self):
-        return 'Meetings'
+        return 'Contacts'
 
     @property
     def contacts_link_type(self):
-        return LinkType.RELATIONSHIP
+        return LinkType.RELATED
 
     @property
     def contacts_link_name(self):
-        return 'meetings'
+        return 'reports_to_id'
 
     @property
     def accounts_link_type(self):
@@ -41,4 +41,4 @@ class Meetings(ModuleDefinition):
 
     @property
     def accounts_link_name(self):
-        return 'meetings'
+        return 'contacts'

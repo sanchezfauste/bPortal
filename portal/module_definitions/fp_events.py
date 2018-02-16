@@ -21,11 +21,11 @@
 from module_definition import ModuleDefinition
 from link_type import LinkType
 
-class Meetings(ModuleDefinition):
+class FP_events(ModuleDefinition):
 
     @property
     def name(self):
-        return 'Meetings'
+        return 'FP_events'
 
     @property
     def contacts_link_type(self):
@@ -33,12 +33,12 @@ class Meetings(ModuleDefinition):
 
     @property
     def contacts_link_name(self):
-        return 'meetings'
+        return 'fp_events_contacts'
 
     @property
     def accounts_link_type(self):
-        return LinkType.RELATIONSHIP
+        return LinkType.NONE
 
     @property
     def accounts_link_name(self):
-        return 'meetings'
+        return 'none'
