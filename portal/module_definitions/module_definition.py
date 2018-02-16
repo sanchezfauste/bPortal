@@ -35,3 +35,11 @@ class ModuleDefinition:
     @abstractproperty
     def contacts_link_name(self):
         pass
+
+    @abstractproperty
+    def accounts_link_type(self):
+        pass
+
+    @abstractproperty
+    def accounts_link_name(self):
+        pass

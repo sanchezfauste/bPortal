@@ -34,3 +34,11 @@ class Tasks(ModuleDefinition):
     @property
     def contacts_link_name(self):
         return 'contact_id'
+
+    @property
+    def accounts_link_type(self):
+        return LinkType.PARENT
+
+    @property
+    def accounts_link_name(self):
+        return 'parent_id'

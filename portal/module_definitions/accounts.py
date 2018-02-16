@@ -34,3 +34,11 @@ class Accounts(ModuleDefinition):
     @property
     def contacts_link_name(self):
         return 'accounts'
+
+    @property
+    def accounts_link_type(self):
+        return LinkType.RELATED
+
+    @property
+    def accounts_link_name(self):
+        return 'parent_id'
