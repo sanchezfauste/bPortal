@@ -1,5 +1,5 @@
 #######################################################################
-# Suite PY is a simple Python client for SuiteCRM API.
+# bPortal is a SuiteCRM portal written using django project.
 
 # Copyright (C) 2017-2018 BTACTIC, SCCL
 # Copyright (C) 2017-2018 Marc Sanchez Fauste
