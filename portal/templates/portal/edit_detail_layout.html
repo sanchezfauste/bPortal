@@ -1,20 +1,23 @@
 {% extends "portal/basepage.html" %}
+{% load i18n %}
 {% block static_files %}
 {% load staticfiles %}
 <script src="{% static 'portal/session.js' %}"></script>
 <script src="{% static 'portal/save_layouts.js' %}"></script>
 {% endblock %}
-{% block title %}Editar vista detallada - {{ module_key }}{% endblock %}
+{% block title %}
+    {% blocktrans with module=module_key %}{{module}} detail view{% endblocktrans %}
+{% endblock %}
 {% block content %}
 
-<h2>Vista detallada del módulo {{ module_key }}</h2><br>
+<h2>{% blocktrans with module=module_key %}{{module}} detail view{% endblocktrans %}</h2><br>
 
 <div class="container">
     <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-block">
-                    <h4 class="card-title">Campos disponibles</h4>
+                    <h4 class="card-title">{% trans "Available fields" %}</h4>
                     <p class="card-text">
                         <div class="card">
                             <div class="list-group list-group-flush sortable-ul" id="available-fields">
@@ -27,15 +30,15 @@
                             </div>
                         </div>
                     </p>
-                    <p class="card-text"><small class="text-muted">Arrastrar un campo aquí para no mostrarlo.</small></p>
+                    <p class="card-text"><small class="text-muted">{% trans "Drag a field here to not show it" %}</small></p>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="card">
                 <div class="card-block">
-                    <h4 class="card-title">Campos</h4>
-                    <a href="#" class="btn btn-primary" onclick="add_detail_row();">Añadir fila</a>
+                    <h4 class="card-title">{% trans "Fields" %}</h4>
+                    <a href="#" class="btn btn-primary" onclick="add_detail_row();">{% trans "Add row" %}</a>
                     <p class="card-text">
                         <div id="selected-fields">
                             <div class="list-group list-group-flush" id="selected_fields_list_group">
@@ -61,8 +64,8 @@
                             </div>
                         </div>
                     </p>
-                    <p class="card-text"><small class="text-muted">Campos que se mostrarán en la vista detallada.</small></p>
-                    <a href="#" class="btn btn-primary" onclick="save_detail_layout();">Guardar</a>
+                    <p class="card-text"><small class="text-muted">{% trans "Fields that will be shown in detail view." %}</small></p>
+                    <a href="#" class="btn btn-primary" onclick="save_detail_layout();">{% trans "Save" %}</a>
                 </div>
             </div>
         </div>

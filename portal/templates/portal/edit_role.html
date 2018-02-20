@@ -1,26 +1,27 @@
 {% extends "portal/basepage.html" %}
+{% load i18n %}
 {% block static_files %}
 {% load staticfiles %}
 <script src="{% static 'portal/session.js' %}"></script>
 <script src="{% static 'portal/edit_role.js' %}"></script>
 {% endblock %}
-{% block title %}Rol {{ role }}{% endblock %}
+{% block title %}{% blocktrans with role=role %}{{role}} role{% endblocktrans %}{% endblock %}
 {% block content %}
 
-<h2>Configuración del rol <b>{{ role }}</b></h2><br>
+<h2>{% blocktrans with role=role %}<b>{{role}}</b> role configuration{% endblocktrans %}</h2><br>
 
     {% if role_bean %}
 
         {% if module_permissions %}
-            <a href="#" class="btn btn-primary float-right" onclick="save_role_permissions();">Guardar</a><br><br>
+            <a href="#" class="btn btn-primary float-right" onclick="save_role_permissions();">{% trans "Save" %}</a><br><br>
             <table class="table table-striped">
                 <thead class="thead-inverse">
                     <tr>
-                        <th>Módulo</th>
-                        <th>Leer</th>
-                        <th>Crear</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
+                        <th>{% trans "Module" %}</th>
+                        <th>{% trans "Read" %}</th>
+                        <th>{% trans "Create" %}</th>
+                        <th>{% trans "Edit" %}</th>
+                        <th>{% trans "Delete" %}</th>
                     </tr>
                 </thead>
                 <tbody id="module_permissions">
@@ -35,7 +36,7 @@
                     {% endfor %}
                 </tbody>
             </table><br>
-            <a href="#" class="btn btn-primary float-right" onclick="save_role_permissions();">Guardar</a><br>
+            <a href="#" class="btn btn-primary float-right" onclick="save_role_permissions();">{% trans "Save" %}</a><br>
             <script>
                 $( function() {
                     $( "#module_permissions" ).sortable();
@@ -44,13 +45,13 @@
             </script>
         {% else %}
             <div class="alert alert-danger" role="alert">
-                No hay módulos disponibles.
+                {% trans "There are no modules available." %}
             </div>
         {% endif %}
 
     {% else %}
         <div class="alert alert-danger" role="alert">
-            El rol <b>{{ role }}</b> no existe.
+            {% blocktrans with role=role %}<b>{{role}}</b> role does not exist.{% endblocktrans %}
         </div>
     {% endif %}
 

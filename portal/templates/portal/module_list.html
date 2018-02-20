@@ -1,4 +1,5 @@
 {% extends "portal/basepage.html" %}
+{% load i18n %}
 {% block title %}{{ module_key }}{% endblock %}
 {% load staticfiles %}
 {% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
@@ -7,7 +8,7 @@
 
     {% if unsupported_module %}
         <div class="alert alert-danger" role="alert">
-            Error al cargar la definición del módulo <b>{{ module_key }}</b>.
+            {% blocktrans with module=module_key %}Error loading definition of {{module}} module.{% endblocktrans %}
         </div>
     {% else %}
         <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_key }}</h1>
@@ -122,10 +123,10 @@
                                     {% endwith %}
                                 {% endfor %}
                                 <td>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">{% trans "Edit" %}</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm">{% trans "Remove" %}</button>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -148,11 +149,11 @@
                                 value="{{ records.previous_offset }}"
                                 name="offset"
                             >
-                            <button class="page-link" type="submit">Previous</button>
+                            <button class="page-link" type="submit">{% trans "Previous" %}</button>
                         </form>
                       {% else %}
                         <li class="page-item disabled">
-                          <a class="page-link" href="#" tabindex="-1">Previous</a>
+                          <a class="page-link" href="#" tabindex="-1">{% trans "Previous" %}</a>
                         </li>
                       {% endif %}
                       {% if records.next_offset != None %}
@@ -170,11 +171,11 @@
                                   value="{{ records.next_offset }}"
                                   name="offset"
                               >
-                              <button class="page-link" type="submit">Next</button>
+                              <button class="page-link" type="submit">{% trans "Next" %}</button>
                           </form>
                       {% else %}
                         <li class="page-item disabled">
-                          <a class="page-link" href="#" tabindex="-1">Next</a>
+                          <a class="page-link" href="#" tabindex="-1">{% trans "Next" %}</a>
                         </li>
                       {% endif %}
                   </ul>
@@ -194,12 +195,12 @@
                 {% endif %}
             {% else %}
                 <div class="alert alert-info" role="alert">
-                    No se han encontrado registros.
+                    {% trans "No records found." %}
                 </div>
             {% endif %}
         {% else %}
             <div class="alert alert-danger" role="alert">
-                El módulo {{ module_key }} no tiene definida la vista lista.
+                {% blocktrans with module=module_key %}Module {{module}} has not defined the list view.{% endblocktrans %}
             </div>
         {% endif %}
     {% endif %}

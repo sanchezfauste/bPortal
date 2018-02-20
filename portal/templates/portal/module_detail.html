@@ -1,4 +1,5 @@
 {% extends "portal/basepage.html" %}
+{% load i18n %}
 {% block title %}
     {% if record %}
         {{record.name}}
@@ -16,7 +17,7 @@
             <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_key }}</h1>
         </div>
         <div class="col text-right">
-            <a href="{% url 'module_list' module_key %}" class="btn btn-primary">Lista</a>
+            <a href="{% url 'module_list' module_key %}" class="btn btn-primary">{% trans "List" %}</a>
         </div>
     </div>
 
@@ -69,12 +70,12 @@
             </div>
         {% else %}
             <div class="alert alert-danger" role="alert">
-                No se ha encontrado el registro solicitado.
+                {% trans "The requested record was not found." %}
             </div>
         {% endif %}
     {% else %}
         <div class="alert alert-danger" role="alert">
-            El módulo {{ module_key }} no tiene definida la vista detalle.
+            {% blocktrans with module=module_key %}Module {{module}} has not defined the detail view.{% endblocktrans %}
         </div>
     {% endif %}
 

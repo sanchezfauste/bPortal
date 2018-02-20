@@ -1,12 +1,13 @@
 {% extends "portal/basepage.html" %}
-{% block title %}Editar vistas{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Edit views" %}{% endblock %}
 {% block content %}
 
     {% if available_modules %}
         <table class="table table-striped">
             <thead class="thead-inverse">
                 <tr>
-                    <th>Módulo</th>
+                    <th>{% trans "Module" %}</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -18,23 +19,23 @@
                 <tr>
                     <td>{{ module.module_label }}</td>
                     <td>
-                        <a href="{% url 'edit_list_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">Vista lista</a>
+                        <a href="{% url 'edit_list_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "List view" %}</a>
                     </td>
                     <td>
-                        <a href="{% url 'edit_detail_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">Vista detallada</a>
+                        <a href="{% url 'edit_detail_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Detail view" %}</a>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm">Vista creación</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm">{% trans "Create view" %}</button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm">Vista edición</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm">{% trans "Edit view" %}</button>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     {% else %}
-    <p>No available_modules available.</p>
+        <p>{% trans "There are no modules available." %}</p>
     {% endif %}
 
 {% endblock %}

@@ -1,11 +1,12 @@
 {% extends "portal/basepage.html" %}
-{% block title %}Permisos insuficientes{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Insufficient permissions" %}{% endblock %}
 {% load staticfiles %}
 {% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/icons/favicon/ban.ico' %}">{% endblock %}
 {% block content %}
 
     <div class="alert alert-danger" role="alert">
-        No tiene permisos suficientes para realizar esta acción o está intentando acceder a un módulo inexistente.
+        {% trans "You do not have sufficient permissions to perform this action or you are trying to access a nonexistent module." %}
     </div>
 
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "portal/basepage.html" %}
-{% block title %}Inicio{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Home" %}{% endblock %}
 {% block content %}
 
 {% if modules %}
@@ -13,7 +14,7 @@
   </div>
 {% else %}
   <div class="alert alert-info" role="alert">
-    No tiene acceso a ningún módulo.
+    {% trans "You do not have access to any module." %}
   </div>
 {% endif %}
 

@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,11 +24,11 @@
      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
-     <a class="navbar-brand" href="{% url 'index' %}">Inicio</a>
+     <a class="navbar-brand" href="{% url 'index' %}">{% trans "Home" %}</a>
      <div class="collapse navbar-collapse" id="navbar">
        <ul class="navbar-nav mr-auto">
          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Módulos</a>
+           <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans "Modules" %}</a>
            <div class="dropdown-menu scrollable-dropdown" aria-labelledby="modules_dropdown">
                 {% for module_key, module in modules.items %}
                     <a class="dropdown-item" id="modules_dropdown_{{ module.module_key }}" href="{% url 'module_list' module.module_key %}">{{ module.module_label }}</a>
@@ -36,16 +37,16 @@
          </li>
          {% if request.user.is_superuser %}
            <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Configuración del portal</a>
+             <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans "Configure portal" %}</a>
              <div class="dropdown-menu scrollable-dropdown" aria-labelledby="modules_dropdown">
-               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_layouts' %}">Editar vistas</a>
+               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_layouts' %}">{% trans "Edit views" %}</a>
              </div>
             </li>
          {% endif %}
        </ul>
        <ul class="my-2 my-lg-0">
-         <span class="navbar-text my-2 my-sm-0">Signed in as <b>{{request.user.username}}</b></span>
-         <a href="{% url 'logout' %}" class="btn btn-outline-danger my-2 my-sm-0" role="button">Logout</a>
+         <span class="navbar-text my-2 my-sm-0">{% blocktrans with username=request.user.username %}Signed in as <b>{{username}}</b>{% endblocktrans %}</span>
+         <a href="{% url 'logout' %}" class="btn btn-outline-danger my-2 my-sm-0" role="button">{% trans "Logout" %}</a>
        </ul>
      </div>
    </nav>
