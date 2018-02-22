@@ -15,7 +15,7 @@ function save_list_layout() {
             alert(response.responseJSON.error);
         },
         success: function(response) {
-            alert("Layout updated successfully");
+            alert(response.msg);
         }
     });
 
@@ -46,7 +46,7 @@ function save_detail_layout() {
             alert(response.responseJSON.error);
         },
         success: function(response) {
-            alert("Layout updated successfully");
+            alert(response.msg);
         }
     });
 

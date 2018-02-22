@@ -36,6 +36,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from processors import *
 from django.template import RequestContext
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
 
 # Create your views here.
 
@@ -131,7 +132,7 @@ def edit_list_layout(request, module):
         except KeyError:
             return JsonResponse({
                 "status" : "Error",
-                "error" : "Please specify 'selected_fields'."
+                "error" : _("Please specify 'selected_fields'.")
             }, status = 400)
         view = None
         try:
@@ -140,7 +141,10 @@ def edit_list_layout(request, module):
             view = Layout(module=module, view='list')
         view.fields = json.dumps(selected_fields)
         view.save()
-        return JsonResponse({"status" : "Success"})
+        return JsonResponse({
+            "status" : "Success",
+            "msg" : _("Layout updated successfully")
+        })
     elif request.method == 'GET':
         available_fields = get_allowed_module_fields(module)
         module_fields = OrderedDict()
@@ -171,7 +175,7 @@ def edit_detail_layout(request, module):
         except KeyError:
             return JsonResponse({
                 "status" : "Error",
-                "error" : "Please specify 'selected_fields'."
+                "error" : _("Please specify 'selected_fields'.")
             }, status = 400)
         view = None
         try:
@@ -180,7 +184,10 @@ def edit_detail_layout(request, module):
             view = Layout(module=module, view='detail')
         view.fields = json.dumps(selected_fields)
         view.save()
-        return JsonResponse({"status" : "Success"})
+        return JsonResponse({
+            "status" : "Success",
+            "msg" : _("Layout updated successfully")
+        })
     elif request.method == 'GET':
         available_fields = get_allowed_module_fields(module)
         module_fields = list()
@@ -263,14 +270,14 @@ def edit_role(request, role):
         except KeyError:
             return JsonResponse({
                 "status" : "Error",
-                "error" : "Please specify 'permissions'."
+                "error" : _("Please specify 'permissions'.")
             }, status = 400)
         try:
             role_bean = Role.objects.get(name=role)
         except:
             return JsonResponse({
                 "status" : "Error",
-                "error" : "Role '" + role + "' does not exist."
+                "error" : _('Role \'%(role)s\' does not exist.') % {'role': role}
             }, status = 400)
         RolePermission.objects.filter(role=role).delete()
         for i, permission in enumerate(permissions):
@@ -282,7 +289,10 @@ def edit_role(request, role):
                     grant=permission[2],
                     order=i
                 ).save()
-        return JsonResponse({"status" : "Success"})
+        return JsonResponse({
+            "status" : "Success",
+            "msg" : _("Role permissions have been updated.")
+        })
 
 def crm_entry_point(request):
     if request.GET['option'] and request.GET['task'] and request.GET['sug']:

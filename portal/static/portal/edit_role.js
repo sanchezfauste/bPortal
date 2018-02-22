@@ -38,7 +38,7 @@ function save_role_permissions() {
             alert(response.responseJSON.error);
         },
         success: function(response) {
-            alert("Se han actualizado los permisos del rol.");
+            alert(response.msg);
         }
     });
 

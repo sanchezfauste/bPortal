@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-20 23:21+0100\n"
+"POT-Creation-Date: 2018-02-22 22:24+0100\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -213,3 +213,24 @@ msgstr "El módulo %(module)s no tiene definida la vista lista."
 #: templates/portal/module_list_filter.html:114
 msgid "Filter"
 msgstr "Filtrar"
+
+#: views.py:135 views.py:178
+msgid "Please specify 'selected_fields'."
+msgstr "Por favor, especifique el campo 'selected_fields'."
+
+#: views.py:146 views.py:189
+msgid "Layout updated successfully"
+msgstr "Vista actualizada correctamente"
+
+#: views.py:273
+msgid "Please specify 'permissions'."
+msgstr "Por favor, especifique el campo 'permissions'."
+
+#: views.py:280
+#, python-format
+msgid "Role '%(role)s' does not exist."
+msgstr "El rol '%(role)s' no existe."
+
+#: views.py:294
+msgid "Role permissions have been updated."
+msgstr "Se han actualizado los permisos del rol."
