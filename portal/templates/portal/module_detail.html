@@ -55,7 +55,7 @@
                                                 type="checkbox"
                                             >
                                         {% else %}
-                                            {{ value }}
+                                            {{ value|safe }}
                                         {% endif %}
                                     {% endwith %}
                                 </div>
@@ -68,6 +68,9 @@
                     </div>
                 </div>
             </div>
+            {% if module_key == 'Cases' %}
+                {% include "portal/module_detail_cases.html" %}
+            {% endif %}
         {% else %}
             <div class="alert alert-danger" role="alert">
                 {% trans "The requested record was not found." %}

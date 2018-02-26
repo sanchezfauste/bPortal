@@ -19,6 +19,7 @@
 #######################################################################
 
 from django import template
+import HTMLParser
 
 register = template.Library()
 
@@ -28,3 +29,7 @@ def get(dict, key):
         return dict[key]
     except KeyError:
         return ''
+
+@register.filter(name='decode')
+def decode(value):
+    return HTMLParser.HTMLParser().unescape(value)

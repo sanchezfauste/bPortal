@@ -37,6 +37,7 @@ from processors import *
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
+from cases import *
 
 # Create your views here.
 
@@ -110,7 +111,13 @@ def module_detail(request, module, id):
                     elif not field:
                         row_fields.append(None)
                 ordered_module_fields.append(row_fields)
-            record = SuiteCRM().get_bean(module, id)
+            if module == 'Cases':
+                record = SuiteCRM().get_bean(module, id)
+                context.update({
+                    'case_updates' : get_case_updates(id)
+                })
+            else:
+                record = SuiteCRM().get_bean(module, id)
         except:
             pass
         context.update({
