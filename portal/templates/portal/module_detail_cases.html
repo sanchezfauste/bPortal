@@ -4,21 +4,19 @@
 <link rel="stylesheet" type="text/css" href="{% static 'portal/detail_cases.css' %}" />
 
 {% for update in case_updates.entry_list %}
-    {% if update.internal == '0' %}
-        <div class="card">
-            <div class="card-header">
-                {% if update.assigned_user_id %}
-                    <b>{{update.assigned_user_link.0.first_name}} {{update.assigned_user_link.0.last_name}}</b>
-                {% else %}
-                    <b>{{update.contact.0.first_name}} {{update.contact.0.last_name}}</b>
-                {% endif %}
-            </div>
-            <div class="card-block">
-                <blockquote class="card-blockquote">
-                    <p class="card-text">{{update.description|decode|safe}}</p>
-                    <p class="card-text"><small class="text-muted">{{update.date_entered}}</small></p>
-                </blockquote>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            {% if update.assigned_user_id %}
+                <b>{{update.assigned_user_link.0.first_name}} {{update.assigned_user_link.0.last_name}}</b>
+            {% else %}
+                <b>{{update.contact.0.first_name}} {{update.contact.0.last_name}}</b>
+            {% endif %}
         </div>
-    {% endif %}
+        <div class="card-block">
+            <blockquote class="card-blockquote">
+                <p class="card-text">{{update.description|decode|safe}}</p>
+                <p class="card-text"><small class="text-muted">{{update.date_entered}}</small></p>
+            </blockquote>
+        </div>
+    </div>
 {% endfor %}

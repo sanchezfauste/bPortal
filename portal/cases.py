@@ -98,5 +98,6 @@ def get_case_updates(case_id):
                 'value' : CONTACT_FIELDS
             }
         ],
-        order_by = 'date_entered'
+        order_by = 'date_entered',
+        related_module_query = 'aop_case_updates.internal = 0'
     )
