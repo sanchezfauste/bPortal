@@ -1,5 +1,6 @@
-body {
-  padding-top: 5rem;
+body > .container {
+    padding-bottom: 60px;
+    padding-top: 120px;
 }
 
 .sortable-ul {

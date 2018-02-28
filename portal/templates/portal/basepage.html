@@ -3,13 +3,12 @@
 <html>
 <head>
     {% load staticfiles %}
-    {% load bootstrap4 %}
-    {% bootstrap_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'portal/bootstrap.min.css' %}" />
     <script src="{% static 'portal/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'portal/tether.min.js' %}"></script>
     <script src="{% static 'portal/jquery-ui.min.js' %}"></script>
-    {% bootstrap_javascript %}
-    {% bootstrap_messages %}
+    <script src="{% static 'portal/popper.min.js' %}"></script>
+    <script src="{% static 'portal/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'portal/basepage.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'portal/jquery-ui.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'portal/iconic/font/css/open-iconic-bootstrap.css' %}" />
@@ -20,11 +19,11 @@
 
 <body>
 
-   <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
-     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+     <a class="navbar-brand" href="{% url 'index' %}">{% trans "Home" %}</a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
-     <a class="navbar-brand" href="{% url 'index' %}">{% trans "Home" %}</a>
      <div class="collapse navbar-collapse" id="navbar">
        <ul class="navbar-nav mr-auto">
          <li class="nav-item dropdown">
@@ -51,9 +50,9 @@
      </div>
    </nav>
 
-   <div class="container">
+   <main role="main" class="container">
        {% block content %}{% endblock %}
-   </div><!-- /.container -->
+   </main>
 
  </body>
 

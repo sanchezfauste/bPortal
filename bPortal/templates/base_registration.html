@@ -2,15 +2,15 @@
 <html>
 <head>
     {% load staticfiles %}
-    {% load bootstrap4 %}
-    {% bootstrap_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'portal/bootstrap.min.css' %}" />
     <script src="{% static 'portal/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'portal/tether.min.js' %}"></script>
     <script src="{% static 'portal/jquery-ui.min.js' %}"></script>
-    {% bootstrap_javascript %}
-    {% bootstrap_messages %}
-    <link rel="stylesheet" type="text/css" href="{% static 'registration.css' %}" />
+    <script src="{% static 'portal/popper.min.js' %}"></script>
+    <script src="{% static 'portal/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'portal/basepage.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'portal/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'portal/iconic/font/css/open-iconic-bootstrap.css' %}" />
     {% block static_files %}{% endblock %}
     <title>{% block title %}bPortal{% endblock %}</title>
 </head>
