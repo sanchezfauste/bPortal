@@ -5,3 +5,19 @@
 .contact-update {
     margin-left: 50px;
 }
+
+.card-header.collapsed .oi-chevron-top {
+    display: none;
+}
+
+.card-header.collapsed .oi-chevron-bottom {
+    display: inline;
+}
+
+.card-header .oi-chevron-top {
+    display: inline;
+}
+
+.card-header .oi-chevron-bottom {
+    display: none;
+}

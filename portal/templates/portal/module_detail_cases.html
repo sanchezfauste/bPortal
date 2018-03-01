@@ -10,6 +10,8 @@
                 data-target="#update_{{update.id}}" aria-expanded="true" aria-controls="update_{{update.id}}">
                 <div class="row">
                     <div class="col">
+                        <span class="oi oi-chevron-bottom"></span>
+                        <span class="oi oi-chevron-top"></span>
                         <b>{{update.assigned_user_link.0.first_name}} {{update.assigned_user_link.0.last_name}}</b>
                     </div>
                     <div class="col">
@@ -29,6 +31,8 @@
                 data-target="#update_{{update.id}}" aria-expanded="true" aria-controls="update_{{update.id}}">
                 <div class="row">
                     <div class="col">
+                        <span class="oi oi-chevron-bottom"></span>
+                        <span class="oi oi-chevron-top"></span>
                         <b>{{update.contact.0.first_name}} {{update.contact.0.last_name}}</b>
                     </div>
                     <div class="col">
@@ -44,3 +48,15 @@
         </div>
     {% endif %}
 {% endfor %}
+
+<div class="card contact-update border-warning">
+  <div class="card-body">
+    <h5 class="card-title">{% trans "Update case" %}</h5>
+    <form>
+      <div class="form-group">
+        <textarea class="form-control" id="update-case-text" rows="5"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">{% trans "Add update" %}</button>
+    </form>
+  </div>
+</div>
