@@ -38,6 +38,9 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from cases import *
+import mimetypes
+import base64
+from django.http import Http404
 
 # Create your views here.
 
@@ -112,7 +115,7 @@ def module_detail(request, module, id):
                         row_fields.append(None)
                 ordered_module_fields.append(row_fields)
             if module == 'Cases':
-                record = SuiteCRM().get_bean(module, id)
+                record = get_case(id)
                 context.update({
                     'case_updates' : get_case_updates(id)
                 })
@@ -128,6 +131,20 @@ def module_detail(request, module, id):
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
     return HttpResponse(template.render(context, request))
+
+@login_required
+def note_attachment(request, id):
+    attachment = SuiteCRM().get_note_attachment(id)['note_attachment']
+    if attachment['file']:
+        response = HttpResponse(
+            base64.b64decode(attachment['file']),
+            content_type='application/octet-stream'
+        )
+        response['Content-Disposition'] = "attachment; filename=%s" \
+                % attachment['filename']
+        return response
+    else:
+        raise Http404(_("The requested file was not found."))
 
 @login_required
 @permission_required('is_superuser')

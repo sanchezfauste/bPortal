@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-22 22:24+0100\n"
+"POT-Creation-Date: 2018-03-02 18:48+0100\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -30,28 +30,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/portal/basepage.html:27 templates/portal/index.html:3
+#: templates/portal/basepage.html:23 templates/portal/index.html:3
 msgid "Home"
 msgstr "Inicio"
 
-#: templates/portal/basepage.html:31
+#: templates/portal/basepage.html:30
 msgid "Modules"
 msgstr "Módulos"
 
-#: templates/portal/basepage.html:40
+#: templates/portal/basepage.html:39
 msgid "Configure portal"
 msgstr "Configurar portal"
 
-#: templates/portal/basepage.html:42 templates/portal/edit_layouts.html:3
+#: templates/portal/basepage.html:41 templates/portal/edit_layouts.html:3
 msgid "Edit views"
 msgstr "Editar vistas"
 
-#: templates/portal/basepage.html:48
+#: templates/portal/basepage.html:47
 #, python-format
 msgid "Signed in as <b>%(username)s</b>"
 msgstr "Conectado como <b>%(username)s</b>"
 
-#: templates/portal/basepage.html:49
+#: templates/portal/basepage.html:48
 msgid "Logout"
 msgstr "Cerrar sesión"
 
@@ -175,14 +175,26 @@ msgstr ""
 msgid "List"
 msgstr "Lista"
 
-#: templates/portal/module_detail.html:73
+#: templates/portal/module_detail.html:76
 msgid "The requested record was not found."
 msgstr "No se ha encontrado el registro solicitado."
 
-#: templates/portal/module_detail.html:78
+#: templates/portal/module_detail.html:81
 #, python-format
 msgid "Module %(module)s has not defined the detail view."
 msgstr "El módulo %(module)s no tiene definida la vista detallada."
+
+#: templates/portal/module_detail_cases.html:47
+msgid "Attachments:"
+msgstr "Archivos adjuntos:"
+
+#: templates/portal/module_detail_cases.html:61
+msgid "Update case"
+msgstr "Actualitzar caso"
+
+#: templates/portal/module_detail_cases.html:66
+msgid "Add update"
+msgstr "Añadir actualización"
 
 #: templates/portal/module_list.html:11
 #, python-format
@@ -214,23 +226,27 @@ msgstr "El módulo %(module)s no tiene definida la vista lista."
 msgid "Filter"
 msgstr "Filtrar"
 
-#: views.py:135 views.py:178
+#: views.py:147
+msgid "The requested file was not found."
+msgstr "No se ha encontrado el fichero solicitado."
+
+#: views.py:159 views.py:202
 msgid "Please specify 'selected_fields'."
 msgstr "Por favor, especifique el campo 'selected_fields'."
 
-#: views.py:146 views.py:189
+#: views.py:170 views.py:213
 msgid "Layout updated successfully"
 msgstr "Vista actualizada correctamente"
 
-#: views.py:273
+#: views.py:297
 msgid "Please specify 'permissions'."
 msgstr "Por favor, especifique el campo 'permissions'."
 
-#: views.py:280
+#: views.py:304
 #, python-format
 msgid "Role '%(role)s' does not exist."
 msgstr "El rol '%(role)s' no existe."
 
-#: views.py:294
+#: views.py:318
 msgid "Role permissions have been updated."
 msgstr "Se han actualizado los permisos del rol."
