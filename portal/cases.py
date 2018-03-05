@@ -19,6 +19,7 @@
 #######################################################################
 
 from suitepy.suitecrm import SuiteCRM
+from utils import *
 
 NOTE_FIELDS = [
     'id',
@@ -101,3 +102,6 @@ def get_case_updates(case_id):
         order_by = 'date_entered',
         related_module_query = 'aop_case_updates.internal = 0'
     )
+
+def user_is_linked_to_case(user, case_id):
+    return contact_is_linked_to_record(user, 'Cases', case_id)

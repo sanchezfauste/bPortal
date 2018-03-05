@@ -133,6 +133,42 @@ def module_detail(request, module, id):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def add_case_update(request):
+    if user_can_read_module(request.user, 'Cases') and request.method == 'POST':
+        post_data = json.loads(request.body.decode("utf-8"))
+        if request.method == 'POST' and 'case-id' in post_data \
+                and 'update-case-text' in post_data \
+                and user_is_linked_to_case(request.user, post_data['case-id']):
+            update_case_text = post_data['update-case-text'].strip()
+            if not update_case_text:
+                return JsonResponse({
+                    "status" : "Error",
+                    "error" : _("Empty case updates are not allowed.")
+                }, status = 400)
+            case_update = Bean('AOP_Case_Updates')
+            case_update['contact_id'] = request.user.userattr.contact_id
+            case_update['case_id'] = post_data['case-id']
+            case_update['name'] = update_case_text[:45]
+            case_update['description'] = update_case_text.replace('\n', '<br>')
+            case_update['internal'] = 0
+            case_update.show()
+            try:
+                SuiteCRM().save_bean(case_update)
+                return JsonResponse({
+                    "status" : "Success",
+                    "msg" : _("The case update has been added successfully.")
+                })
+            except:
+                return JsonResponse({
+                    "status" : "Error",
+                    "error" : _("An error occurred while updating the case.")
+                }, status = 400)
+    return JsonResponse({
+        "status" : "Error",
+        "error" : _("Invalid request.")
+    }, status = 400)
+
+@login_required
 def note_attachment(request, id):
     attachment = SuiteCRM().get_note_attachment(id)['note_attachment']
     if attachment['file']:
@@ -330,12 +366,12 @@ def crm_entry_point(request):
         except:
             return JsonResponse({
                 "status" : "Error",
-                "error" : "Error retrieving contact"
+                "error" : _("Error retrieving contact")
             }, status = 400)
         if not contact['email1']:
             return JsonResponse({
                 "status" : "Error",
-                "error" : "Contact has no valid email"
+                "error" : _("Contact has no valid email")
             }, status = 400)
         if request.GET['task'] == 'create':
             return create_portal_user(contact)
@@ -346,5 +382,5 @@ def crm_entry_point(request):
         print request.GET['task']
     return JsonResponse({
         "status" : "Error",
-        "error" : "Invalid request"
+        "error" : _("Invalid request")
     }, status = 400)

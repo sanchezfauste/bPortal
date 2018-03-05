@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-02 18:48+0100\n"
+"POT-Creation-Date: 2018-03-05 20:16+0100\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -184,17 +184,22 @@ msgstr "No s'ha trobat el registre sol·licitat."
 msgid "Module %(module)s has not defined the detail view."
 msgstr "El mòdul %(module)s no té definida la vista detallada."
 
-#: templates/portal/module_detail_cases.html:47
+#: templates/portal/module_detail_cases.html:52
 msgid "Attachments:"
 msgstr "Fitxers adjunts:"
 
-#: templates/portal/module_detail_cases.html:61
+#: templates/portal/module_detail_cases.html:67
+#: templates/portal/module_detail_cases.html:83
 msgid "Update case"
 msgstr "Actualitzar cas"
 
-#: templates/portal/module_detail_cases.html:66
+#: templates/portal/module_detail_cases.html:73
 msgid "Add update"
 msgstr "Afegir actualització"
+
+#: templates/portal/module_detail_cases.html:97
+msgid "Ok"
+msgstr "Acceptar"
 
 #: templates/portal/module_list.html:11
 #, python-format
@@ -226,27 +231,55 @@ msgstr "El mòdul %(module)s no té definida la vista llista."
 msgid "Filter"
 msgstr "Filtrar"
 
-#: views.py:147
+#: views.py:146
+msgid "Empty case updates are not allowed."
+msgstr "No es permeten les actualitzacions de casos buides."
+
+#: views.py:159
+msgid "The case update has been added successfully."
+msgstr "S'ha actualitzat el cas correctament."
+
+#: views.py:164
+msgid "An error occurred while updating the case."
+msgstr "S'ha produït un error al actualitzar el cas."
+
+#: views.py:168
+msgid "Invalid request."
+msgstr "Petició invàlida."
+
+#: views.py:183
 msgid "The requested file was not found."
 msgstr "No s'ha trobat el fitxer sol·licitat."
 
-#: views.py:159 views.py:202
+#: views.py:195 views.py:238
 msgid "Please specify 'selected_fields'."
 msgstr "Si us plau, especifiqui el camp 'selected_fields'."
 
-#: views.py:170 views.py:213
+#: views.py:206 views.py:249
 msgid "Layout updated successfully"
 msgstr "Vista actualitzada correctament"
 
-#: views.py:297
+#: views.py:333
 msgid "Please specify 'permissions'."
 msgstr "Si us plau, especifiqui el camp 'permissions'."
 
-#: views.py:304
+#: views.py:340
 #, python-format
 msgid "Role '%(role)s' does not exist."
 msgstr "El rol '%(role)s' no existeix."
 
-#: views.py:318
+#: views.py:354
 msgid "Role permissions have been updated."
 msgstr "S'han actualitzat els permisos del rol."
+
+#: views.py:369
+msgid "Error retrieving contact"
+msgstr "S'ha produït un error al recuperar el contacte"
+
+#: views.py:374
+msgid "Contact has no valid email"
+msgstr "El contacte no té un correu electrònic vàlid"
+
+#: views.py:385
+msgid "Invalid request"
+msgstr "Petició invàlida"

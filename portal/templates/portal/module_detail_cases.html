@@ -1,78 +1,101 @@
 {% load i18n %}
 {% load filters %}
+{% block static_files %}
 {% load staticfiles %}
+<script src="{% static 'portal/session.js' %}"></script>
+<script src="{% static 'portal/cases_detail.js' %}"></script>
+{% endblock %}
 <link rel="stylesheet" type="text/css" href="{% static 'portal/detail_cases.css' %}" />
 
-{% for update in case_updates.entry_list %}
-    {% if update.assigned_user_id %}
-        <div class="card border-success user-update">
-            <div class="card-header text-white bg-success" data-toggle="collapse"
-                data-target="#update_{{update.id}}" aria-expanded="true" aria-controls="update_{{update.id}}">
-                <div class="row">
-                    <div class="col">
-                        <span class="oi oi-chevron-bottom"></span>
-                        <span class="oi oi-chevron-top"></span>
-                        <b>{{update.assigned_user_link.0.first_name}} {{update.assigned_user_link.0.last_name}}</b>
-                    </div>
-                    <div class="col">
-                        <p class="card-text text-right"><small>{{update.date_entered}}</small></p>
+<div id="case-updates">
+    {% for update in case_updates.entry_list %}
+        {% if update.assigned_user_id %}
+            <div class="card border-success user-update">
+                <div class="card-header text-white bg-success" data-toggle="collapse"
+                    data-target="#update_{{update.id}}" aria-expanded="true" aria-controls="update_{{update.id}}">
+                    <div class="row">
+                        <div class="col">
+                            <span class="oi oi-chevron-bottom"></span>
+                            <span class="oi oi-chevron-top"></span>
+                            <b>{{update.assigned_user_link.0.first_name}} {{update.assigned_user_link.0.last_name}}</b>
+                        </div>
+                        <div class="col">
+                            <p class="card-text text-right"><small>{{update.date_entered}}</small></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="update_{{update.id}}" class="collapse show">
-                <div class="card-body">
-                    <p class="card-text">{{update.description|decode|safe}}</p>
-                </div>
-            </div>
-        </div>
-    {% else %}
-        <div class="card border-warning contact-update">
-            <div class="card-header text-white bg-warning" data-toggle="collapse"
-                data-target="#update_{{update.id}}" aria-expanded="true" aria-controls="update_{{update.id}}">
-                <div class="row">
-                    <div class="col">
-                        <span class="oi oi-chevron-bottom"></span>
-                        <span class="oi oi-chevron-top"></span>
-                        <b>{{update.contact.0.first_name}} {{update.contact.0.last_name}}</b>
-                    </div>
-                    <div class="col">
-                        <p class="card-text text-right"><small>{{update.date_entered}}</small></p>
+                <div id="update_{{update.id}}" class="collapse show">
+                    <div class="card-body">
+                        <p class="card-text">{{update.description|decode|safe}}</p>
                     </div>
                 </div>
             </div>
-            <div id="update_{{update.id}}" class="collapse show">
-                <div class="card-body">
-                    <p class="card-text">{{update.description|decode|safe}}</p>
-                    {% if update.notes %}
-                        <p class="card-text"><small class="text-muted">{% trans "Attachments:" %}</small>
-                            {% for note in update.notes %}
-                                <a href="{% url 'note_attachment' note.id %}" class="card-link">{{note.name}}</a>
-                            {% endfor %}
-                        </p>
-                    {% endif %}
+        {% else %}
+            <div class="card border-warning contact-update">
+                <div class="card-header text-white bg-warning" data-toggle="collapse"
+                    data-target="#update_{{update.id}}" aria-expanded="true" aria-controls="update_{{update.id}}">
+                    <div class="row">
+                        <div class="col">
+                            <span class="oi oi-chevron-bottom"></span>
+                            <span class="oi oi-chevron-top"></span>
+                            <b>{{update.contact.0.first_name}} {{update.contact.0.last_name}}</b>
+                        </div>
+                        <div class="col">
+                            <p class="card-text text-right"><small>{{update.date_entered}}</small></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="update_{{update.id}}" class="collapse show">
+                    <div class="card-body">
+                        <p class="card-text">{{update.description|decode|safe}}</p>
+                        {% if update.notes %}
+                            <p class="card-text"><small class="text-muted">{% trans "Attachments:" %}</small>
+                                {% for note in update.notes %}
+                                    <a href="{% url 'note_attachment' note.id %}" class="card-link">{{note.name}}</a>
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-{% endfor %}
+        {% endif %}
+    {% endfor %}
+</div>
 
 <div class="card contact-update border-warning">
   <div class="card-body">
     <h5 class="card-title">{% trans "Update case" %}</h5>
-    <form>
+    <form id="update-case-form">
+      <input type="hidden" value="{{ record.id }}" name="case-id" id="case-id">
       <div class="form-group">
-        <textarea class="form-control" id="update-case-text" rows="5"></textarea>
+        <textarea class="form-control" id="update-case-text" name="update-case-text" rows="5"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">{% trans "Add update" %}</button>
+      <button type="submit" class="btn btn-primary" id="update-case-form-submit-button" disabled>{% trans "Add update" %}</button>
     </form>
   </div>
 </div>
 
-<script type="text/javascript">
-    $('textarea').each(function () {
-        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;resize:none;');
-    }).on('input', function () {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
-    });
-</script>
+<!-- Modal -->
+<div class="modal fade" id="update_case_modal" tabindex="-1" role="dialog" aria-labelledby="update_case_modal_title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="update_case_modal_title">{% trans "Update case" %}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="alert alert-success" role="alert">
+            This is a success alert—check it out!
+          </div>
+          <div class="alert alert-danger" role="alert">
+            This is a danger alert—check it out!
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Ok" %}</button>
+      </div>
+    </div>
+  </div>
+</div>

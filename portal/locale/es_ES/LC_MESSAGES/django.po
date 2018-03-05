@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-02 18:48+0100\n"
+"POT-Creation-Date: 2018-03-05 20:16+0100\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -184,17 +184,22 @@ msgstr "No se ha encontrado el registro solicitado."
 msgid "Module %(module)s has not defined the detail view."
 msgstr "El módulo %(module)s no tiene definida la vista detallada."
 
-#: templates/portal/module_detail_cases.html:47
+#: templates/portal/module_detail_cases.html:52
 msgid "Attachments:"
 msgstr "Archivos adjuntos:"
 
-#: templates/portal/module_detail_cases.html:61
+#: templates/portal/module_detail_cases.html:67
+#: templates/portal/module_detail_cases.html:83
 msgid "Update case"
 msgstr "Actualitzar caso"
 
-#: templates/portal/module_detail_cases.html:66
+#: templates/portal/module_detail_cases.html:73
 msgid "Add update"
 msgstr "Añadir actualización"
+
+#: templates/portal/module_detail_cases.html:97
+msgid "Ok"
+msgstr "Aceptar"
 
 #: templates/portal/module_list.html:11
 #, python-format
@@ -226,27 +231,55 @@ msgstr "El módulo %(module)s no tiene definida la vista lista."
 msgid "Filter"
 msgstr "Filtrar"
 
-#: views.py:147
+#: views.py:146
+msgid "Empty case updates are not allowed."
+msgstr "No se permiten las actualizaciones de casos vacías."
+
+#: views.py:159
+msgid "The case update has been added successfully."
+msgstr "Se ha actualizado el caso correctamente."
+
+#: views.py:164
+msgid "An error occurred while updating the case."
+msgstr "Se ha producido un error al actualizar el caso."
+
+#: views.py:168
+msgid "Invalid request."
+msgstr "Solicitud no válida."
+
+#: views.py:183
 msgid "The requested file was not found."
 msgstr "No se ha encontrado el fichero solicitado."
 
-#: views.py:159 views.py:202
+#: views.py:195 views.py:238
 msgid "Please specify 'selected_fields'."
 msgstr "Por favor, especifique el campo 'selected_fields'."
 
-#: views.py:170 views.py:213
+#: views.py:206 views.py:249
 msgid "Layout updated successfully"
 msgstr "Vista actualizada correctamente"
 
-#: views.py:297
+#: views.py:333
 msgid "Please specify 'permissions'."
 msgstr "Por favor, especifique el campo 'permissions'."
 
-#: views.py:304
+#: views.py:340
 #, python-format
 msgid "Role '%(role)s' does not exist."
 msgstr "El rol '%(role)s' no existe."
 
-#: views.py:318
+#: views.py:354
 msgid "Role permissions have been updated."
 msgstr "Se han actualizado los permisos del rol."
+
+#: views.py:369
+msgid "Error retrieving contact"
+msgstr "Error al recuperar el contacto"
+
+#: views.py:374
+msgid "Contact has no valid email"
+msgstr "El contacto no tiene un correo electrónico válido"
+
+#: views.py:385
+msgid "Invalid request"
+msgstr "Solicitud no válida"

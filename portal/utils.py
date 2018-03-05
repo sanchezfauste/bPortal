@@ -286,7 +286,6 @@ def retrieve_list_view_records(module, arguments, user):
                 'Contacts',
                 contact_id
             )
-            print filter_query
             records = SuiteCRM().get_bean_list(
                 module,
                 max_results = limit,
@@ -408,3 +407,46 @@ def enable_portal_user(contact):
             "status" : "Error",
             "error" : "Error enabling account"
         }, status = 400)
+
+def contact_is_linked_to_record(user, module, id):
+    try:
+        contact_id = user.userattr.contact_id
+        module_def = ModuleDefinitionFactory.get_module_definition(module)
+        if module_def.contacts_link_type == LinkType.RELATED:
+            filter_query = module.lower() + '.id = \'' + id + '\' AND '
+            filter_query += get_filter_related(
+                module,
+                module_def.contacts_link_name,
+                contact_id
+            )
+            records = SuiteCRM().get_bean_list(
+                module,
+                max_results = 1,
+                query = filter_query
+            )
+        elif module_def.contacts_link_type == LinkType.RELATIONSHIP:
+            records = SuiteCRM().get_relationships(
+                'Contacts',
+                contact_id,
+                module_def.contacts_link_name,
+                related_fields = ['id'],
+                limit = 1,
+                related_module_query = module.lower() + '.id = \'' + id + '\''
+            )
+        elif module_def.contacts_link_type == LinkType.PARENT:
+            filter_query = module.lower() + '.id = \'' + id + '\' AND '
+            filter_query += get_filter_parent(
+                module,
+                'Contacts',
+                contact_id
+            )
+            records = SuiteCRM().get_bean_list(
+                module,
+                max_results = 1,
+                query = filter_query
+            )
+        if records['entry_list'][0]['id'] == id:
+            return True
+    except:
+        pass
+    return False
