@@ -107,6 +107,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es_ES'
 
+LOCALE_PATHS = (
+    'bPortal/locale',
+)
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True

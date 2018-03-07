@@ -1,42 +1,52 @@
 {% extends "base_registration.html" %}
-{% block title %}Login{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Login" %}{% endblock %}
 {% block content %}
 
-    {% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-            Your username and password didn't match. Please try again.
+{% if next %}
+    {% if user.is_authenticated %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {% trans "Your account doesn't have access to this page. To proceed, please login with an account that has access." %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% else %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {% trans "Please login to see this page." %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     {% endif %}
-
-    {% if next %}
-        {% if user.is_authenticated %}
-            <div class="alert alert-warning" role="alert">
-                Your account doesn't have access to this page. To proceed,
-                please login with an account that has access.
-            </div>
-        {% else %}
-            <div class="alert alert-warning" role="alert">
-                Please login to see this page.
-            </div>
-        {% endif %}
-    {% endif %}
-
-    <div class="login_form">
-        <h4>Please sign in</h4>
+{% endif %}
+<div class="card">
+    <h5 class="card-header">{% trans "Please sign in" %}</h5>
+    <div class="card-body">
         <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        {{ form.username.label_tag }}
-        <p>{{ form.username }}</p>
-
-        {{ form.password.label_tag }}
-        <p>{{ form.password }}</p>
-
-        <br>
-        <p><input type="submit" value="Login" class="btn btn-primary" /></p>
-        <input type="hidden" name="next" value="{{ next }}" />
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                <input type="text" class="form-control{% if form.errors %} is-invalid{% endif %}"
+                    placeholder="Enter username" name="username" autofocus="" required="" id="id_username"
+                >
+            </div>
+            <div class="form-group">
+                <div class="float-left">
+                    {{ form.password.label_tag }}
+                </div>
+                <div class="float-right">
+                    <a href="{% url 'password_reset' %}">{% trans "Lost password?" %}</a>
+                </div>
+                <input type="password" class="form-control{% if form.errors %} is-invalid{% endif %}"
+                    name="password" required="" id="id_password" placeholder="Password"
+                >
+                <div class="invalid-feedback">{% trans "Your username and password didn't match. Please try again." %}</div>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
         </form>
-
-        <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
     </div>
+</div>
 
 {% endblock %}

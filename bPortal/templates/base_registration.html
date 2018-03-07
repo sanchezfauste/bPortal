@@ -8,7 +8,7 @@
     <script src="{% static 'portal/jquery-ui.min.js' %}"></script>
     <script src="{% static 'portal/popper.min.js' %}"></script>
     <script src="{% static 'portal/bootstrap.min.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'portal/basepage.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'bPortal/registration.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'portal/jquery-ui.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'portal/iconic/font/css/open-iconic-bootstrap.css' %}" />
     {% block static_files %}{% endblock %}
@@ -18,7 +18,11 @@
 <body>
 
    <div class="container">
-       {% block content %}{% endblock %}
+       <div class="row justify-content-md-center">
+           <div class="col" style="max-width: 400px;">
+               {% block content %}{% endblock %}
+           </div>
+       </div>
    </div><!-- /.container -->
 
  </body>

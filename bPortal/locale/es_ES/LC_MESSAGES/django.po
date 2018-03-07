@@ -1,0 +1,135 @@
+# ######################################################################
+# bPortal is a SuiteCRM portal written using django project.
+#
+# Copyright (C) 2017-2018 BTACTIC, SCCL
+# Copyright (C) 2017-2018 Marc Sanchez Fauste
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# ######################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: bPortal 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-07 21:50+0100\n"
+"PO-Revision-Date: 2018-02-20 20:25+0100\n"
+"Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
+"Language-Team: BTACTIC\n"
+"Language: Español (España)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/registration/logged_out.html:3
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: templates/registration/logged_out.html:7
+#: templates/registration/password_reset_form.html:7
+msgid "You have been logged out."
+msgstr "Ha sido desconectado."
+
+#: templates/registration/logged_out.html:9
+msgid "Click here to login again."
+msgstr "Haga clic aquí para iniciar sesión de nuevo."
+
+#: templates/registration/login.html:3 templates/registration/login.html:47
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: templates/registration/login.html:9
+msgid ""
+"Your account doesn't have access to this page. To proceed, please login with "
+"an account that has access."
+msgstr ""
+"Su cuenta no tiene acceso a esta página. Para continuar, inicie sesión con "
+"una cuenta que tenga acceso."
+
+#: templates/registration/login.html:16
+msgid "Please login to see this page."
+msgstr "Por favor, inicie sesión para ver esta página."
+
+#: templates/registration/login.html:24
+msgid "Please sign in"
+msgstr "Por favor, inicie sesión"
+
+#: templates/registration/login.html:39
+msgid "Lost password?"
+msgstr "¿Ha olvidado su contraseña?"
+
+#: templates/registration/login.html:44
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Su nombre de usuario o contraseña son incorrectas. Por favor, inténtelo de "
+"nuevo."
+
+#: templates/registration/password_reset_complete.html:3
+msgid "Password changed"
+msgstr "Contraseña modificada"
+
+#: templates/registration/password_reset_complete.html:7
+msgid "The password has been changed!"
+msgstr "¡Se ha modificado la contraseña!"
+
+#: templates/registration/password_reset_complete.html:9
+msgid "Login again?"
+msgstr "¿Volver a iniciar sesión?"
+
+#: templates/registration/password_reset_confirm.html:3
+#: templates/registration/password_reset_done.html:3
+#: templates/registration/password_reset_form.html:3
+#: templates/registration/password_reset_form.html:13
+msgid "Reset password"
+msgstr "Restablecer contraseña"
+
+#: templates/registration/password_reset_confirm.html:8
+msgid "Please enter (and confirm) your new password."
+msgstr "Por favor introduzca (y confirme) su nueva contraseña."
+
+#: templates/registration/password_reset_confirm.html:17
+msgid "New password:"
+msgstr "Nueva contraseña:"
+
+#: templates/registration/password_reset_confirm.html:22
+msgid "Confirm password:"
+msgstr "Confirme la contraseña:"
+
+#: templates/registration/password_reset_confirm.html:33
+msgid "Password reset failed"
+msgstr "Restablecimiento de contraseña fallido"
+
+#: templates/registration/password_reset_confirm.html:34
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"El enlace de restablecimiento de contraseña no es válido, posiblemente "
+"porque ya se ha utilizado. Solicite de nuevo el restablecimiento de la "
+"contraseña."
+
+#: templates/registration/password_reset_done.html:7
+msgid ""
+"We've emailed you instructions for setting your password. If they haven't "
+"arrived in a few minutes, check your spam folder."
+msgstr ""
+"Le hemos enviado por correo electrónico las instrucciones para restablecer "
+"su contraseña. Si no han llegado en unos minutos, verifique su carpeta de "
+"spam."
+
+#: templates/registration/password_reset_email.html:2
+#, python-format
+msgid ""
+"Someone asked for password reset for email %(email)s. Follow the link below:"
+msgstr ""
+"Alguien solicitó restablecer la contraseña para el correo electrónico "
+"%(email)s. Haga clic en el siguiente enlace:"
