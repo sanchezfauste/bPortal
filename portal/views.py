@@ -151,7 +151,6 @@ def add_case_update(request):
             case_update['name'] = update_case_text[:45]
             case_update['description'] = update_case_text.replace('\n', '<br>')
             case_update['internal'] = 0
-            case_update.show()
             try:
                 SuiteCRM().save_bean(case_update)
                 return JsonResponse({
