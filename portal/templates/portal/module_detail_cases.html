@@ -27,6 +27,13 @@
                 <div id="update_{{update.id}}" class="collapse show">
                     <div class="card-body">
                         <p class="card-text">{{update.description|decode|safe}}</p>
+                        {% if update.notes %}
+                            <p class="card-text"><small class="text-muted">{% trans "Attachments:" %}</small>
+                                {% for note in update.notes %}
+                                    <a href="{% url 'note_attachment' note.id %}" class="card-link">{{note.name}}</a>
+                                {% endfor %}
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
