@@ -28,7 +28,8 @@
             <div class="form-group">
                 {{ form.username.label_tag }}
                 <input type="text" class="form-control{% if form.errors %} is-invalid{% endif %}"
-                    placeholder="Enter username" name="username" autofocus="" required="" id="id_username"
+                    placeholder="Enter username" name="username" autofocus="" required=""
+                    id="id_username" tabindex="1"
                 >
             </div>
             <div class="form-group">
@@ -36,15 +37,15 @@
                     {{ form.password.label_tag }}
                 </div>
                 <div class="float-right">
-                    <a href="{% url 'password_reset' %}">{% trans "Lost password?" %}</a>
+                    <a href="{% url 'password_reset' %}" tabindex="4">{% trans "Lost password?" %}</a>
                 </div>
                 <input type="password" class="form-control{% if form.errors %} is-invalid{% endif %}"
-                    name="password" required="" id="id_password" placeholder="Password"
+                    name="password" required="" id="id_password" placeholder="Password" tabindex="2"
                 >
                 <div class="invalid-feedback">{% trans "Your username and password didn't match. Please try again." %}</div>
             </div>
             <input type="hidden" name="next" value="{{ next }}" />
-            <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
+            <button type="submit" class="btn btn-primary" tabindex="3">{% trans "Login" %}</button>
         </form>
     </div>
 </div>
