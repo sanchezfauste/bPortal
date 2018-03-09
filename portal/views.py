@@ -135,11 +135,10 @@ def module_detail(request, module, id):
 @login_required
 def add_case_update(request):
     if user_can_read_module(request.user, 'Cases') and request.method == 'POST':
-        post_data = json.loads(request.body.decode("utf-8"))
-        if request.method == 'POST' and 'case-id' in post_data \
-                and 'update-case-text' in post_data \
-                and user_is_linked_to_case(request.user, post_data['case-id']):
-            update_case_text = post_data['update-case-text'].strip()
+        if request.method == 'POST' and 'case-id' in request.POST \
+                and 'update-case-text' in request.POST \
+                and user_is_linked_to_case(request.user, request.POST['case-id']):
+            update_case_text = request.POST['update-case-text'].strip()
             if not update_case_text:
                 return JsonResponse({
                     "status" : "Error",
@@ -147,12 +146,36 @@ def add_case_update(request):
                 }, status = 400)
             case_update = Bean('AOP_Case_Updates')
             case_update['contact_id'] = request.user.userattr.contact_id
-            case_update['case_id'] = post_data['case-id']
+            case_update['case_id'] = request.POST['case-id']
             case_update['name'] = update_case_text[:45]
             case_update['description'] = update_case_text.replace('\n', '<br>')
             case_update['internal'] = 0
             try:
                 SuiteCRM().save_bean(case_update)
+                if case_update['id']:
+                    for f in request.FILES.getlist('update-case-attachment'):
+                        note = Bean('Notes')
+                        note['name'] = f.name
+                        note['parent_type'] = 'AOP_Case_Updates'
+                        note['parent_id'] = case_update['id']
+                        note['contact_id'] = request.user.userattr.contact_id
+                        SuiteCRM().save_bean(note)
+                        if note['id']:
+                            SuiteCRM().set_note_attachment(
+                                note['id'],
+                                f.name,
+                                base64.b64encode(f.read())
+                            )
+                        else:
+                            return JsonResponse({
+                                "status" : "Error",
+                                "error" : _("An error occurred while uploading the attachment(s).")
+                            }, status = 400)
+                else:
+                    return JsonResponse({
+                        "status" : "Error",
+                        "error" : _("An error occurred while creating the case update.")
+                    }, status = 400)
                 return JsonResponse({
                     "status" : "Success",
                     "msg" : _("The case update has been added successfully.")

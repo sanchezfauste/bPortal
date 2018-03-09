@@ -5,7 +5,6 @@ $( document ).ready(function() {
     }).on('input', function () {
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
-        console.log(this);
         if (this.value.length > 0) {
             $('#update-case-form-submit-button').prop('disabled', false);
         } else {
@@ -17,17 +16,21 @@ $( document ).ready(function() {
         // Stop the browser from submitting the form.
         event.preventDefault();
 
-        var data = {
-            "case-id" : $('#case-id').val(),
-            "update-case-text" : $('#update-case-text').val(),
-        };
+        var formData = new FormData();
+        formData.append("case-id", $('#case-id').val());
+        formData.append("update-case-text", $('#update-case-text').val());
+
+        var files = $('#update-case-attachment').prop('files');
+        for(var i = 0, file; file = files[i]; i++) {
+            formData.append('update-case-attachment', file, file.name);
+        }
 
         $.ajax({
             url: "/add_case_update/",
             type: "POST",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            data: formData,
+            processData: false,
+            contentType: false,
             error: function(response) {
                 $('#update_case_modal').each(function () {
                     $(this).find('.modal-body').html(
@@ -40,6 +43,7 @@ $( document ).ready(function() {
             success: function(response) {
                 $('#update_case_modal').each(function () {
                     $('#update-case-text').val('');
+                    $('#update-case-attachment').val(null);
                     $('#update-case-form-submit-button').prop('disabled', true);
                     $(this).find('.modal-body').html(
                         '<div class="alert alert-success" role="alert">'
