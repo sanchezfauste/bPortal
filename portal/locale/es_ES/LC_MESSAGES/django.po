@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-09 19:44+0100\n"
+"POT-Creation-Date: 2018-03-12 22:29+0100\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -184,22 +184,30 @@ msgstr "No se ha encontrado el registro solicitado."
 msgid "Module %(module)s has not defined the detail view."
 msgstr "El módulo %(module)s no tiene definida la vista detallada."
 
-#: templates/portal/module_detail_cases.html:31
-#: templates/portal/module_detail_cases.html:59
-#: templates/portal/module_detail_cases.html:81
+#: templates/portal/module_detail_cases.html:14
+msgid "Collapse all updates"
+msgstr "Contraer actualizaciones"
+
+#: templates/portal/module_detail_cases.html:17
+msgid "Expand all updates"
+msgstr "Expandir actualizaciones"
+
+#: templates/portal/module_detail_cases.html:39
+#: templates/portal/module_detail_cases.html:67
+#: templates/portal/module_detail_cases.html:89
 msgid "Attachments:"
 msgstr "Archivos adjuntos:"
 
-#: templates/portal/module_detail_cases.html:74
-#: templates/portal/module_detail_cases.html:94
+#: templates/portal/module_detail_cases.html:82
+#: templates/portal/module_detail_cases.html:102
 msgid "Update case"
 msgstr "Actualitzar caso"
 
-#: templates/portal/module_detail_cases.html:84
+#: templates/portal/module_detail_cases.html:92
 msgid "Add update"
 msgstr "Añadir actualización"
 
-#: templates/portal/module_detail_cases.html:108
+#: templates/portal/module_detail_cases.html:116
 msgid "Ok"
 msgstr "Aceptar"
 

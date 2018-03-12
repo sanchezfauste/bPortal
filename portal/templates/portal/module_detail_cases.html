@@ -9,6 +9,14 @@
 
 <div id="case-updates">
     {% for update in case_updates.entry_list %}
+        {% if forloop.first %}
+            <button type="button" class="btn btn-primary mb-4 mr-2"
+                onclick="collapse_case_updates();">{% trans "Collapse all updates" %}
+            </button>
+            <button type="button" class="btn btn-primary mb-4"
+                onclick="expand_case_updates();">{% trans "Expand all updates" %}
+            </button>
+        {% endif %}
         {% if update.assigned_user_id %}
             <div class="card border-success user-update">
                 <div class="card-header text-white bg-success" data-toggle="collapse"
@@ -24,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="update_{{update.id}}" class="collapse show">
+                <div id="update_{{update.id}}" class="collapse {% if forloop.last %}show {% endif %} case-update-text">
                     <div class="card-body">
                         <p class="card-text">{{update.description|decode|safe}}</p>
                         {% if update.notes %}
@@ -52,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="update_{{update.id}}" class="collapse show">
+                <div id="update_{{update.id}}" class="collapse {% if forloop.last %}show {% endif %} case-update-text">
                     <div class="card-body">
                         <p class="card-text">{{update.description|decode|safe}}</p>
                         {% if update.notes %}
