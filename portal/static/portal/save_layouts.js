@@ -56,6 +56,29 @@ function add_detail_row() {
     $('#selected_fields_list_group').append('\
         <div class="row">\
             <div class="col card sortable-ul selected-field"></div>\
+            <div class="col col-2 text-center align-self-center">\
+                <a class="btn btn-danger" href="#" role="button" onclick="remove_detail_row($(this));">\
+                    <span class="oi oi-x"></span>\
+                </a>\
+            </div>\
+        </div>\
+    ');
+    $( ".selected-field, #available-fields" ).sortable({
+      connectWith: ".sortable-ul"
+    }).disableSelection();
+    $(".selected-field").each(function() {
+      $(this).on("sortreceive", function(event, ui) {
+        if ($(this).children().length > 1) {
+          $(ui.sender).sortable('cancel');
+        }
+      })
+    });
+}
+
+function add_detail_row2() {
+    $('#selected_fields_list_group').append('\
+        <div class="row">\
+            <div class="col card sortable-ul selected-field"></div>\
             <div class="col card sortable-ul selected-field"></div>\
             <div class="col col-2 text-center align-self-center">\
                 <a class="btn btn-danger" href="#" role="button" onclick="remove_detail_row($(this));">\
