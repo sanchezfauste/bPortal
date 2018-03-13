@@ -18,32 +18,31 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 
-from abc import ABCMeta, abstractproperty
+from module_definition import ModuleDefinition
+from link_type import LinkType
 
-class ModuleDefinition:
+class AOK_KnowledgeBase(ModuleDefinition):
 
-    __metaclass__ = ABCMeta
-
-    @abstractproperty
+    @property
     def name(self):
-        pass
+        return 'AOK_KnowledgeBase'
 
-    @abstractproperty
+    @property
     def contacts_link_type(self):
-        pass
+        return LinkType.NONE
 
-    @abstractproperty
+    @property
     def contacts_link_name(self):
-        pass
+        return None
 
-    @abstractproperty
+    @property
     def accounts_link_type(self):
-        pass
+        return LinkType.NONE
 
-    @abstractproperty
+    @property
     def accounts_link_name(self):
-        pass
+        return None
 
     @property
     def custom_where(self):
-        return None
+        return "aok_knowledgebase.status = 'published_public'"

@@ -55,7 +55,7 @@
                                                 type="checkbox"
                                             >
                                         {% else %}
-                                            {{ value|safe }}
+                                            {{ value|decode|safe }}
                                         {% endif %}
                                     {% endwith %}
                                 </div>

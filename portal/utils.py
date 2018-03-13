@@ -259,6 +259,10 @@ def retrieve_list_view_records(module, arguments, user):
                 module_def.contacts_link_name,
                 contact_id
             )
+            if module_def.custom_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_where
             records = SuiteCRM().get_bean_list(
                 module,
                 max_results = limit,
@@ -267,6 +271,11 @@ def retrieve_list_view_records(module, arguments, user):
                 query = filter_query
             )
         elif module_def.contacts_link_type == LinkType.RELATIONSHIP:
+            filter_query = get_filter_query(module, filterable_fields, arguments)
+            if module_def.custom_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_where
             records = SuiteCRM().get_relationships(
                 'Contacts',
                 contact_id,
@@ -275,7 +284,7 @@ def retrieve_list_view_records(module, arguments, user):
                 limit = limit,
                 offset = offset,
                 order_by = order_by_string,
-                related_module_query = get_filter_query(module, filterable_fields, arguments)
+                related_module_query = filter_query
             )
         elif module_def.contacts_link_type == LinkType.PARENT:
             filter_query = get_filter_query(module, filterable_fields, arguments)
@@ -286,6 +295,23 @@ def retrieve_list_view_records(module, arguments, user):
                 'Contacts',
                 contact_id
             )
+            if module_def.custom_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_where
+            records = SuiteCRM().get_bean_list(
+                module,
+                max_results = limit,
+                offset = offset,
+                order_by = order_by_string,
+                query = filter_query
+            )
+        elif module_def.contacts_link_type == LinkType.NONE:
+            filter_query = get_filter_query(module, filterable_fields, arguments)
+            if module_def.custom_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_where
             records = SuiteCRM().get_bean_list(
                 module,
                 max_results = limit,

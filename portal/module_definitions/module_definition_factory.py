@@ -36,6 +36,7 @@ from aos_invoices import AOS_Invoices
 from aos_contracts import AOS_Contracts
 from fp_events import FP_events
 from project import Project
+from aok_knowledgebase import AOK_KnowledgeBase
 from module_definition_not_found_exception import ModuleDefinitionNotFoundException
 
 class ModuleDefinitionFactory:
@@ -61,4 +62,6 @@ class ModuleDefinitionFactory:
         if module_name == 'AOS_Contracts': return AOS_Contracts()
         if module_name == 'FP_events': return FP_events()
         if module_name == 'Project': return Project()
+        if module_name == 'Project': return Project()
+        if module_name == 'AOK_KnowledgeBase': return AOK_KnowledgeBase()
         raise ModuleDefinitionNotFoundException(module_name)
