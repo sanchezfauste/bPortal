@@ -25,6 +25,7 @@ $( document ).ready(function() {
             formData.append('update-case-attachment', file, file.name);
         }
 
+        $('#loading_modal').modal('show');
         $.ajax({
             url: "/add_case_update/",
             type: "POST",
@@ -52,7 +53,11 @@ $( document ).ready(function() {
                     );
                     $(this).modal('show');
                 });
-            }
+            },
+            complete: function() {
+                console.log("AA");
+                $('#loading_modal').modal('hide');
+            },
         });
     });
 
