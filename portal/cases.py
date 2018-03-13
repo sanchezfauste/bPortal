@@ -79,6 +79,26 @@ def get_case(case_id):
         ]
     )
 
+def get_case_update(case_update_id):
+    return SuiteCRM().get_bean(
+        'AOP_Case_Updates',
+        case_update_id,
+        link_name_to_fields_array = [
+            {
+                'name' : 'notes',
+                'value' : NOTE_FIELDS
+            },
+            {
+                'name' : 'assigned_user_link',
+                'value' : USER_FIELDS
+            },
+            {
+                'name' : 'contact',
+                'value' : CONTACT_FIELDS
+            }
+        ]
+    )
+
 def get_case_updates(case_id):
     return SuiteCRM().get_relationships(
         'Cases',

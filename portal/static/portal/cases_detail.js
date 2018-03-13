@@ -45,6 +45,7 @@ $( document ).ready(function() {
                     $('#update-case-text').val('');
                     $('#update-case-attachment').val(null);
                     $('#update-case-form-submit-button').prop('disabled', true);
+                    $('#case-updates').append(response.case_update);
                     $(this).find('.modal-body').html(
                         '<div class="alert alert-success" role="alert">'
                             + response.msg + '</div>'

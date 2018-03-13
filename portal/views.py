@@ -23,6 +23,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from suitepy.suitecrm import SuiteCRM
@@ -178,7 +179,14 @@ def add_case_update(request):
                     }, status = 400)
                 return JsonResponse({
                     "status" : "Success",
-                    "msg" : _("The case update has been added successfully.")
+                    "msg" : _("The case update has been added successfully."),
+                    "case_update" : render_to_string(
+                        'portal/module_detail_case_update.html',
+                        {
+                            "update" : get_case_update(case_update['id']),
+                            "show" : True
+                        }
+                    )
                 })
             except:
                 return JsonResponse({
