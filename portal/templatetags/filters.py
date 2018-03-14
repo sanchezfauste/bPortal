@@ -27,7 +27,7 @@ register = template.Library()
 def get(dict, key):
     try:
         return dict[key]
-    except KeyError:
+    except:
         return ''
 
 @register.filter(name='decode')
