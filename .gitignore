@@ -106,3 +106,5 @@ ENV/
 # sqlite databases
 *.sqlite3
 
+# Custom settings file
+bPortal/custom_settings.py
