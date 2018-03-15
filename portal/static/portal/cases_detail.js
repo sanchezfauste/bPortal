@@ -31,33 +31,31 @@ $( document ).ready(function() {
             type: "POST",
             data: formData,
             processData: false,
-            contentType: false,
-            error: function(response) {
-                $('#update_case_modal').each(function () {
-                    $(this).find('.modal-body').html(
-                        '<div class="alert alert-danger" role="alert">'
-                            + response.responseJSON.error + '</div>'
-                    );
-                    $(this).modal('show');
-                });
-            },
-            success: function(response) {
-                $('#update_case_modal').each(function () {
-                    $('#update-case-text').val('');
-                    $('#update-case-attachment').val(null);
-                    $('#update-case-form-submit-button').prop('disabled', true);
-                    $('#case-updates').append(response.case_update);
-                    $(this).find('.modal-body').html(
-                        '<div class="alert alert-success" role="alert">'
-                            + response.msg + '</div>'
-                    );
-                    $(this).modal('show');
-                });
-            },
-            complete: function() {
-                console.log("AA");
-                $('#loading_modal').modal('hide');
-            },
+            contentType: false
+        }).done(function(response) {
+            $('#update_case_modal').each(function () {
+                $('#update-case-text').val('');
+                $('#update-case-attachment').val(null);
+                $('#update-case-form-submit-button').prop('disabled', true);
+                $('#case-updates').append(response.case_update);
+                $(this).find('.modal-body').html(
+                    '<div class="alert alert-success" role="alert">'
+                        + response.msg + '</div>'
+                );
+                $(this).modal('show');
+            });
+        }).fail(function(response) {
+            $('#update_case_modal').each(function () {
+                $(this).find('.modal-body').html(
+                    '<div class="alert alert-danger" role="alert">'
+                        + response.responseJSON.error + '</div>'
+                );
+                $(this).modal('show');
+            });
+        }).always(function() {
+            setTimeout(function() {
+                $('#loading_modal').modal('hide')
+            }, 100);
         });
     });
 
