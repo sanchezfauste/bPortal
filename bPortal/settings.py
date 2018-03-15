@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'es_ES'
 
 LOCALE_PATHS = (
-    'bPortal/locale',
+    os.path.join(BASE_DIR, 'bPortal/locale'),
 )
 
 TIME_ZONE = 'UTC'
