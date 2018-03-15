@@ -126,3 +126,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
+
+try:
+    from custom_settings import *
+except ImportError:
+    pass
