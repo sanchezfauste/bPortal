@@ -55,7 +55,7 @@ $( document ).ready(function() {
         }).always(function() {
             setTimeout(function() {
                 $('#loading_modal').modal('hide')
-            }, 100);
+            }, 500);
         });
     });
 
