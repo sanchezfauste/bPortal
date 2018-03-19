@@ -1,0 +1,68 @@
+{% extends "portal/basepage.html" %}
+{% load i18n %}
+{% block title %}{% trans "Edit roles" %}{% endblock %}
+{% block content %}
+
+{% if success_msg %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        {{msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+
+{% if error_msg %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+
+    {% if roles %}
+        <table class="table table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>{% trans "Role" %}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for role in roles %}
+                <tr>
+                    <td>{{ role.name }}</td>
+                    <td>
+                        <a href="{% url 'edit_role' role.name %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Edit role" %}</a>
+                    </td>
+                    <td>
+                        <form method="post" action="{% url 'delete_role' %}">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ role.name }}" name="role_name">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">{% trans "Delete role" %}</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            {% trans "No role has yet been defined." %}
+        </div>
+    {% endif %}
+
+    <form id="create_role_form" method="post" action="{% url 'create_role' %}">
+        {% csrf_token %}
+        <div class="form-group form-inline">
+            <input type="text" class="form-control mr-3" id="role_name" name="role_name" placeholder="{% trans "Role name" %}" pattern="\w+">
+            <small id="role_name_helper" class="text-muted">
+                {% trans "Only alphanumeric characters or underscores can be used." %}
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">{% trans "Create role" %}</button>
+    </form>
+
+{% endblock %}
