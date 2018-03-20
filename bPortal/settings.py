@@ -127,6 +127,9 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 
+# Portal settings
+DEFAULT_ROLE = 'default'
+
 try:
     from custom_settings import *
 except ImportError:

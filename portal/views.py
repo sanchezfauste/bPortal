@@ -74,13 +74,19 @@ def edit_layouts(request):
 
 @login_required
 @permission_required('is_superuser')
-def edit_roles(request):
+def edit_roles_generic(request, context = {}):
     template = loader.get_template('portal/edit_roles.html')
-    context = basepage_processor(request)
+    context.update(basepage_processor(request))
     context.update({
-        'roles' : Role.objects.all()
+        'roles' : Role.objects.all(),
+        'default_role' : get_default_role()
     })
     return HttpResponse(template.render(context, request))
+
+@login_required
+@permission_required('is_superuser')
+def edit_roles(request):
+    return edit_roles_generic(request)
 
 @login_required
 def module_list(request, module):
@@ -397,31 +403,34 @@ def edit_role(request, role):
 @login_required
 @permission_required('is_superuser')
 def delete_role(request):
-    context = basepage_processor(request)
+    context = {}
     if request.method == 'POST':
         try:
             role_name = request.POST['role_name']
             role = Role.objects.get(name=role_name)
+            default_role = get_default_role()
+            if role != default_role:
+                role.delete()
+                context.update({
+                    'success_msg' : True,
+                    'msg' :  _('\'%(role)s\' role has been removed.') % {'role': role_name}
+                })
+            else:
+                context.update({
+                    'error_msg' : True,
+                    'msg' :  _('Default role can not be deleted.')
+                })
         except:
             context.update({
                 'error_msg' : True,
                 'msg' : _('Role \'%(role)s\' does not exist.') % {'role': role_name}
             })
-        role.delete()
-        context.update({
-            'success_msg' : True,
-            'msg' :  _('\'%(role)s\' role has been removed.') % {'role': role_name}
-        })
-    template = loader.get_template('portal/edit_roles.html')
-    context.update({
-        'roles' : Role.objects.all()
-    })
-    return HttpResponse(template.render(context, request))
+    return edit_roles_generic(request, context)
 
 @login_required
 @permission_required('is_superuser')
 def create_role(request):
-    context = basepage_processor(request)
+    context = {}
     if request.method == 'POST':
         try:
             role = request.POST['role_name']
@@ -436,11 +445,7 @@ def create_role(request):
                 'error_msg' : True,
                 'msg' : _('Error creating role.')
             })
-    template = loader.get_template('portal/edit_roles.html')
-    context.update({
-        'roles' : Role.objects.all()
-    })
-    return HttpResponse(template.render(context, request))
+    return edit_roles_generic(request, context)
 
 def crm_entry_point(request):
     if request.GET['option'] and request.GET['task'] and request.GET['sug']:

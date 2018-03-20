@@ -27,8 +27,10 @@ import json
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .models import UserAttr
+from .models import Role, RoleUser
 from suitepy.bean import Bean
 from module_definitions import *
+from django.conf import settings
 
 def remove_colon_of_field_labels(module_fields):
     for field in module_fields:
@@ -36,10 +38,22 @@ def remove_colon_of_field_labels(module_fields):
         if len(label) > 0 and label[-1] == ':':
             module_fields[field]['label'] = label[:-1]
 
+def get_user_role(user):
+    try:
+        return user.roleuser.role
+    except:
+        default_role = get_default_role()
+        if default_role:
+            RoleUser(
+                user = user,
+                role = default_role
+            ).save()
+        return default_role
+
 def get_user_accesible_modules(user):
     try:
         role_permissions = RolePermission.objects.filter(
-            role=user.roleuser.role,
+            role=get_user_role(user),
             grant=True,
             action="read"
         )
@@ -69,7 +83,7 @@ def user_can_delete_module(user, module):
 def _user_can_perform_action_on_module(user, action, module):
     try:
         return RolePermission.objects.filter(
-            role=user.roleuser.role,
+            role=get_user_role(user),
             module=module,
             grant=True,
             action=action
@@ -380,6 +394,15 @@ def get_datetime_option_in_mysql_format(option, field_name, params = []):
                 + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL + 1 YEAR))'
     return None
 
+def get_default_role():
+    default_role = settings.DEFAULT_ROLE
+    try:
+        return Role.objects.get(name=default_role)
+    except:
+        role = Role(name=default_role)
+        role.save()
+        return role
+
 def create_portal_user(contact):
     username = contact['email1']
     password = User.objects.make_random_password()
@@ -403,6 +426,12 @@ def create_portal_user(contact):
         contact_id = contact['id'],
         account_id = contact['account_id']
     ).save()
+    default_role = get_default_role()
+    if default_role:
+        RoleUser(
+            user = user,
+            role = default_role
+        ).save()
     contact2 = Bean('Contacts')
     contact2['id'] = contact['id']
     contact2['joomla_account_id'] = user.id

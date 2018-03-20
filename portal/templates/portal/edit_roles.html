@@ -38,11 +38,13 @@
                         <a href="{% url 'edit_role' role.name %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Edit role" %}</a>
                     </td>
                     <td>
-                        <form method="post" action="{% url 'delete_role' %}">
-                            {% csrf_token %}
-                            <input type="hidden" value="{{ role.name }}" name="role_name">
-                            <button type="submit" class="btn btn-outline-danger btn-sm">{% trans "Delete role" %}</button>
-                        </form>
+                        {% if role != default_role %}
+                            <form method="post" action="{% url 'delete_role' %}">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ role.name }}" name="role_name">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">{% trans "Delete role" %}</button>
+                            </form>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

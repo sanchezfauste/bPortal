@@ -1,3 +1,6 @@
 ALLOWED_HOSTS = ['portal.example.com', '127.0.0.1', 'localhost']
 SECRET_KEY = 'your_random_secret_key'
 DEBUG = False
+
+# Portal settings
+DEFAULT_ROLE = 'default'
