@@ -85,6 +85,27 @@ def edit_roles_generic(request, context = {}):
 
 @login_required
 @permission_required('is_superuser')
+def edit_users(request):
+    template = loader.get_template('portal/edit_users.html')
+    context = basepage_processor(request)
+    context.update({
+        'users' : User.objects.all()
+    })
+    return HttpResponse(template.render(context, request))
+
+@login_required
+@permission_required('is_superuser')
+def edit_user(request, user_id):
+    template = loader.get_template('portal/edit_user.html')
+    context = basepage_processor(request)
+    context.update({
+        'user' : User.objects.get(id=user_id),
+        'roles' : Role.objects.all()
+    })
+    return HttpResponse(template.render(context, request))
+
+@login_required
+@permission_required('is_superuser')
 def edit_roles(request):
     return edit_roles_generic(request)
 

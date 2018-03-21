@@ -36,5 +36,7 @@ urlpatterns = [
     url(r'^roles/create$', views.create_role, name='create_role'),
     url(r'^note_attachment/(?P<id>[\w-]+)/$', views.note_attachment, name='note_attachment'),
     url(r'^add_case_update/$', views.add_case_update, name='add_case_update'),
+    url(r'^users/$', views.edit_users, name='edit_users'),
+    url(r'^user/(?P<user_id>\d+)$', views.edit_user, name='edit_user'),
     url(r'^index.php$', views.crm_entry_point, name='crm_entry_point'),
 ]
