@@ -3,99 +3,101 @@
 {% block title %}{% blocktrans with user=user.username %}{{user}} settings{% endblocktrans %}{% endblock %}
 {% block content %}
 
-<h2>{% blocktrans with user=user.username %}Edit user settings of <b>{{user}}</b>{% endblocktrans %}</h2><br>
+<div class="text-right">
+    <a class="btn btn-primary mb-4" href="{% url 'edit_users' %}">{% trans "Edit users" %}</a>
+</div>
 
 {% if success_msg %}
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-        {{msg}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 {% endif %}
 
 {% if error_msg %}
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{msg}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 {% endif %}
+
+<h2>{% blocktrans with user=user.username %}Edit user settings of <b>{{user}}</b>{% endblocktrans %}</h2><br>
 
 <form id="edit_user_settings" method="post" action="{% url 'edit_user' user.id %}">
     {% csrf_token %}
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">{% trans "Username" %}</label>
-        <div class="col-sm-5">
+        <div class="col mr-4">
             <input type="text" class="form-control" value="{{user.username}}" disabled>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{% trans "First name" %}</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" value="{{user.first_name}}" disabled>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{% trans "Last name" %}</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" value="{{user.last_name}}" disabled>
-        </div>
-    </div>
-    <div class="form-group row">
         <label class="col-sm-2 col-form-label">{% trans "Email" %}</label>
-        <div class="col-sm-5">
+        <div class="col">
             <input type="text" class="form-control" value="{{user.email}}" disabled>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{% trans "Contact id" %}</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" value="{{user.userattr.contact_id}}" disabled>
+        <label class="col-sm-2 col-form-label">{% trans "First name" %}</label>
+        <div class="col mr-4">
+            <input type="text" class="form-control" value="{{user.first_name}}" disabled>
+        </div>
+        <label class="col-sm-2 col-form-label">{% trans "Last name" %}</label>
+        <div class="col">
+            <input type="text" class="form-control" value="{{user.last_name}}" disabled>
         </div>
     </div>
     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{% trans "Contact id" %}</label>
+        <div class="col mr-4">
+            <input type="text" class="form-control" value="{{user.userattr.contact_id}}" disabled>
+        </div>
         <label class="col-sm-2 col-form-label">{% trans "Account id" %}</label>
-        <div class="col-sm-5">
+        <div class="col">
             <input type="text" class="form-control" value="{{user.userattr.account_id}}" disabled>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{% trans "Is active" %}</label>
-        <div class="col-sm-5">
+        <div class="col-sm-2">{% trans "Is active" %}</div>
+        <div class="col mr-4">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" {% if user.is_active %}checked{% endif %} disabled>
             </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{% trans "Is staff" %}</label>
-        <div class="col-sm-5">
+        <div class="col-sm-2">{% trans "Is staff" %}</div>
+        <div class="col">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" {% if user.is_staff %}checked{% endif %} disabled>
             </div>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{% trans "Is superuser" %}</label>
-        <div class="col-sm-5">
+        <div class="col-sm-2">{% trans "Is superuser" %}</div>
+        <div class="col mr-4">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" {% if user.is_superuser %}checked{% endif %} disabled>
             </div>
         </div>
+        <div class="col-sm-2"></div>
+        <div class="col"></div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">{% trans "Role" %}</label>
-        <div class="col-sm-5">
+        <div class="col mr-4">
             <select class="custom-select" name="user_role">
                 {% for role in roles %}
                     <option value="{{role}}" {% if role == user.roleuser.role %} selected {% endif %}>{{role}}</option>
                 {% endfor %}
             </select>
         </div>
+        <div class="col-sm-2"></div>
+        <div class="col"></div>
     </div>
-    <button type="submit" class="btn btn-primary mb-2">{% trans "Save" %}</button>
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary mb-2">{% trans "Save" %}</button>
+    </div>
 </form>
 
 {% endblock %}

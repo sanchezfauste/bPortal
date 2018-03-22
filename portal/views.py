@@ -96,8 +96,24 @@ def edit_users(request):
 @login_required
 @permission_required('is_superuser')
 def edit_user(request, user_id):
-    template = loader.get_template('portal/edit_user.html')
     context = basepage_processor(request)
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(id=user_id)
+            role = Role.objects.get(name=request.POST['user_role'])
+            role_user = RoleUser.objects.get(user=user)
+            role_user.role = role
+            role_user.save()
+            context.update({
+                'success_msg' : True,
+                'msg' : _('User settings updated successfully.')
+            })
+        except:
+            context.update({
+                'error_msg' : True,
+                'msg' : _('Error while saving user settings.')
+            })
+    template = loader.get_template('portal/edit_user.html')
     context.update({
         'user' : User.objects.get(id=user_id),
         'roles' : Role.objects.all()
