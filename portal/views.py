@@ -27,6 +27,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from suitepy.suitecrm import SuiteCRM
+from suitepy.suitecrm_cached import SuiteCRMCached
 from suitepy.bean import Bean
 from .models import Layout
 from .models import Role, RolePermission, RoleUser
@@ -53,7 +54,7 @@ def index(request):
 
 @login_required
 def modules(request):
-    modules = SuiteCRM().get_available_modules()
+    modules = SuiteCRMCached().get_available_modules()
     template = loader.get_template('portal/modules.html')
     context = basepage_processor(request)
     context.update({
@@ -64,7 +65,7 @@ def modules(request):
 @login_required
 @permission_required('is_superuser')
 def edit_layouts(request):
-    modules = SuiteCRM().get_available_modules()
+    modules = SuiteCRMCached().get_available_modules()
     template = loader.get_template('portal/edit_layouts.html')
     context = basepage_processor(request)
     context.update({
@@ -158,7 +159,7 @@ def module_detail(request, module, id):
         try:
             view = Layout.objects.get(module=module, view='detail')
             fields_detail = json.loads(view.fields)
-            module_fields = SuiteCRM().get_module_fields(module)['module_fields']
+            module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
             remove_colon_of_field_labels(module_fields)
             for row in fields_detail:
                 row_fields = []
@@ -365,7 +366,7 @@ def edit_role(request, role):
             role_bean = Role.objects.get(name=role)
         except:
             pass
-        available_modules = SuiteCRM().get_available_modules()
+        available_modules = SuiteCRMCached().get_available_modules()
         module_labels = {}
         for available_module in available_modules['modules']:
             module_labels[available_module['module_key']] = \

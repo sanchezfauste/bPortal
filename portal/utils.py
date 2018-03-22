@@ -21,6 +21,7 @@
 from .models import RolePermission
 from .models import Layout
 from suitepy.suitecrm import SuiteCRM
+from suitepy.suitecrm_cached import SuiteCRMCached
 from collections import OrderedDict
 import urllib
 import json
@@ -208,7 +209,7 @@ def get_filterable_fields(module_fields):
     return filterable_fields
 
 def get_allowed_module_fields(module):
-    available_fields = SuiteCRM().get_module_fields(module)['module_fields']
+    available_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
     allowed_fields = OrderedDict()
     for field_name, field_def in available_fields.items():
         if field_def['type'] not in FIELD_TYPES_DISALLOWED_ON_VIEWS\
@@ -248,7 +249,7 @@ def retrieve_list_view_records(module, arguments, user):
     try:
         view = Layout.objects.get(module=module, view='list')
         fields_list = json.loads(view.fields)
-        module_fields = SuiteCRM().get_module_fields(module, fields_list)['module_fields']
+        module_fields = SuiteCRMCached().get_module_fields(module, fields_list)['module_fields']
         for field in fields_list:
             if field in module_fields:
                 ordered_module_fields[field] = module_fields[field]
