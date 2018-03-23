@@ -1,16 +1,17 @@
 {% extends "portal/basepage.html" %}
 {% load i18n %}
+{% load filters %}
 {% block static_files %}
 {% load staticfiles %}
 <script src="{% static 'portal/session.js' %}"></script>
 <script src="{% static 'portal/save_layouts.js' %}"></script>
 {% endblock %}
 {% block title %}
-    {% blocktrans with module=module_key %}{{module}} detail view{% endblocktrans %}
+    {% blocktrans with module=module_labels|get_label:module_key %}{{module}} detail view{% endblocktrans %}
 {% endblock %}
 {% block content %}
 
-<h2>{% blocktrans with module=module_key %}{{module}} detail view{% endblocktrans %}</h2><br>
+<h2>{% blocktrans with module=module_labels|get_label:module_key %}{{module}} detail view{% endblocktrans %}</h2><br>
 
 <div class="container">
     <div class="row">

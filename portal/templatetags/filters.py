@@ -30,6 +30,13 @@ def get(dict, key):
     except:
         return ''
 
+@register.filter(name='get_label')
+def get_label(dict, key):
+    try:
+        return dict[key]
+    except:
+        return key
+
 @register.filter(name='decode')
 def decode(value):
     return HTMLParser.HTMLParser().unescape(value)

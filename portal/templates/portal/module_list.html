@@ -1,6 +1,7 @@
 {% extends "portal/basepage.html" %}
 {% load i18n %}
-{% block title %}{{ module_key }}{% endblock %}
+{% load filters %}
+{% block title %}{{ module_labels|get_label:module_key }}{% endblock %}
 {% load staticfiles %}
 {% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
 {% block content %}
@@ -8,10 +9,10 @@
 
     {% if unsupported_module %}
         <div class="alert alert-danger" role="alert">
-            {% blocktrans with module=module_key %}Error loading definition of {{module}} module.{% endblocktrans %}
+            {% blocktrans with module=module_labels|get_label:module_key %}Error loading definition of {{module}} module.{% endblocktrans %}
         </div>
     {% else %}
-        <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_key }}</h1>
+        <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_labels|get_label:module_key }}</h1>
         {% if module_fields %}
             {% include "portal/module_list_filter.html" %}
             {% if records.entry_list %}
@@ -200,7 +201,7 @@
             {% endif %}
         {% else %}
             <div class="alert alert-danger" role="alert">
-                {% blocktrans with module=module_key %}Module {{module}} has not defined the list view.{% endblocktrans %}
+                {% blocktrans with module=module_labels|get_label:module_key %}Module {{module}} has not defined the list view.{% endblocktrans %}
             </div>
         {% endif %}
     {% endif %}

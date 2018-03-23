@@ -506,3 +506,13 @@ def contact_is_linked_to_record(user, module, id):
     except:
         pass
     return False
+
+def get_module_labels():
+    module_labels = {}
+    try:
+        available_modules = SuiteCRMCached().get_available_modules()['modules']
+        for module in available_modules:
+            module_labels[module['module_key']] = module['module_label']
+    except:
+        pass
+    return module_labels
