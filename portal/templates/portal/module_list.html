@@ -124,7 +124,7 @@
                                     {% endwith %}
                                 {% endfor %}
                                 <td>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">{% trans "Edit" %}</button>
+                                    <a href="{% url 'module_edit' module_key record.id %}" class="btn btn-outline-primary btn-sm">{% trans "Edit" %}</a>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-outline-danger btn-sm">{% trans "Remove" %}</button>

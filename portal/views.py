@@ -188,6 +188,39 @@ def module_detail(request, module, id):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def module_edit(request, module, id):
+    # TODO: Check that record is linked to contact!
+    context = basepage_processor(request)
+    record = None
+    ordered_module_fields = []
+    if user_can_edit_module(request.user, module):
+        template = loader.get_template('portal/module_edit.html')
+        try:
+            view = Layout.objects.get(module=module, view='edit')
+            fields_detail = json.loads(view.fields)
+            module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
+            remove_colon_of_field_labels(module_fields)
+            for row in fields_detail:
+                row_fields = []
+                for field in row:
+                    if field in module_fields:
+                        row_fields.append(module_fields[field])
+                    elif not field:
+                        row_fields.append(None)
+                ordered_module_fields.append(row_fields)
+            record = SuiteCRM().get_bean(module, id)
+        except:
+            pass
+        context.update({
+            'module_key' : module,
+            'module_fields' : ordered_module_fields,
+            'record' : record
+        })
+    else:
+        template = loader.get_template('portal/insufficient_permissions.html')
+    return HttpResponse(template.render(context, request))
+
+@login_required
 def add_case_update(request):
     if user_can_read_module(request.user, 'Cases') and request.method == 'POST':
         if request.method == 'POST' and 'case-id' in request.POST \

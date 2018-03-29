@@ -1,0 +1,100 @@
+{% extends "portal/basepage.html" %}
+{% load i18n %}
+{% load filters %}
+{% block title %}
+    {% if record %}
+        {{record.name}}
+    {% else %}
+        {{ module_labels|get_label:module_key }}
+    {% endif %}
+{% endblock %}
+{% load staticfiles %}
+{% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
+{% block content %}
+{% load filters %}
+
+    <div class="row">
+        <div class="col">
+            <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_labels|get_label:module_key }}</h1>
+        </div>
+        <div class="col text-right">
+            <a href="{% url 'module_list' module_key %}" class="btn btn-primary">{% trans "List" %}</a>
+        </div>
+    </div>
+
+<br>
+
+    {% if module_fields %}
+
+        {% if record %}
+            <form class="card" action="{% url 'module_edit' module_key record.id %}" method="post">
+                <div class="card-header">
+                    <b>{{record.name}}</b>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+            {% for row in module_fields %}
+                <div class="row">
+                {% for field in row %}
+                    <div class="col">
+                        {% if field %}
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>{{ field.label }}:</b>
+                                </div>
+                                <div class="col">
+                                    {% with value=record|get:field.name %}
+                                        {% if field.type == 'enum' or field.type == 'dynamicenum' %}
+                                            <select name="{{field.name}}" class="form-control mb-2"{% if field.required %} required{% endif %}>
+                                                {% for option, defs in field.options.items %}
+                                                    <option value="{{defs.name}}"{% if option == value %} selected{% endif %}>{{defs.value}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        {% elif field.type == 'bool' %}
+                                            <input class="checkbox"
+                                                id="{{ field }}"
+                                                {% if value == '1' %}
+                                                    checked="checked"
+                                                {% endif %}
+                                                type="checkbox"
+                                            >
+                                        {% elif field.type == 'int' or field.type == 'uint' or field.type == 'ulong' or field.type == 'long' or field.type == 'short' or field.type == 'tinyint' %}
+                                            <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+                                        {% elif field.type == 'double' or field.type == 'float' or field.type == 'decimal' or field.type == 'decimal2' %}
+                                            <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %} step="0.01">
+                                        {% elif field.type == 'currency' %}
+                                        {% elif field.type == 'text' or field.type == 'longtext' or field.type == 'html' or field.type == 'longhtml' %}
+                                        {% elif field.type == 'multienum' %}
+                                        {% elif field.type == 'date' %}
+                                            <input type="date" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+                                        {% elif field.type == 'time' %}
+                                            <input type="time" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+                                        {% elif field.type == 'datetime' or field.type == 'datetimecombo' %}
+                                            <input type="datetime-local" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+                                        {% elif field.type == 'relate' %}
+                                        {% else %}
+                                            <input type="text" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                {% trans "The requested record was not found." %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            {% blocktrans with module=module_labels|get_label:module_key %}Module {{module}} has not defined the edit view.{% endblocktrans %}
+        </div>
+    {% endif %}
+
+{% endblock %}
