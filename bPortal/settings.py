@@ -127,6 +127,13 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 
+# SuiteCRM settings
+# NOTE: You can override this values in custom_settings.py file.
+#       Do not change it here.
+SUITECRM_DATE_FORMAT='%Y-%m-%d'
+SUITECRM_TIME_FORMAT='%H:%M'
+SUITECRM_DATETIME_FORMAT='%Y-%m-%d %H:%M:%S'
+
 # Portal settings
 DEFAULT_ROLE = 'default'
 

@@ -114,6 +114,12 @@
                                                     type="checkbox"
                                                 >
                                             </td>
+                                        {% elif def.type == 'date' %}
+                                            <td id="{{ field }}" colspan="2">{{ value|format_date }}</td>
+                                        {% elif def.type == 'time' %}
+                                            <td id="{{ field }}" colspan="2">{{ value|format_time }}</td>
+                                        {% elif def.type == 'datetime' or def.type == 'datetimecombo' %}
+                                            <td id="{{ field }}" colspan="2">{{ value|format_datetime }}</td>
                                         {% else %}
                                             {% if forloop.first %}
                                                 <td id="{{ field }}" colspan="2"><a href="{% url 'module_detail' module_key record.id %}">{{ value|safe }}</a></td>

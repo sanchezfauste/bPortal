@@ -20,6 +20,9 @@
 
 from django import template
 import HTMLParser
+from datetime import datetime
+from django.conf import settings
+from django.utils.translation import gettext as _
 
 register = template.Library()
 
@@ -40,3 +43,30 @@ def get_label(dict, key):
 @register.filter(name='decode')
 def decode(value):
     return HTMLParser.HTMLParser().unescape(value)
+
+@register.filter(name='format_date')
+def format_date(value):
+    try:
+        # Translators: Format for date fields following python date format.
+        return datetime.strptime(value, settings.SUITECRM_DATE_FORMAT)\
+            .strftime(_('%d/%m/%Y'))
+    except:
+        return value
+
+@register.filter(name='format_time')
+def format_time(value):
+    try:
+        # Translators: Format for time fields following python date format.
+        return datetime.strptime(value, settings.SUITECRM_TIME_FORMAT)\
+            .strftime(_('%H:%M'))
+    except:
+        return value
+
+@register.filter(name='format_datetime')
+def format_datetime(value):
+    try:
+        # Translators: Format for datetime fields following python date format.
+        return datetime.strptime(value, settings.SUITECRM_DATETIME_FORMAT)\
+            .strftime(_('%d/%m/%Y %H:%M'))
+    except:
+        return value

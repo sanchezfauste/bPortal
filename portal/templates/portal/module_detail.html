@@ -55,6 +55,12 @@
                                                 {% endif %}
                                                 type="checkbox"
                                             >
+                                        {% elif field.type == 'date' %}
+                                            {{ value|format_date }}
+                                        {% elif field.type == 'time' %}
+                                            {{ value|format_time }}
+                                        {% elif field.type == 'datetime' or field.type == 'datetimecombo' %}
+                                            {{ value|format_datetime }}
                                         {% else %}
                                             {{ value|decode|safe }}
                                         {% endif %}

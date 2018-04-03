@@ -12,7 +12,7 @@
                     <b>{{update.assigned_user_link.0.first_name}} {{update.assigned_user_link.0.last_name}}</b>
                 </div>
                 <div class="col">
-                    <p class="card-text text-right"><small>{{update.date_entered}}</small></p>
+                    <p class="card-text text-right"><small>{{update.date_entered|format_datetime}}</small></p>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                     <b>{{update.contact.0.first_name}} {{update.contact.0.last_name}}</b>
                 </div>
                 <div class="col">
-                    <p class="card-text text-right"><small>{{update.date_entered}}</small></p>
+                    <p class="card-text text-right"><small>{{update.date_entered|format_datetime}}</small></p>
                 </div>
             </div>
         </div>
