@@ -70,7 +70,7 @@
                                         {% elif field.type == 'time' %}
                                             <input type="time" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
                                         {% elif field.type == 'datetime' or field.type == 'datetimecombo' %}
-                                            <input type="datetime-local" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+                                            <input type="datetime-local" name="{{field.name}}" value="{{ value|iso_datetime }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
                                         {% elif field.type == 'relate' %}
                                         {% else %}
                                             <input type="text" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>

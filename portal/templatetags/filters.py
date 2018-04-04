@@ -70,3 +70,11 @@ def format_datetime(value):
             .strftime(_('%d/%m/%Y %H:%M'))
     except:
         return value
+
+@register.filter(name='iso_datetime')
+def iso_datetime(value):
+    try:
+        return datetime.strptime(value, settings.SUITECRM_DATETIME_FORMAT)\
+            .strftime('%Y-%m-%dT%H:%M')
+    except:
+        return value
