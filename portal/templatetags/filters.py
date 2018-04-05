@@ -78,3 +78,9 @@ def iso_datetime(value):
             .strftime('%Y-%m-%dT%H:%M')
     except:
         return value
+
+@register.filter(name='unencode_multienum')
+def unencode_multienum(value):
+    if len(value) >= 2 and value[0] == '^' and value[-1] == '^':
+        value = value[1:-1]
+    return value.split('^,^')

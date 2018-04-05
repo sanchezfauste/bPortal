@@ -103,6 +103,10 @@
                                     {% with value=record|get:field %}
                                         {% if def.type == 'enum' or def.type == 'dynamicenum' %}
                                             <td id="{{ field }}" colspan="2">{{def.options|get:value|get:"value"}}</td>
+                                        {% elif def.type == 'multienum' %}
+                                            {% with selected_values=value|unencode_multienum %}
+                                                <td id="{{ field }}" colspan="2">{{selected_values|join:", "}}</td>
+                                            {% endwith %}
                                         {% elif def.type == 'bool' %}
                                             <td id="{{ field }}" colspan="2">
                                                 <input class="checkbox"

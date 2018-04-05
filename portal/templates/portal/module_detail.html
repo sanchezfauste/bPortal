@@ -46,6 +46,12 @@
                                     {% with value=record|get:field.name %}
                                         {% if field.type == 'enum' or field.type == 'dynamicenum' %}
                                             {{field.options|get:value|get:"value"}}
+                                        {% elif field.type == 'multienum' %}
+                                            {% with selected_values=value|unencode_multienum %}
+                                                {% for selected_value in selected_values %}
+                                                    <li>{{field.options|get:selected_value|get:"value"}}</li>
+                                                {% endfor %}
+                                            {% endwith %}
                                         {% elif field.type == 'bool' %}
                                             <input class="checkbox"
                                                 id="{{ field }}"

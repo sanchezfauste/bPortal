@@ -516,3 +516,9 @@ def get_module_labels():
     except:
         pass
     return module_labels
+
+def encode_multienum(values):
+    if len(values) > 0:
+        return '^' + '^,^'.join(values) + '^'
+    else:
+        return ''
