@@ -14,7 +14,7 @@
 
             <div class="col-md-6 mb-3">
                 <label>{{ def.label }}</label>
-                {% if def.type == 'enum' or def.type == 'dynamicenum' or def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' %}
+                {% if def.type == 'enum' or def.type == 'dynamicenum' or def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' or def.type == 'radioenum' %}
                     <div class="row">
                         <div class="col">
                             <select class="form-control" name="{{ field }}" id="filter_{{field}}">
@@ -52,32 +52,36 @@
                             >
                         </div>
                         <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('#filter_{{field}}').on('change', function() {
-                                    if (this.value == '='
-                                            || this.value == 'not_equal'
-                                            || this.value == 'greater_than'
-                                            || this.value == 'less_than') {
-                                        $("#filter_{{field}}_1_div").show();
-                                    } else {
-                                        $("#filter_{{field}}_1_div").hide();
-                                    }
-                                    if (this.value == 'between') {
-                                        $("#filter_{{field}}_1_div").show();
-                                        $("#filter_{{field}}_2_div").show();
-                                    } else {
-                                        $("#filter_{{field}}_2_div").hide();
-                                    }
-                                });
-                            });
-                        </script>
+                        $(document).ready(function() {
+    $("#filter_{{field}}").on("change", function() {
+        if (
+            this.value == "=" ||
+            this.value == "not_equal" ||
+            this.value == "greater_than" ||
+            this.value == "less_than"
+        ) {
+            $("#filter_{{field}}_1_div").show();
+        } else {
+            $("#filter_{{field}}_1_div").hide();
+        }
+        if (this.value == "between") {
+            $("#filter_{{field}}_1_div").show();
+            $("#filter_{{field}}_2_div").show();
+        } else {
+            $("#filter_{{field}}_2_div").hide();
+        }
+    });
+});
+</script>
                     {% endif %}
                     {% if field in current_filters %}
                         <script type="text/javascript">
-                            $(document).ready(function() {
-                                $("#filter_{{field}}").val("{{ current_filters|get:field }}").change();
-                            });
-                        </script>
+                        $(document).ready(function() {
+    $("#filter_{{field}}")
+        .val("{{ current_filters|get:field }}")
+        .change();
+});
+</script>
                     {% endif %}
                     </div>
                 {% elif def.type == 'bool' %}
@@ -88,8 +92,10 @@
                     </select>
                     {% if field in current_filters %}
                         <script type="text/javascript">
-                            $("#filter_{{field}}").val("{{ current_filters|get:field }}").change();
-                        </script>
+                        $("#filter_{{field}}")
+    .val("{{ current_filters|get:field }}")
+    .change();
+</script>
                     {% endif %}
                 {% else %}
                     <input type="text"

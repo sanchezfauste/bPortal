@@ -52,6 +52,8 @@
                                                     <li>{{field.options|get:selected_value|get:"value"}}</li>
                                                 {% endfor %}
                                             {% endwith %}
+                                        {% elif field.type == 'radioenum' %}
+                                            {{field.options|get:value|get:"value"}}
                                         {% elif field.type == 'bool' %}
                                             <input class="checkbox"
                                                 id="{{ field }}"

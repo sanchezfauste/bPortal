@@ -118,6 +118,8 @@
                                                     type="checkbox"
                                                 >
                                             </td>
+                                        {% elif def.type == 'radioenum' %}
+                                            <td id="{{ field }}" colspan="2">{{def.options|get:value|get:"value"}}</td>
                                         {% elif def.type == 'date' %}
                                             <td id="{{ field }}" colspan="2">{{ value|format_date }}</td>
                                         {% elif def.type == 'time' %}
