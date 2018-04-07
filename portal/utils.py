@@ -291,6 +291,14 @@ def retrieve_list_view_records(module, arguments, user):
                 if filter_query:
                     filter_query += " AND "
                 filter_query += module_def.custom_where
+            reverse_order = False
+            if order_by in fields_list and module_fields[order_by]['sortable']:
+                if order and order == 'desc':
+                    reverse_order = True
+                else:
+                    order = None
+            else:
+                order_by = None
             records = SuiteCRM().get_relationships(
                 'Contacts',
                 contact_id,
@@ -298,8 +306,9 @@ def retrieve_list_view_records(module, arguments, user):
                 related_fields = ['id'] + fields_list,
                 limit = limit,
                 offset = offset,
-                order_by = order_by_string,
-                related_module_query = filter_query
+                order_by = order_by,
+                related_module_query = filter_query,
+                reverse_order = reverse_order
             )
         elif module_def.contacts_link_type == LinkType.PARENT:
             filter_query = get_filter_query(module, filterable_fields, arguments)
