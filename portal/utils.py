@@ -265,8 +265,8 @@ def retrieve_list_view_records(module, arguments, user):
             order_by_string += ' ' + order
         else:
             order = None
+        filter_query = get_filter_query(module, filterable_fields, arguments)
         if module_def.contacts_link_type == LinkType.RELATED:
-            filter_query = get_filter_query(module, filterable_fields, arguments)
             if filter_query:
                 filter_query += " AND "
             filter_query += get_filter_related(
@@ -286,7 +286,6 @@ def retrieve_list_view_records(module, arguments, user):
                 query = filter_query
             )
         elif module_def.contacts_link_type == LinkType.RELATIONSHIP:
-            filter_query = get_filter_query(module, filterable_fields, arguments)
             if module_def.custom_where:
                 if filter_query:
                     filter_query += " AND "
@@ -311,7 +310,6 @@ def retrieve_list_view_records(module, arguments, user):
                 reverse_order = reverse_order
             )
         elif module_def.contacts_link_type == LinkType.PARENT:
-            filter_query = get_filter_query(module, filterable_fields, arguments)
             if filter_query:
                 filter_query += " AND "
             filter_query += get_filter_parent(
@@ -331,7 +329,6 @@ def retrieve_list_view_records(module, arguments, user):
                 query = filter_query
             )
         elif module_def.contacts_link_type == LinkType.NONE:
-            filter_query = get_filter_query(module, filterable_fields, arguments)
             if module_def.custom_where:
                 if filter_query:
                     filter_query += " AND "
