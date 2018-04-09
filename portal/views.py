@@ -150,6 +150,24 @@ def module_list(request, module):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def contact_records(request, module):
+    try:
+        contact_id = request.user.userattr.contact_id
+    except:
+        return JsonResponse({
+            "status" : "Error",
+            "error" : _("Error getting contact id.")
+        }, status = 400)
+    records = get_related_contact_records(module, contact_id)
+    records_json = {
+        'records' : []
+    }
+    if 'entry_list' in records:
+        for record in records['entry_list']:
+            records_json['records'].append(record.json)
+    return JsonResponse(records_json)
+
+@login_required
 def module_detail(request, module, id):
     context = basepage_processor(request)
     record = None

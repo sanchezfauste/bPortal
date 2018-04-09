@@ -353,6 +353,71 @@ def retrieve_list_view_records(module, arguments, user):
         'order' : order
     }
 
+# Function used to populate dropdowns
+def get_related_contact_records(module, contact_id):
+    records = None
+    try:
+        module_def = ModuleDefinitionFactory.get_module_definition(module)
+        fields_list = ['id', 'name']
+        order_by = 'name'
+        if module_def.contacts_link_type == LinkType.RELATED:
+            filter_query = get_filter_related(
+                module,
+                module_def.contacts_link_name,
+                contact_id
+            )
+            if module_def.custom_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_where
+            records = SuiteCRM().get_bean_list(
+                module,
+                order_by = order_by,
+                select_fields = fields_list,
+                query = filter_query
+            )
+        elif module_def.contacts_link_type == LinkType.RELATIONSHIP:
+            filter_query = ''
+            if module_def.custom_where:
+                filter_query = module_def.custom_where
+            records = SuiteCRM().get_relationships(
+                'Contacts',
+                contact_id,
+                module_def.contacts_link_name,
+                related_fields = fields_list,
+                order_by = order_by,
+                related_module_query = filter_query
+            )
+        elif module_def.contacts_link_type == LinkType.PARENT:
+            filter_query = get_filter_parent(
+                module,
+                'Contacts',
+                contact_id
+            )
+            if module_def.custom_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_where
+            records = SuiteCRM().get_bean_list(
+                module,
+                order_by = order_by,
+                query = filter_query,
+                select_fields = fields_list
+            )
+        elif module_def.contacts_link_type == LinkType.NONE:
+            filter_query = ''
+            if module_def.custom_where:
+                filter_query = module_def.custom_where
+            records = SuiteCRM().get_bean_list(
+                module,
+                order_by = order_by,
+                query = filter_query,
+                select_fields = fields_list
+            )
+    except:
+        return None
+    return records
+
 def get_datetime_option_in_mysql_format(option, field_name, params = []):
     if option == '=' and params[0]:
         return 'DATE(' + field_name + ') = DATE(\'' + params[0] + '\')'
