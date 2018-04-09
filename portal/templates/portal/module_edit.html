@@ -63,7 +63,9 @@
                                         {% elif field.type == 'double' or field.type == 'float' or field.type == 'decimal' or field.type == 'decimal2' %}
                                             <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %} step="0.01">
                                         {% elif field.type == 'currency' %}
+                                            <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %} step="0.01">
                                         {% elif field.type == 'text' or field.type == 'longtext' or field.type == 'html' or field.type == 'longhtml' %}
+                                            <textarea class="form-control" name="{{field.name}}" rows="3" {% if field.required %} required{% endif %}>{{ value }}</textarea>
                                         {% elif field.type == 'multienum' %}
                                             <select name="{{field.name}}" class="form-control mb-2"{% if field.required %} required{% endif %} multiple>
                                                 {% with selected_values=value|unencode_multienum %}
