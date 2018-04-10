@@ -162,7 +162,7 @@ def contact_records(request, module):
     records_json = {
         'records' : []
     }
-    if 'entry_list' in records:
+    if records and 'entry_list' in records:
         for record in records['entry_list']:
             records_json['records'].append(record.json)
     return JsonResponse(records_json)
