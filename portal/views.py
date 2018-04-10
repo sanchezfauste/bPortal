@@ -207,11 +207,10 @@ def module_detail(request, module, id):
 
 @login_required
 def module_edit(request, module, id):
-    # TODO: Check that record is linked to contact!
     context = basepage_processor(request)
     record = None
     ordered_module_fields = []
-    if user_can_edit_module(request.user, module):
+    if user_can_edit_module(request.user, module) and contact_is_linked_to_record(request.user, module, id):
         template = loader.get_template('portal/module_edit.html')
         try:
             view = Layout.objects.get(module=module, view='edit')
