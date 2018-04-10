@@ -10,6 +10,7 @@
 {% endblock %}
 {% load staticfiles %}
 {% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
+<script src="{% static 'portal/session.js' %}"></script>
 {% block content %}
 {% load filters %}
 
@@ -81,6 +82,24 @@
                                         {% elif field.type == 'datetime' or field.type == 'datetimecombo' %}
                                             <input type="datetime-local" name="{{field.name}}" value="{{ value|iso_datetime }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
                                         {% elif field.type == 'relate' %}
+                                            <select name="{{field.id_name}}" id="{{field.id_name}}" class="form-control mb-2"{% if field.required %} required{% endif %}>
+                                                <option value=""></option>
+                                                <option value="{{record|get:field.id_name}}" selected>{{ value }}</option>
+                                            </select>
+                                            <script type="text/javascript">
+                                                $.ajax({
+                                                    url: "{% url 'contact_records' field.related_module %}",
+                                                    type: "GET"
+                                                }).done(function(response) {
+                                                    response.records.forEach(option => {
+                                                        if ('{{record|get:field.id_name}}' != option.id) {
+                                                            $("#{{field.id_name}}").append("<option value='" + option.id + "'>" + option.name + "</option>");
+                                                        }
+                                                    });
+                                                }).fail(function(response) {
+                                                    console.log('Error retrieving "{{field.id_name}}" options.');
+                                                });
+                                            </script>
                                         {% elif field.type == 'radioenum' %}
                                             {% for option, defs in field.options.items %}
                                                 <div class="form-check">
@@ -90,6 +109,48 @@
                                                     </label>
                                                 </div>
                                             {% endfor %}
+                                        {% elif field.type == 'parent_type' %}
+                                            <div class="row"><div class="col">
+                                                <select name="{{field.name}}" class="form-control mb-2"{% if field.required %} required{% endif %} onchange="change_parent_id_options(this.value)">
+                                                    {% for option, defs in field.options.items %}
+                                                        <option value="{{defs.name}}"{% if option == value %} selected{% endif %}>{{defs.value}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div><div class="col">
+                                                <select name="{{field.id_name}}" id="parent_id" class="form-control mb-2"{% if field.required %} required{% endif %}>
+                                                    <option value=""></option>
+                                                    <option value="{{record.parent_id}}" selected>{{record.parent_name}}</option>
+                                                </select>
+                                                <script type="text/javascript">
+                                                    $.ajax({
+                                                        url: "{% url 'contact_records' value %}",
+                                                        type: "GET"
+                                                    }).done(function(response) {
+                                                        response.records.forEach(option => {
+                                                            if ('{{record.parent_id}}' != option.id) {
+                                                                $("#parent_id").append("<option value='" + option.id + "'>" + option.name + "</option>");
+                                                            }
+                                                        });
+                                                    }).fail(function(response) {
+                                                        console.log('Error retrieving "parent_id" options.');
+                                                    });
+                                                    function change_parent_id_options(module) {
+                                                        $.ajax({
+                                                            url: '/contact_records/' + module,
+                                                            type: "GET"
+                                                        }).done(function(response) {
+                                                            var parent_id = $("#parent_id");
+                                                            parent_id.empty();
+                                                            parent_id.append('<option value=""></option>');
+                                                            response.records.forEach(option => {
+                                                                parent_id.append("<option value='" + option.id + "'>" + option.name + "</option>");
+                                                            });
+                                                        }).fail(function(response) {
+                                                            console.log('Error retrieving "parent_id" options.');
+                                                        });
+                                                    }
+                                                </script>
+                                            </div></div>
                                         {% else %}
                                             <input type="text" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
                                         {% endif %}
