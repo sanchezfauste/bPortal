@@ -214,10 +214,10 @@ def module_edit(request, module, id):
         template = loader.get_template('portal/module_edit.html')
         try:
             view = Layout.objects.get(module=module, view='edit')
-            fields_detail = json.loads(view.fields)
+            fields_edit = json.loads(view.fields)
             module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
             remove_colon_of_field_labels(module_fields)
-            for row in fields_detail:
+            for row in fields_edit:
                 row_fields = []
                 for field in row:
                     if field in module_fields:
@@ -225,6 +225,33 @@ def module_edit(request, module, id):
                     elif not field:
                         row_fields.append(None)
                 ordered_module_fields.append(row_fields)
+            if request.method == 'POST':
+                bean = Bean(module)
+                bean['id'] = id
+                for row in fields_edit:
+                    for field in row:
+                        if field in module_fields:
+                            if field in request.POST:
+                                value = request.POST[field]
+                                field_def = module_fields[field]
+                                field_type = field_def['type']
+                                if field_type == 'multienum':
+                                    bean[field] = encode_multienum(
+                                        request.POST.getlist(field)
+                                    )
+                                elif field_type == 'datetime' or field_type == 'datetimecombo':
+                                    bean[field] = iso_to_datetime(value)
+                                elif field_type == 'relate':
+                                    relate_id_field = field_def['id_name']
+                                    if relate_id_field in request.POST:
+                                        bean[relate_id_field] = request.POST[relate_id_field]
+                                elif field_type == 'parent_type':
+                                    if 'parent_id' in request.POST:
+                                        bean[field] = value
+                                        bean['parent_id'] = request.POST['parent_id']
+                                else:
+                                    bean[field] = value
+                SuiteCRM().save_bean(bean)
             record = SuiteCRM().get_bean(module, id)
         except:
             pass

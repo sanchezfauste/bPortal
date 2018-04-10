@@ -29,6 +29,7 @@
 
         {% if record %}
             <form class="card" action="{% url 'module_edit' module_key record.id %}" method="post">
+                {% csrf_token %}
                 <div class="card-header">
                     <b>{{record.name}}</b>
                 </div>
@@ -82,6 +83,7 @@
                                         {% elif field.type == 'datetime' or field.type == 'datetimecombo' %}
                                             <input type="datetime-local" name="{{field.name}}" value="{{ value|iso_datetime }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
                                         {% elif field.type == 'relate' %}
+                                            <input type="hidden" name="{{field.name}}">
                                             <select name="{{field.id_name}}" id="{{field.id_name}}" class="form-control mb-2"{% if field.required %} required{% endif %}>
                                                 <option value=""></option>
                                                 <option value="{{record|get:field.id_name}}" selected>{{ value }}</option>
@@ -117,7 +119,7 @@
                                                     {% endfor %}
                                                 </select>
                                             </div><div class="col">
-                                                <select name="{{field.id_name}}" id="parent_id" class="form-control mb-2"{% if field.required %} required{% endif %}>
+                                                <select name="parent_id" id="parent_id" class="form-control mb-2"{% if field.required %} required{% endif %}>
                                                     <option value=""></option>
                                                     <option value="{{record.parent_id}}" selected>{{record.parent_name}}</option>
                                                 </select>
@@ -162,9 +164,10 @@
                 {% endfor %}
                 </div>
             {% endfor %}
+                        <button type="submit" class="btn btn-primary mt-2 float-right">{% trans "Save" %}</button>
                     </div>
                 </div>
-            </div>
+            </form>
         {% else %}
             <div class="alert alert-danger" role="alert">
                 {% trans "The requested record was not found." %}

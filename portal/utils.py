@@ -32,6 +32,7 @@ from .models import Role, RoleUser
 from suitepy.bean import Bean
 from module_definitions import *
 from django.conf import settings
+from datetime import datetime
 
 def remove_colon_of_field_labels(module_fields):
     for field in module_fields:
@@ -593,3 +594,10 @@ def encode_multienum(values):
         return '^' + '^,^'.join(values) + '^'
     else:
         return ''
+
+def iso_to_datetime(value):
+    try:
+        return datetime.strptime(value, '%Y-%m-%dT%H:%M')\
+            .strftime(settings.SUITECRM_DATETIME_FORMAT)
+    except:
+        return value
