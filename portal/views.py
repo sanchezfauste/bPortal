@@ -172,7 +172,7 @@ def module_detail(request, module, id):
     context = basepage_processor(request)
     record = None
     ordered_module_fields = []
-    if user_can_read_module(request.user, module):
+    if user_can_read_module(request.user, module) and contact_is_linked_to_record(request.user, module, id):
         template = loader.get_template('portal/module_detail.html')
         try:
             view = Layout.objects.get(module=module, view='detail')
