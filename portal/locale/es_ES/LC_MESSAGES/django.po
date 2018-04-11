@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 20:10+0200\n"
+"POT-Creation-Date: 2018-04-11 17:25+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -64,42 +64,60 @@ msgstr "Conectado como <b>%(username)s</b>"
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: templates/portal/edit_detail_layout.html:10
-#: templates/portal/edit_detail_layout.html:14
+#: templates/portal/edit_layout.html:11 templates/portal/edit_layout.html:21
 #, python-format
 msgid "%(module)s detail view"
 msgstr "Vista detallada de %(module)s"
 
-#: templates/portal/edit_detail_layout.html:21
+#: templates/portal/edit_layout.html:13 templates/portal/edit_layout.html:23
+#, python-format
+msgid "%(module)s edit view"
+msgstr "Vista edición de %(module)s"
+
+#: templates/portal/edit_layout.html:15 templates/portal/edit_layout.html:25
+#, python-format
+msgid "%(module)s create view"
+msgstr "Vista creación de %(module)s"
+
+#: templates/portal/edit_layout.html:33
 #: templates/portal/edit_list_layout.html:19
 msgid "Available fields"
 msgstr "Campos disponibles"
 
-#: templates/portal/edit_detail_layout.html:34
+#: templates/portal/edit_layout.html:46
 #: templates/portal/edit_list_layout.html:32
 msgid "Drag a field here to not show it"
 msgstr "Arrastrar un campo aquí para no mostrarlo"
 
-#: templates/portal/edit_detail_layout.html:41
+#: templates/portal/edit_layout.html:53
 #: templates/portal/edit_list_layout.html:39
 msgid "Fields"
 msgstr "Campos"
 
-#: templates/portal/edit_detail_layout.html:42
+#: templates/portal/edit_layout.html:54
 msgid "Add row (1 col)"
 msgstr "Añadir fila (1 columna)"
 
-#: templates/portal/edit_detail_layout.html:43
+#: templates/portal/edit_layout.html:55
 msgid "Add row (2 col)"
 msgstr "Añadir fila (2 columnas)"
 
-#: templates/portal/edit_detail_layout.html:69
+#: templates/portal/edit_layout.html:83
 msgid "Fields that will be shown in detail view."
 msgstr "Campos que se mostraran en la vista detallada."
 
-#: templates/portal/edit_detail_layout.html:70
+#: templates/portal/edit_layout.html:85
+msgid "Fields that will be shown in edit view."
+msgstr "Campos que se mostraran en la vista edición."
+
+#: templates/portal/edit_layout.html:87
+msgid "Fields that will be shown in create view."
+msgstr "Campos que se mostraran en la vista creación."
+
+#: templates/portal/edit_layout.html:90
 #: templates/portal/edit_list_layout.html:53 templates/portal/edit_role.html:16
 #: templates/portal/edit_role.html:39 templates/portal/edit_user.html:99
+#: templates/portal/module_edit.html:167
 msgid "Save"
 msgstr "Guardar"
 
@@ -270,11 +288,11 @@ msgstr ""
 "No tiene permisos suficientes para realizar esta acción o está intentando "
 "acceder a un módulo inexistente."
 
-#: templates/portal/module_detail.html:21 templates/portal/module_edit.html:21
+#: templates/portal/module_detail.html:21 templates/portal/module_edit.html:22
 msgid "List"
 msgstr "Lista"
 
-#: templates/portal/module_detail.html:91 templates/portal/module_edit.html:117
+#: templates/portal/module_detail.html:91 templates/portal/module_edit.html:173
 msgid "The requested record was not found."
 msgstr "No se ha encontrado el registro solicitado."
 
@@ -309,7 +327,7 @@ msgstr "Añadir actualización"
 msgid "Ok"
 msgstr "Aceptar"
 
-#: templates/portal/module_edit.html:122
+#: templates/portal/module_edit.html:178
 #, python-format
 msgid "Module %(module)s has not defined the edit view."
 msgstr "El módulo %(module)s no tiene definida la vista edición."
@@ -371,81 +389,81 @@ msgstr "Se ha producido un error al actualizar las preferencias del usuario."
 msgid "Error getting contact id."
 msgstr "Error al recuperar el id del contacto."
 
-#: views.py:251
+#: views.py:277
 msgid "Empty case updates are not allowed."
 msgstr "No se permiten las actualizaciones de casos vacías."
 
-#: views.py:278
+#: views.py:304
 msgid "An error occurred while uploading the attachment(s)."
 msgstr "Se produjo un error al cargar los archivos adjuntos."
 
-#: views.py:283
+#: views.py:309
 msgid "An error occurred while creating the case update."
 msgstr "Se produjo un error al crear la actualización del caso."
 
-#: views.py:287
+#: views.py:313
 msgid "The case update has been added successfully."
 msgstr "Se ha actualizado el caso correctamente."
 
-#: views.py:299
+#: views.py:325
 msgid "An error occurred while updating the case."
 msgstr "Se ha producido un error al actualizar el caso."
 
-#: views.py:303
+#: views.py:329
 msgid "Invalid request."
 msgstr "Solicitud no válida."
 
-#: views.py:318
+#: views.py:344
 msgid "The requested file was not found."
 msgstr "No se ha encontrado el fichero solicitado."
 
-#: views.py:330 views.py:373
+#: views.py:356 views.py:412
 msgid "Please specify 'selected_fields'."
 msgstr "Por favor, especifique el campo 'selected_fields'."
 
-#: views.py:341 views.py:384
+#: views.py:367 views.py:423
 msgid "Layout updated successfully"
 msgstr "Vista actualizada correctamente"
 
-#: views.py:468
+#: views.py:508
 msgid "Please specify 'permissions'."
 msgstr "Por favor, especifique el campo 'permissions'."
 
-#: views.py:475 views.py:515
+#: views.py:515 views.py:555
 #, python-format
 msgid "Role '%(role)s' does not exist."
 msgstr "El rol '%(role)s' no existe."
 
-#: views.py:489
+#: views.py:529
 msgid "Role permissions have been updated."
 msgstr "Se han actualizado los permisos del rol."
 
-#: views.py:505
+#: views.py:545
 #, python-format
 msgid "'%(role)s' role has been removed."
 msgstr "Se ha eliminado el rol '%(role)s'."
 
-#: views.py:510
+#: views.py:550
 msgid "Default role can not be deleted."
 msgstr "No se puede eliminar el rol por defecto."
 
-#: views.py:530
+#: views.py:570
 #, python-format
 msgid "'%(role)s' role has been created."
 msgstr "Se ha creado el rol '%(role)s'."
 
-#: views.py:535
+#: views.py:575
 msgid "Error creating role."
 msgstr "Error al crear el rol."
 
-#: views.py:551
+#: views.py:591
 msgid "Error retrieving contact"
 msgstr "Error al recuperar el contacto"
 
-#: views.py:556
+#: views.py:596
 msgid "Contact has no valid email"
 msgstr "El contacto no tiene un correo electrónico válido"
 
-#: views.py:567
+#: views.py:607
 msgid "Invalid request"
 msgstr "Solicitud no válida"

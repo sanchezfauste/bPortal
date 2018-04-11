@@ -7,11 +7,23 @@
 <script src="{% static 'portal/save_layouts.js' %}"></script>
 {% endblock %}
 {% block title %}
-    {% blocktrans with module=module_labels|get_label:module_key %}{{module}} detail view{% endblocktrans %}
+    {% if layout == 'detail' %}
+        {% blocktrans with module=module_labels|get_label:module_key %}{{module}} detail view{% endblocktrans %}
+    {% elif layout == 'edit' %}
+        {% blocktrans with module=module_labels|get_label:module_key %}{{module}} edit view{% endblocktrans %}
+    {% elif layout == 'create' %}
+        {% blocktrans with module=module_labels|get_label:module_key %}{{module}} create view{% endblocktrans %}
+    {% endif %}
 {% endblock %}
 {% block content %}
 
-<h2>{% blocktrans with module=module_labels|get_label:module_key %}{{module}} detail view{% endblocktrans %}</h2><br>
+<h2>{% if layout == 'detail' %}
+    {% blocktrans with module=module_labels|get_label:module_key %}{{module}} detail view{% endblocktrans %}
+{% elif layout == 'edit' %}
+    {% blocktrans with module=module_labels|get_label:module_key %}{{module}} edit view{% endblocktrans %}
+{% elif layout == 'create' %}
+    {% blocktrans with module=module_labels|get_label:module_key %}{{module}} create view{% endblocktrans %}
+{% endif %}</h2><br>
 
 <div class="container">
     <div class="row">
@@ -39,8 +51,8 @@
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">{% trans "Fields" %}</h4>
-                    <a href="#" class="btn btn-primary" onclick="add_detail_row();">{% trans "Add row (1 col)" %}</a>
-                    <a href="#" class="btn btn-primary" onclick="add_detail_row2();">{% trans "Add row (2 col)" %}</a>
+                    <a href="#" class="btn btn-primary" onclick="add_layout_row();">{% trans "Add row (1 col)" %}</a>
+                    <a href="#" class="btn btn-primary" onclick="add_layout_row2();">{% trans "Add row (2 col)" %}</a>
                     <p class="card-text">
                         <div id="selected-fields">
                             <div class="list-group list-group-flush" id="selected_fields_list_group">
@@ -57,7 +69,7 @@
                                             </div>
                                         {% endfor %}
                                         <div class="col col-2 text-center align-self-center">
-                                            <a class="btn btn-danger" href="#" role="button" onclick="remove_detail_row($(this));">
+                                            <a class="btn btn-danger" href="#" role="button" onclick="remove_layout_row($(this));">
                                                 <span class="oi oi-x"></span>
                                             </a>
                                         </div>
@@ -66,8 +78,16 @@
                             </div>
                         </div>
                     </p>
-                    <p class="card-text"><small class="text-muted">{% trans "Fields that will be shown in detail view." %}</small></p>
-                    <a href="#" class="btn btn-primary" onclick="save_detail_layout();">{% trans "Save" %}</a>
+                    <p class="card-text"><small class="text-muted">
+                        {% if layout == 'detail' %}
+                            {% trans "Fields that will be shown in detail view." %}
+                        {% elif layout == 'edit' %}
+                            {% trans "Fields that will be shown in edit view." %}
+                        {% elif layout == 'create' %}
+                            {% trans "Fields that will be shown in create view." %}
+                        {% endif %}
+                    </small></p>
+                    <a href="#" class="btn btn-primary" onclick="save_layout_layout();">{% trans "Save" %}</a>
                 </div>
             </div>
         </div>

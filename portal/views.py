@@ -389,6 +389,19 @@ def edit_list_layout(request, module):
 @login_required
 @permission_required('is_superuser')
 def edit_detail_layout(request, module):
+    return edit_layout(request, module, 'detail')
+
+@login_required
+@permission_required('is_superuser')
+def edit_edit_layout(request, module):
+    return edit_layout(request, module, 'edit')
+
+@login_required
+@permission_required('is_superuser')
+def edit_create_layout(request, module):
+    return edit_layout(request, module, 'create')
+
+def edit_layout(request, module, layout):
     if request.method == 'POST':
         post_data = json.loads(request.body.decode("utf-8"))
         try:
@@ -400,9 +413,9 @@ def edit_detail_layout(request, module):
             }, status = 400)
         view = None
         try:
-            view = Layout.objects.get(module=module, view='detail')
+            view = Layout.objects.get(module=module, view=layout)
         except:
-            view = Layout(module=module, view='detail')
+            view = Layout(module=module, view=layout)
         view.fields = json.dumps(selected_fields)
         view.save()
         return JsonResponse({
@@ -412,9 +425,9 @@ def edit_detail_layout(request, module):
     elif request.method == 'GET':
         available_fields = get_allowed_module_fields(module)
         module_fields = list()
-        template = loader.get_template('portal/edit_detail_layout.html')
+        template = loader.get_template('portal/edit_layout.html')
         try:
-            view = Layout.objects.get(module=module, view='detail')
+            view = Layout.objects.get(module=module, view=layout)
             for row in json.loads(view.fields):
                 module_fields_row = []
                 for field in row:
@@ -430,7 +443,8 @@ def edit_detail_layout(request, module):
         context.update({
             'module_key' : module,
             'module_fields' : module_fields,
-            'available_fields' : available_fields
+            'available_fields' : available_fields,
+            'layout' : layout
         })
         return HttpResponse(template.render(context, request))
 

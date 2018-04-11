@@ -25,10 +25,10 @@
                         <a href="{% url 'edit_detail_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Detail view" %}</a>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm">{% trans "Create view" %}</button>
+                        <a href="{% url 'edit_create_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Create view" %}</a>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm">{% trans "Edit view" %}</button>
+                        <a href="{% url 'edit_edit_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Edit view" %}</a>
                     </td>
                 </tr>
             {% endfor %}
