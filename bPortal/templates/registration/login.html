@@ -6,6 +6,7 @@
 {% if next %}
     {% if user.is_authenticated %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span class="oi oi-warning"></span>
             {% trans "Your account doesn't have access to this page. To proceed, please login with an account that has access." %}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -13,6 +14,7 @@
         </div>
     {% else %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span class="oi oi-warning"></span>
             {% trans "Please login to see this page." %}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
