@@ -35,14 +35,14 @@
                 <tr>
                     <td>{{ role.name }}</td>
                     <td>
-                        <a href="{% url 'edit_role' role.name %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Edit role" %}</a>
+                        <a href="{% url 'edit_role' role.name %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-pencil"></span> {% trans "Edit role" %}</a>
                     </td>
                     <td>
                         {% if role != default_role %}
                             <form method="post" action="{% url 'delete_role' %}">
                                 {% csrf_token %}
                                 <input type="hidden" value="{{ role.name }}" name="role_name">
-                                <button type="submit" class="btn btn-outline-danger btn-sm">{% trans "Delete role" %}</button>
+                                <button type="submit" class="btn btn-outline-danger btn-sm"><span class="oi oi-trash"></span> {% trans "Delete role" %}</button>
                             </form>
                         {% endif %}
                     </td>
@@ -64,7 +64,7 @@
                 {% trans "Only alphanumeric characters or underscores can be used." %}
             </small>
         </div>
-        <button type="submit" class="btn btn-primary mb-2">{% trans "Create role" %}</button>
+        <button type="submit" class="btn btn-primary mb-2"><span class="oi oi-plus"></span> {% trans "Create role" %}</button>
     </form>
 
 {% endblock %}

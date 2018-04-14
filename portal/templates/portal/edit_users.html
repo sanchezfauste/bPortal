@@ -16,7 +16,7 @@
                 <tr>
                     <td>{{ user.username }}</td>
                     <td>
-                        <a href="{% url 'edit_user' user.id %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Edit user" %}</a>
+                        <a href="{% url 'edit_user' user.id %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-pencil"></span> {% trans "Edit user" %}</a>
                     </td>
                 </tr>
             {% endfor %}

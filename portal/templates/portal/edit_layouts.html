@@ -19,16 +19,16 @@
                 <tr>
                     <td>{{ module.module_label }}</td>
                     <td>
-                        <a href="{% url 'edit_list_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "List view" %}</a>
+                        <a href="{% url 'edit_list_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-list"></span> {% trans "List view" %}</a>
                     </td>
                     <td>
-                        <a href="{% url 'edit_detail_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Detail view" %}</a>
+                        <a href="{% url 'edit_detail_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-eye"></span> {% trans "Detail view" %}</a>
                     </td>
                     <td>
-                        <a href="{% url 'edit_create_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Create view" %}</a>
+                        <a href="{% url 'edit_create_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-document"></span> {% trans "Create view" %}</a>
                     </td>
                     <td>
-                        <a href="{% url 'edit_edit_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm">{% trans "Edit view" %}</a>
+                        <a href="{% url 'edit_edit_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-pencil"></span> {% trans "Edit view" %}</a>
                     </td>
                 </tr>
             {% endfor %}

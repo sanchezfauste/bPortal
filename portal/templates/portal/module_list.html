@@ -136,10 +136,10 @@
                                     {% endwith %}
                                 {% endfor %}
                                 <td>
-                                    <a href="{% url 'module_edit' module_key record.id %}" class="btn btn-outline-primary btn-sm">{% trans "Edit" %}</a>
+                                    <a href="{% url 'module_edit' module_key record.id %}" class="btn btn-outline-primary btn-sm"><span class="oi oi-pencil"></span> {% trans "Edit" %}</a>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-danger btn-sm">{% trans "Remove" %}</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm"><span class="oi oi-trash"></span> {% trans "Remove" %}</button>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -162,11 +162,11 @@
                                 value="{{ records.previous_offset }}"
                                 name="offset"
                             >
-                            <button class="page-link" type="submit">{% trans "Previous" %}</button>
+                            <button class="page-link" type="submit"><span class="oi oi-arrow-left"></span> {% trans "Previous" %}</button>
                         </form>
                       {% else %}
                         <li class="page-item disabled">
-                          <a class="page-link" href="#" tabindex="-1">{% trans "Previous" %}</a>
+                          <a class="page-link" href="#" tabindex="-1"><span class="oi oi-arrow-left"></span> {% trans "Previous" %}</a>
                         </li>
                       {% endif %}
                       {% if records.next_offset != None %}
@@ -184,11 +184,11 @@
                                   value="{{ records.next_offset }}"
                                   name="offset"
                               >
-                              <button class="page-link" type="submit">{% trans "Next" %}</button>
+                              <button class="page-link" type="submit">{% trans "Next" %} <span class="oi oi-arrow-right"></span></button>
                           </form>
                       {% else %}
                         <li class="page-item disabled">
-                          <a class="page-link" href="#" tabindex="-1">{% trans "Next" %}</a>
+                          <a class="page-link" href="#" tabindex="-1">{% trans "Next" %} <span class="oi oi-arrow-right"></span></a>
                         </li>
                       {% endif %}
                   </ul>
