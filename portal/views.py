@@ -144,6 +144,10 @@ def module_list(request, module):
         template = loader.get_template('portal/module_list.html')
         context = basepage_processor(request)
         context.update(records)
+        context.update({
+            'user_can_edit' : user_can_edit_module(request.user, module),
+            'user_can_delete' : user_can_delete_module(request.user, module)
+        })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
         context = basepage_processor(request)
@@ -199,7 +203,9 @@ def module_detail(request, module, id):
         context.update({
             'module_key' : module,
             'module_fields' : ordered_module_fields,
-            'record' : record
+            'record' : record,
+            'user_can_edit' : user_can_edit_module(request.user, module),
+            'user_can_delete' : user_can_delete_module(request.user, module)
         })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
@@ -252,6 +258,9 @@ def module_edit(request, module, id):
                                 else:
                                     bean[field] = value
                 SuiteCRM().save_bean(bean)
+                context.update({
+                    'record_edited' : True
+                })
             record = SuiteCRM().get_bean(module, id)
         except:
             pass

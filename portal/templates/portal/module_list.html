@@ -92,8 +92,12 @@
                                     {% endif %}
                                 </th>
                             {% endfor %}
-                            <th></th>
-                            <th></th>
+                            {% if user_can_edit %}
+                                <th></th>
+                            {% endif %}
+                            {% if user_can_delete %}
+                                <th></th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
@@ -135,12 +139,16 @@
                                         {% endif %}
                                     {% endwith %}
                                 {% endfor %}
-                                <td>
-                                    <a href="{% url 'module_edit' module_key record.id %}" class="btn btn-outline-primary btn-sm"><span class="oi oi-pencil"></span> {% trans "Edit" %}</a>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-danger btn-sm"><span class="oi oi-trash"></span> {% trans "Remove" %}</button>
-                                </td>
+                                {% if user_can_edit %}
+                                    <td>
+                                        <a href="{% url 'module_edit' module_key record.id %}" class="btn btn-outline-primary btn-sm"><span class="oi oi-pencil"></span> {% trans "Edit" %}</a>
+                                    </td>
+                                {% endif %}
+                                {% if user_can_delete %}
+                                    <td>
+                                        <button type="button" class="btn btn-outline-danger btn-sm"><span class="oi oi-trash"></span> {% trans "Remove" %}</button>
+                                    </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>

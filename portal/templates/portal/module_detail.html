@@ -30,6 +30,12 @@
             <div class="card">
                 <div class="card-header">
                     <b>{{record.name}}</b>
+                    {% if user_can_delete %}
+                        <button type="button" class="btn btn-outline-danger btn-sm float-right ml-2"><span class="oi oi-trash"></span> {% trans "Remove" %}</button>
+                    {% endif %}
+                    {% if user_can_edit %}
+                        <a href="{% url 'module_edit' module_key record.id %}" class="btn btn-outline-primary btn-sm float-right ml-2"><span class="oi oi-pencil"></span> {% trans "Edit" %}</a>
+                    {% endif %}
                 </div>
                 <div class="card-body">
                     <div class="container">
