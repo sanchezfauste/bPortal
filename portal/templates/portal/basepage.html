@@ -21,34 +21,34 @@
 <body>
 
    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-     <a class="navbar-brand" href="{% url 'index' %}">{% trans "Home" %}</a>
+     <a class="navbar-brand" href="{% url 'index' %}"><span class="oi oi-home"></span> {% trans "Home" %}</a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
      <div class="collapse navbar-collapse" id="navbar">
        <ul class="navbar-nav mr-auto">
          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans "Modules" %}</a>
+           <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-spreadsheet"></span> {% trans "Modules" %}</a>
            <div class="dropdown-menu scrollable-dropdown" aria-labelledby="modules_dropdown">
                 {% for module_key, module in modules.items %}
-                    <a class="dropdown-item" id="modules_dropdown_{{ module.module_key }}" href="{% url 'module_list' module.module_key %}">{{ module_labels|get_label:module_key }}</a>
+                    <a class="dropdown-item" id="modules_dropdown_{{ module.module_key }}" href="{% url 'module_list' module.module_key %}"><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="25px"> {{ module_labels|get_label:module_key }}</a>
                 {% endfor %}
            </div>
          </li>
          {% if request.user.is_superuser %}
            <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans "Configure portal" %}</a>
+             <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-wrench"></span> {% trans "Configure portal" %}</a>
              <div class="dropdown-menu scrollable-dropdown" aria-labelledby="modules_dropdown">
-               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_layouts' %}">{% trans "Edit views" %}</a>
-               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_roles' %}">{% trans "Edit roles" %}</a>
-               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_users' %}">{% trans "Edit users" %}</a>
+               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_layouts' %}"><span class="oi oi-list-rich"></span> {% trans "Edit views" %}</a>
+               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_roles' %}"><span class="oi oi-shield"></span> {% trans "Edit roles" %}</a>
+               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_users' %}"><span class="oi oi-people"></span> {% trans "Edit users" %}</a>
              </div>
             </li>
          {% endif %}
        </ul>
        <ul class="my-2 my-lg-0">
          <span class="navbar-text my-2 my-sm-0">{% blocktrans with username=request.user.username %}Signed in as <b>{{username}}</b>{% endblocktrans %}</span>
-         <a href="{% url 'logout' %}" class="btn btn-outline-danger my-2 my-sm-0" role="button">{% trans "Logout" %}</a>
+         <a href="{% url 'logout' %}" class="btn btn-outline-danger my-2 my-sm-0" role="button"><span class="oi oi-account-logout"></span> {% trans "Logout" %}</a>
        </ul>
      </div>
    </nav>
