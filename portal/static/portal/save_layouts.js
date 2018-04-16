@@ -72,6 +72,10 @@ function add_layout_row() {
       $(this).on("sortreceive", function(event, ui) {
         if ($(this).children().length > 1) {
           $(ui.sender).sortable('cancel');
+          var el1 = $(this).children()[0];
+          var el2 = $(ui.item)[0];
+          $(this).append(el2);
+          $(ui.sender).append(el1);
         }
       })
     });
@@ -98,6 +102,10 @@ function add_layout_row2() {
       $(this).on("sortreceive", function(event, ui) {
         if ($(this).children().length > 1) {
           $(ui.sender).sortable('cancel');
+          var el1 = $(this).children()[0];
+          var el2 = $(ui.item)[0];
+          $(this).append(el2);
+          $(ui.sender).append(el1);
         }
       })
     });
