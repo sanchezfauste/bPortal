@@ -25,70 +25,66 @@
     {% blocktrans with module=module_labels|get_label:module_key %}{{module}} create view{% endblocktrans %}
 {% endif %}</h2><br>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">{% trans "Available fields" %}</h4>
-                    <p class="card-text">
-                        <div class="card">
-                            <div class="list-group list-group-flush sortable-ul" id="available-fields">
-                                {% for field, def in available_fields.items %}
-                                    <div class="list-group-item justify-content-between" id="{{ field }}">
-                                        {{ def.label }}
-                                        <span class="text-muted">[{{ field }}]</span>
-                                    </div>
-                                {% endfor %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% trans "Available fields" %}</h4>
+                <div class="card">
+                    <div class="list-group list-group-flush sortable-ul" id="available-fields">
+                        {% for field, def in available_fields.items %}
+                            <div class="list-group-item justify-content-between" id="{{ field }}">
+                                {{ def.label }}
+                                <span class="text-muted">[{{ field }}]</span>
                             </div>
-                        </div>
-                    </p>
-                    <p class="card-text"><small class="text-muted">{% trans "Drag a field here to not show it" %}</small></p>
+                        {% endfor %}
+                    </div>
                 </div>
+                <p class="card-text"><small class="text-muted">{% trans "Drag a field here to not show it" %}</small></p>
             </div>
         </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">{% trans "Fields" %}</h4>
-                    <a href="#" class="btn btn-primary" onclick="add_layout_row();">{% trans "Add row (1 col)" %}</a>
-                    <a href="#" class="btn btn-primary" onclick="add_layout_row2();">{% trans "Add row (2 col)" %}</a>
-                    <p class="card-text">
-                        <div id="selected-fields">
-                            <div class="list-group list-group-flush" id="selected_fields_list_group">
-                                {% for row in module_fields %}
-                                    <div class="row">
-                                        {% for field in row %}
-                                            <div class="col card sortable-ul selected-field">
-                                                {% if field %}
-                                                    <div class="list-group-item justify-content-between" id="{{ field.name }}">
-                                                        {{ field.label }}
-                                                        <span class="text-muted">[{{ field.name }}]</span>
-                                                    </div>
-                                                {% endif %}
-                                            </div>
-                                        {% endfor %}
-                                        <div class="col col-2 text-center align-self-center">
-                                            <a class="btn btn-danger" href="#" role="button" onclick="remove_layout_row($(this));">
-                                                <span class="oi oi-x"></span>
-                                            </a>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% trans "Fields" %}</h4>
+                <a href="#" class="btn btn-primary" onclick="add_layout_row();">{% trans "Add row (1 col)" %}</a>
+                <a href="#" class="btn btn-primary" onclick="add_layout_row2();">{% trans "Add row (2 col)" %}</a>
+                <div id="selected-fields" class="card mt-4">
+                    <div class="list-group list-group-flush" id="selected_fields_list_group">
+                        {% for row in module_fields %}
+                            <div class="list-group-item justify-content-between">
+                                <div class="row">
+                                    {% for field in row %}
+                                        <div class="col card sortable-ul selected-field ml-2">
+                                            {% if field %}
+                                                <div class="list-group-item justify-content-between" id="{{ field.name }}">
+                                                    {{ field.label }}
+                                                    <span class="text-muted">[{{ field.name }}]</span>
+                                                </div>
+                                            {% endif %}
                                         </div>
+                                    {% endfor %}
+                                    <div class="col col-2 text-center align-self-center">
+                                        <a class="btn btn-danger" href="#" role="button" onclick="remove_layout_row($(this));">
+                                            <span class="oi oi-x"></span>
+                                        </a>
                                     </div>
-                                {% endfor %}
+                                </div>
                             </div>
-                        </div>
-                    </p>
-                    <p class="card-text"><small class="text-muted">
-                        {% if layout == 'detail' %}
-                            {% trans "Fields that will be shown in detail view." %}
-                        {% elif layout == 'edit' %}
-                            {% trans "Fields that will be shown in edit view." %}
-                        {% elif layout == 'create' %}
-                            {% trans "Fields that will be shown in create view." %}
-                        {% endif %}
-                    </small></p>
-                    <a href="#" class="btn btn-primary" onclick="save_layout_layout();">{% trans "Save" %}</a>
+                        {% endfor %}
+                    </div>
                 </div>
+                <p class="card-text"><small class="text-muted">
+                    {% if layout == 'detail' %}
+                        {% trans "Fields that will be shown in detail view." %}
+                    {% elif layout == 'edit' %}
+                        {% trans "Fields that will be shown in edit view." %}
+                    {% elif layout == 'create' %}
+                        {% trans "Fields that will be shown in create view." %}
+                    {% endif %}
+                </small></p>
+                <a href="#" class="btn btn-primary" onclick="save_layout_layout();">{% trans "Save" %}</a>
             </div>
         </div>
     </div>
@@ -106,6 +102,7 @@
           }
         })
       });
+      $( "#selected_fields_list_group" ).sortable();
     } );
 </script>
 

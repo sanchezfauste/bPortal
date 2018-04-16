@@ -54,12 +54,14 @@ function save_layout_layout() {
 
 function add_layout_row() {
     $('#selected_fields_list_group').append('\
-        <div class="row">\
-            <div class="col card sortable-ul selected-field"></div>\
-            <div class="col col-2 text-center align-self-center">\
-                <a class="btn btn-danger" href="#" role="button" onclick="remove_layout_row($(this));">\
-                    <span class="oi oi-x"></span>\
-                </a>\
+        <div class="list-group-item justify-content-between">\
+            <div class="row">\
+                <div class="col card sortable-ul selected-field ml-2"></div>\
+                <div class="col col-2 text-center align-self-center">\
+                    <a class="btn btn-danger" href="#" role="button" onclick="remove_layout_row($(this));">\
+                        <span class="oi oi-x"></span>\
+                    </a>\
+                </div>\
             </div>\
         </div>\
     ');
@@ -77,13 +79,15 @@ function add_layout_row() {
 
 function add_layout_row2() {
     $('#selected_fields_list_group').append('\
-        <div class="row">\
-            <div class="col card sortable-ul selected-field"></div>\
-            <div class="col card sortable-ul selected-field"></div>\
-            <div class="col col-2 text-center align-self-center">\
-                <a class="btn btn-danger" href="#" role="button" onclick="remove_layout_row($(this));">\
-                    <span class="oi oi-x"></span>\
-                </a>\
+        <div class="list-group-item justify-content-between">\
+            <div class="row">\
+                <div class="col card sortable-ul selected-field ml-2"></div>\
+                <div class="col card sortable-ul selected-field ml-2"></div>\
+                <div class="col col-2 text-center align-self-center">\
+                    <a class="btn btn-danger" href="#" role="button" onclick="remove_layout_row($(this));">\
+                        <span class="oi oi-x"></span>\
+                    </a>\
+                </div>\
             </div>\
         </div>\
     ');
@@ -107,5 +111,5 @@ function remove_layout_row(object) {
             $('#available-fields').append(children);
         }
     })
-    row.remove()
+    row.parent().remove()
 }
