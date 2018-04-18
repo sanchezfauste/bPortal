@@ -14,17 +14,25 @@
 
             <div class="col-md-6 mb-3">
                 <label>{{ def.label }}</label>
-                {% if def.type == 'enum' or def.type == 'dynamicenum' or def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' or def.type == 'radioenum' %}
+                {% if def.type == 'enum' or def.type == 'dynamicenum' or def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' or def.type == 'radioenum' or def.type == 'multienum' %}
                     <div class="row">
                         <div class="col">
-                            <select class="form-control" name="{{ field }}" id="filter_{{field}}">
-                                {% if not "" in def.options %}
-                                    <option value=""></option>
-                                {% endif %}
-                                {% for key, definition in def.options.items %}
-                                    <option value="{{key}}">{{definition.value}}</option>
-                                {% endfor %}
-                            </select>
+                            {% if def.type == 'multienum' %}
+                                <select class="form-control" name="{{ field }}" id="filter_{{field}}" multiple>
+                                    {% for key, definition in def.options.items %}
+                                        <option value="{{key}}">{{definition.value}}</option>
+                                    {% endfor %}
+                                </select>
+                            {% else %}
+                                <select class="form-control" name="{{ field }}" id="filter_{{field}}">
+                                    {% if not "" in def.options %}
+                                        <option value=""></option>
+                                    {% endif %}
+                                    {% for key, definition in def.options.items %}
+                                        <option value="{{key}}">{{definition.value}}</option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
                         </div>
                     {% if def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' %}
                         <div class="col" style="display: none;" id="filter_{{field}}_1_div">

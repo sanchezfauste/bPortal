@@ -124,6 +124,15 @@ def get_filter_query(module, fields, parameters):
                     if query:
                         query += " AND "
                     query += date_filter
+            elif field_type == 'multienum':
+                multienum_filter = get_multienum_filter_in_mysql_format(
+                    field_table + '.' + field_name,
+                    parameters.getlist(field_name)
+                )
+                if multienum_filter:
+                    if query:
+                        query += " AND "
+                    query += multienum_filter
             elif field_type in ['text', 'varchar', 'name']:
                 value = '\'%' + parameters[field_name] + '%\''
                 if query:
@@ -457,6 +466,17 @@ def get_datetime_option_in_mysql_format(option, field_name, params = []):
         return 'YEAR(' + field_name \
                 + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL + 1 YEAR))'
     return None
+
+def get_multienum_filter_in_mysql_format(field_name, values):
+    if len(values) > 0:
+        query = ''
+        for option in values:
+            if query:
+                query += " AND "
+            query += field_name + " like '%^" + option + "^%'"
+        return query
+    else:
+        return None
 
 def get_default_role():
     default_role = settings.DEFAULT_ROLE
