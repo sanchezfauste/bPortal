@@ -469,11 +469,12 @@ def get_datetime_option_in_mysql_format(option, field_name, params = []):
 
 def get_multienum_filter_in_mysql_format(field_name, values):
     if len(values) > 0:
-        query = ''
+        query = '('
         for option in values:
-            if query:
-                query += " AND "
+            if query != '(':
+                query += " OR "
             query += field_name + " like '%^" + option + "^%'"
+        query += ')'
         return query
     else:
         return None
