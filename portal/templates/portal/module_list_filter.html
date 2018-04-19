@@ -86,7 +86,15 @@
                         <script type="text/javascript">
                             $(document).ready(function() {
                                 $("#filter_{{field}}")
-                                    .val("{{ current_filters|get:field }}")
+                                    .val(
+                                        {% if def.type == 'multienum' %}
+                                            {% with opts=current_filters|getlist:field %}
+                                                {{opts|get_list_str|safe}}
+                                            {% endwith %}
+                                        {% else %}
+                                            "{{ current_filters|get:field }}"
+                                        {% endif %}
+                                    )
                                     .change();
                             });
                         </script>

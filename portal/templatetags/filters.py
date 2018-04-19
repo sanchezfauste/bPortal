@@ -33,6 +33,23 @@ def get(dict, key):
     except:
         return ''
 
+@register.filter(name='getlist')
+def getlist(dict, key):
+    try:
+        return dict.getlist(key)
+    except:
+        return ''
+
+@register.filter(name='get_list_str')
+def get_list_str(values):
+    str = '['
+    for i in xrange(len(values)):
+        str += "'" + values[i] + "'"
+        if i < len(values) - 1:
+            str += ","
+    str += ']'
+    return str
+
 @register.filter(name='get_label')
 def get_label(dict, key):
     try:
