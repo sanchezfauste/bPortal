@@ -632,3 +632,33 @@ def get_module_view_fields(module, view):
     except Exception:
         pass
     return ordered_module_fields
+
+def get_bean_from_post(module, view, data):
+    module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
+    view_def = Layout.objects.get(module=module, view=view)
+    fields = json.loads(view_def.fields)
+    bean = Bean(module)
+    for row in fields:
+        for field in row:
+            if field in module_fields:
+                if field in data:
+                    value = data[field]
+                    field_def = module_fields[field]
+                    field_type = field_def['type']
+                    if field_type == 'multienum':
+                        bean[field] = encode_multienum(
+                            data.getlist(field)
+                        )
+                    elif field_type == 'datetime' or field_type == 'datetimecombo':
+                        bean[field] = iso_to_datetime(value)
+                    elif field_type == 'relate':
+                        relate_id_field = field_def['id_name']
+                        if relate_id_field in data:
+                            bean[relate_id_field] = data[relate_id_field]
+                    elif field_type == 'parent_type':
+                        if 'parent_id' in data:
+                            bean[field] = value
+                            bean['parent_id'] = data['parent_id']
+                    else:
+                        bean[field] = value
+    return bean

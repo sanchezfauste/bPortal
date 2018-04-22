@@ -146,7 +146,8 @@ def module_list(request, module):
         context.update(records)
         context.update({
             'user_can_edit' : user_can_edit_module(request.user, module),
-            'user_can_delete' : user_can_delete_module(request.user, module)
+            'user_can_delete' : user_can_delete_module(request.user, module),
+            'user_can_create' : user_can_create_module(request.user, module)
         })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
@@ -200,46 +201,61 @@ def module_detail(request, module, id):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def module_create(request, module):
+    context = basepage_processor(request)
+    ordered_module_fields = get_module_view_fields(module, 'create')
+    if user_can_create_module(request.user, module):
+        template = loader.get_template('portal/module_create.html')
+        if request.method == 'POST':
+            try:
+                bean = get_bean_from_post(module, 'create', request.POST)
+                SuiteCRM().save_bean(bean)
+                context.update({
+                    'record_edited' : True
+                })
+            except:
+                context.update({
+                    'error_on_save' : True
+                })
+        try:
+            record = SuiteCRM().get_bean(module, bean['id'])
+        except Exception:
+            context.update({
+                'error_retrieving_bean' : True
+            })
+        context.update({
+            'module_key' : module,
+            'module_fields' : ordered_module_fields
+        })
+    else:
+        template = loader.get_template('portal/insufficient_permissions.html')
+    return HttpResponse(template.render(context, request))
+
+@login_required
 def module_edit(request, module, id):
     context = basepage_processor(request)
     record = None
     ordered_module_fields = get_module_view_fields(module, 'edit')
     if user_can_edit_module(request.user, module) and contact_is_linked_to_record(request.user, module, id):
         template = loader.get_template('portal/module_edit.html')
-        try:
-            if request.method == 'POST':
-                bean = Bean(module)
+        if request.method == 'POST':
+            try:
+                bean = get_bean_from_post(module, 'edit', request.POST)
                 bean['id'] = id
-                for row in fields_edit:
-                    for field in row:
-                        if field in module_fields:
-                            if field in request.POST:
-                                value = request.POST[field]
-                                field_def = module_fields[field]
-                                field_type = field_def['type']
-                                if field_type == 'multienum':
-                                    bean[field] = encode_multienum(
-                                        request.POST.getlist(field)
-                                    )
-                                elif field_type == 'datetime' or field_type == 'datetimecombo':
-                                    bean[field] = iso_to_datetime(value)
-                                elif field_type == 'relate':
-                                    relate_id_field = field_def['id_name']
-                                    if relate_id_field in request.POST:
-                                        bean[relate_id_field] = request.POST[relate_id_field]
-                                elif field_type == 'parent_type':
-                                    if 'parent_id' in request.POST:
-                                        bean[field] = value
-                                        bean['parent_id'] = request.POST['parent_id']
-                                else:
-                                    bean[field] = value
                 SuiteCRM().save_bean(bean)
                 context.update({
                     'record_edited' : True
                 })
+            except:
+                context.update({
+                    'error_on_save' : True
+                })
+        try:
             record = SuiteCRM().get_bean(module, id)
-        except:
-            pass
+        except Exception:
+            context.update({
+                'error_retrieving_bean' : True
+            })
         context.update({
             'module_key' : module,
             'module_fields' : ordered_module_fields,

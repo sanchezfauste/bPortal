@@ -12,7 +12,16 @@
             {% blocktrans with module=module_labels|get_label:module_key %}Error loading definition of {{module}} module.{% endblocktrans %}
         </div>
     {% else %}
-        <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_labels|get_label:module_key }}</h1>
+        <div class="row">
+            <div class="col">
+                <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_labels|get_label:module_key }}</h1>
+            </div>
+            {% if user_can_create %}
+                <div class="col text-right">
+                    <a href="{% url 'module_create' module_key %}" class="btn btn-primary float-right"><span class="oi oi-document"></span> {% trans "Crear" %}</a>
+                </div>
+            {% endif %}
+        </div>
         {% if module_fields %}
             {% include "portal/module_list_filter.html" %}
             {% if records.entry_list %}

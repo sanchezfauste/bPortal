@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^module/(?P<module>\w+)/list$', views.module_list, name='module_list'),
     url(r'^module/(?P<module>\w+)/detail/(?P<id>[\w-]+)/$', views.module_detail, name='module_detail'),
     url(r'^module/(?P<module>\w+)/edit/(?P<id>[\w-]+)/$', views.module_edit, name='module_edit'),
+    url(r'^module/(?P<module>\w+)/create/$', views.module_create, name='module_create'),
     url(r'^layouts/$', views.edit_layouts, name='edit_layouts'),
     url(r'^contact_records/(?P<module>\w+)/$', views.contact_records, name='contact_records'),
     url(r'^layout/list/(?P<module>\w+)/$', views.edit_list_layout, name='edit_list_layout'),
