@@ -175,22 +175,10 @@ def contact_records(request, module):
 def module_detail(request, module, id):
     context = basepage_processor(request)
     record = None
-    ordered_module_fields = []
+    ordered_module_fields = get_module_view_fields(module, 'detail')
     if user_can_read_module(request.user, module) and contact_is_linked_to_record(request.user, module, id):
         template = loader.get_template('portal/module_detail.html')
         try:
-            view = Layout.objects.get(module=module, view='detail')
-            fields_detail = json.loads(view.fields)
-            module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
-            remove_colon_of_field_labels(module_fields)
-            for row in fields_detail:
-                row_fields = []
-                for field in row:
-                    if field in module_fields:
-                        row_fields.append(module_fields[field])
-                    elif not field:
-                        row_fields.append(None)
-                ordered_module_fields.append(row_fields)
             if module == 'Cases':
                 record = get_case(id)
                 context.update({
@@ -215,22 +203,10 @@ def module_detail(request, module, id):
 def module_edit(request, module, id):
     context = basepage_processor(request)
     record = None
-    ordered_module_fields = []
+    ordered_module_fields = get_module_view_fields(module, 'edit')
     if user_can_edit_module(request.user, module) and contact_is_linked_to_record(request.user, module, id):
         template = loader.get_template('portal/module_edit.html')
         try:
-            view = Layout.objects.get(module=module, view='edit')
-            fields_edit = json.loads(view.fields)
-            module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
-            remove_colon_of_field_labels(module_fields)
-            for row in fields_edit:
-                row_fields = []
-                for field in row:
-                    if field in module_fields:
-                        row_fields.append(module_fields[field])
-                    elif not field:
-                        row_fields.append(None)
-                ordered_module_fields.append(row_fields)
             if request.method == 'POST':
                 bean = Bean(module)
                 bean['id'] = id

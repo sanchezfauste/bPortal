@@ -613,3 +613,22 @@ def iso_to_datetime(value):
             .strftime(settings.SUITECRM_DATETIME_FORMAT)
     except:
         return value
+
+def get_module_view_fields(module, view):
+    ordered_module_fields = []
+    try:
+        view_def = Layout.objects.get(module=module, view=view)
+        fields = json.loads(view_def.fields)
+        module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
+        remove_colon_of_field_labels(module_fields)
+        for row in fields:
+            row_fields = []
+            for field in row:
+                if field in module_fields:
+                    row_fields.append(module_fields[field])
+                elif not field:
+                    row_fields.append(None)
+            ordered_module_fields.append(row_fields)
+    except Exception:
+        pass
+    return ordered_module_fields
