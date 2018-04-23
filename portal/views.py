@@ -24,7 +24,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.template import loader
 from suitepy.suitecrm import SuiteCRM
 from suitepy.suitecrm_cached import SuiteCRMCached
@@ -43,6 +43,7 @@ from cases import *
 import mimetypes
 import base64
 from django.http import Http404
+from django.urls import reverse
 
 # Create your views here.
 
@@ -210,19 +211,24 @@ def module_create(request, module):
             try:
                 bean = get_bean_from_post(module, 'create', request.POST)
                 SuiteCRM().save_bean(bean)
+                relate_result = relate_bean_with_user(bean, request.user)
+                context.update(relate_result)
                 context.update({
-                    'record_edited' : True
+                    'record_created_successfully' : True
                 })
-            except:
+                url = reverse(
+                    'module_detail',
+                    kwargs={
+                        'module': module,
+                        'id': bean['id']
+                    }
+                )
+                return HttpResponseRedirect(url)
+            except Exception as e:
+                print e
                 context.update({
-                    'error_on_save' : True
+                    'error_on_create' : True
                 })
-        try:
-            record = SuiteCRM().get_bean(module, bean['id'])
-        except Exception:
-            context.update({
-                'error_retrieving_bean' : True
-            })
         context.update({
             'module_key' : module,
             'module_fields' : ordered_module_fields

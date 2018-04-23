@@ -21,7 +21,7 @@
 
     <br>
 
-    {% if error_on_save %}
+    {% if error_on_create %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <span class="oi oi-cloud-upload"></span>
             {% trans "Error creating record." %}
@@ -29,7 +29,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    {% elif record_edited %}
+    {% elif record_created_successfully %}
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <span class="oi oi-cloud-upload"></span>
             {% trans "Record created successfully." %}

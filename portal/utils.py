@@ -662,3 +662,76 @@ def get_bean_from_post(module, view, data):
                     else:
                         bean[field] = value
     return bean
+
+def relate_bean_with_user(bean, user):
+    result = {
+        'contact_related' : False,
+        'account_related' : False
+    }
+    try:
+        result['contact_related'] = relate_bean_with_contact(
+            bean,
+            user.userattr.contact_id
+        )
+    except Exception:
+        pass
+    try:
+        result['account_related'] = relate_bean_with_account(
+            bean,
+            user.userattr.account_id
+        )
+    except Exception:
+        pass
+    return result
+
+def relate_bean_with_contact(bean, contact_id):
+    try:
+        module = bean.module
+        if not contact_id or not module:
+            return False
+        module_def = ModuleDefinitionFactory.get_module_definition(module)
+        if module_def.contacts_link_type == LinkType.RELATED:
+            bean[module_def.contacts_link_name] = contact_id
+            SuiteCRM().save_bean(bean)
+        elif module_def.contacts_link_type == LinkType.RELATIONSHIP:
+            result = SuiteCRM().set_relationship(
+                'Contacts',
+                contact_id,
+                module_def.contacts_link_name,
+                related_ids = [bean['id']]
+            )
+            if result['created'] != 1:
+                return False
+        elif module_def.contacts_link_type == LinkType.PARENT:
+            bean['parent_type'] = 'Contacts'
+            bean['parent_id'] = contact_id
+            SuiteCRM().save_bean(bean)
+    except:
+        return False
+    return True
+
+def relate_bean_with_account(bean, account_id):
+    try:
+        module = bean.module
+        if not account_id or not module:
+            return False
+        module_def = ModuleDefinitionFactory.get_module_definition(module)
+        if module_def.accounts_link_type == LinkType.RELATED:
+            bean[module_def.accounts_link_name] = account_id
+            SuiteCRM().save_bean(bean)
+        elif module_def.accounts_link_type == LinkType.RELATIONSHIP:
+            result = SuiteCRM().set_relationship(
+                'Accounts',
+                account_id,
+                module_def.accounts_link_name,
+                related_ids = [bean['id']]
+            )
+            if result['created'] != 1:
+                return False
+        elif module_def.accounts_link_type == LinkType.PARENT:
+            bean['parent_type'] = 'Accounts'
+            bean['parent_id'] = account_id
+            SuiteCRM().save_bean(bean)
+    except:
+        return False
+    return True
