@@ -2,7 +2,7 @@
 {% load filters %}
 
 {% if field.type == 'enum' or field.type == 'dynamicenum' %}
-    <select name="{{field.name}}" class="form-control mb-2"{% if field.required %} required{% endif %}>
+    <select name="{{field.name}}" class="form-control"{% if field.required %} required{% endif %}>
         {% for option, defs in field.options.items %}
             <option value="{{defs.name}}"{% if option == value %} selected{% endif %}>{{defs.value}}</option>
         {% endfor %}
@@ -16,15 +16,15 @@
         type="checkbox"
     >
 {% elif field.type == 'int' or field.type == 'uint' or field.type == 'ulong' or field.type == 'long' or field.type == 'short' or field.type == 'tinyint' %}
-    <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+    <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control" {% if field.required %} required{% endif %}>
 {% elif field.type == 'double' or field.type == 'float' or field.type == 'decimal' or field.type == 'decimal2' %}
-    <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %} step="0.01">
+    <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control" {% if field.required %} required{% endif %} step="0.01">
 {% elif field.type == 'currency' %}
-    <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %} step="0.01">
+    <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control" {% if field.required %} required{% endif %} step="0.01">
 {% elif field.type == 'text' or field.type == 'longtext' or field.type == 'html' or field.type == 'longhtml' %}
     <textarea class="form-control" name="{{field.name}}" rows="3" {% if field.required %} required{% endif %}>{{ value }}</textarea>
 {% elif field.type == 'multienum' %}
-    <select name="{{field.name}}" class="form-control mb-2"{% if field.required %} required{% endif %} multiple>
+    <select name="{{field.name}}" class="form-control"{% if field.required %} required{% endif %} multiple>
         {% with selected_values=value|unencode_multienum %}
             {% for option, defs in field.options.items %}
                 <option value="{{defs.name}}"{% if option in selected_values %} selected{% endif %}>{{defs.value}}</option>
@@ -32,14 +32,14 @@
         {% endwith %}
     </select>
 {% elif field.type == 'date' %}
-    <input type="date" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+    <input type="date" name="{{field.name}}" value="{{ value }}" class="form-control" {% if field.required %} required{% endif %}>
 {% elif field.type == 'time' %}
-    <input type="time" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+    <input type="time" name="{{field.name}}" value="{{ value }}" class="form-control" {% if field.required %} required{% endif %}>
 {% elif field.type == 'datetime' or field.type == 'datetimecombo' %}
-    <input type="datetime-local" name="{{field.name}}" value="{{ value|iso_datetime }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+    <input type="datetime-local" name="{{field.name}}" value="{{ value|iso_datetime }}" class="form-control" {% if field.required %} required{% endif %}>
 {% elif field.type == 'relate' %}
     <input type="hidden" name="{{field.name}}">
-    <select name="{{field.id_name}}" id="{{field.id_name}}" class="form-control mb-2"{% if field.required %} required{% endif %}>
+    <select name="{{field.id_name}}" id="{{field.id_name}}" class="form-control"{% if field.required %} required{% endif %}>
         <option value=""></option>
         <option value="{{record|get:field.id_name}}" selected>{{ value }}</option>
     </select>
@@ -68,13 +68,13 @@
     {% endfor %}
 {% elif field.type == 'parent_type' %}
     <div class="row"><div class="col">
-        <select name="{{field.name}}" class="form-control mb-2"{% if field.required %} required{% endif %} onchange="change_parent_id_options(this.value)">
+        <select name="{{field.name}}" class="form-control"{% if field.required %} required{% endif %} onchange="change_parent_id_options(this.value)">
             {% for option, defs in field.options.items %}
                 <option value="{{defs.name}}"{% if option == value %} selected{% endif %}>{{defs.value}}</option>
             {% endfor %}
         </select>
     </div><div class="col">
-        <select name="parent_id" id="parent_id" class="form-control mb-2"{% if field.required %} required{% endif %}>
+        <select name="parent_id" id="parent_id" class="form-control"{% if field.required %} required{% endif %}>
             <option value=""></option>
             <option value="{{record.parent_id}}" selected>{{record.parent_name}}</option>
         </select>
@@ -109,5 +109,5 @@
         </script>
     </div></div>
 {% else %}
-    <input type="text" name="{{field.name}}" value="{{ value }}" class="form-control mb-2" {% if field.required %} required{% endif %}>
+    <input type="text" name="{{field.name}}" value="{{ value }}" class="form-control" {% if field.required %} required{% endif %}>
 {% endif %}

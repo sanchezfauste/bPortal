@@ -46,7 +46,7 @@
             <div class="card-body">
                 <div class="container">
         {% for row in module_fields %}
-            <div class="row mb-2">
+            <div class="row mb-3">
             {% for field in row %}
                 <div class="col">
                     {% if field %}
@@ -65,8 +65,8 @@
             {% endfor %}
             </div>
         {% endfor %}
-                    <button type="submit" class="btn btn-success mt-4 float-right"><span class="oi oi-circle-check"></span> {% trans "Create" %}</button>
-                    <a href="{% url 'module_list' module_key %}" class="btn btn-danger mt-4 float-right mr-2"><span class="oi oi-circle-x"></span> {% trans "Cancel" %}</a>
+                    <button type="submit" class="btn btn-success mt-2 float-right"><span class="oi oi-circle-check"></span> {% trans "Create" %}</button>
+                    <a href="{% url 'module_list' module_key %}" class="btn btn-danger mt-2 float-right mr-2"><span class="oi oi-circle-x"></span> {% trans "Cancel" %}</a>
                 </div>
             </div>
         </form>
