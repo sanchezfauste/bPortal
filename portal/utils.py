@@ -548,6 +548,18 @@ def enable_portal_user(contact):
             "error" : "Error enabling account"
         }, status = 400)
 
+def contact_can_read_record(user, module, id):
+    try:
+        if contact_is_linked_to_record(user, module, id):
+            return True
+        contact_id = user.userattr.contact_id
+        module_def = ModuleDefinitionFactory.get_module_definition(module)
+        if module_def.contacts_link_type == LinkType.NONE:
+            return True
+    except:
+        pass
+    return False
+
 def contact_is_linked_to_record(user, module, id):
     try:
         contact_id = user.userattr.contact_id
