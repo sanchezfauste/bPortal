@@ -45,7 +45,11 @@
                     <div class="col">
                         {% if field %}
                             <div class="row">
-                                <div class="col-4">
+                                {% if row|length == 1 %}
+                                    <div class="col-2">
+                                {% else %}
+                                    <div class="col-4">
+                                {% endif %}
                                     <b>{{ field.label }}:</b>
                                 </div>
                                 <div class="col">
