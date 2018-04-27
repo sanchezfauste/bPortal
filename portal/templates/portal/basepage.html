@@ -48,7 +48,8 @@
        </ul>
        <ul class="my-2 my-lg-0">
          <span class="navbar-text my-2 my-sm-0">{% blocktrans with username=request.user.username %}Signed in as <b>{{username}}</b>{% endblocktrans %}</span>
-         <a href="{% url 'logout' %}" class="btn btn-outline-danger my-2 my-sm-0" role="button"><span class="oi oi-account-logout"></span> {% trans "Logout" %}</a>
+         <a href="{% url 'user_profile' %}" class="btn btn-outline-primary my-2 my-sm-0 ml-2" role="button"><span class="oi oi-person"></span> {% trans "Profile" %}</a>
+         <a href="{% url 'logout' %}" class="btn btn-outline-danger my-2 my-sm-0 ml-2" role="button"><span class="oi oi-account-logout"></span> {% trans "Logout" %}</a>
        </ul>
      </div>
    </nav>

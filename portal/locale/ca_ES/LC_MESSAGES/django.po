@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-22 13:46+0200\n"
+"POT-Creation-Date: 2018-04-27 17:16+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -61,6 +61,10 @@ msgid "Signed in as <b>%(username)s</b>"
 msgstr "Sessió iniciada com a <b>%(username)s</b>"
 
 #: templates/portal/basepage.html:51
+msgid "Profile"
+msgstr "Perfil"
+
+#: templates/portal/basepage.html:52
 msgid "Logout"
 msgstr "Tanca sessió"
 
@@ -117,7 +121,7 @@ msgstr "Camps que es mostraran a la vista creació."
 #: templates/portal/edit_layout.html:87
 #: templates/portal/edit_list_layout.html:48 templates/portal/edit_role.html:16
 #: templates/portal/edit_role.html:39 templates/portal/edit_user.html:99
-#: templates/portal/module_edit.html:186
+#: templates/portal/module_edit.html:77
 msgid "Save"
 msgstr "Guardar"
 
@@ -169,7 +173,7 @@ msgstr "Configuració del rol <b>%(role)s</b>"
 msgid "Read"
 msgstr "Veure"
 
-#: templates/portal/edit_role.html:22 templates/portal/module_create.html:177
+#: templates/portal/edit_role.html:22 templates/portal/module_create.html:68
 msgid "Create"
 msgstr "Crear"
 
@@ -225,19 +229,19 @@ msgstr "Preferències de %(user)s"
 msgid "Edit user settings of <b>%(user)s</b>"
 msgstr "Editar preferències de l'usuari <b>%(user)s</b>"
 
-#: templates/portal/edit_user.html:33
+#: templates/portal/edit_user.html:33 templates/portal/user_profile.html:9
 msgid "Username"
 msgstr "Nom d'usuari"
 
-#: templates/portal/edit_user.html:37
+#: templates/portal/edit_user.html:37 templates/portal/user_profile.html:13
 msgid "Email"
 msgstr "Correu electrònic"
 
-#: templates/portal/edit_user.html:43
+#: templates/portal/edit_user.html:43 templates/portal/user_profile.html:19
 msgid "First name"
 msgstr "Nom"
 
-#: templates/portal/edit_user.html:47
+#: templates/portal/edit_user.html:47 templates/portal/user_profile.html:23
 msgid "Last name"
 msgstr "Cognoms"
 
@@ -302,12 +306,11 @@ msgstr "S'ha produït un error en crear el registre."
 msgid "Record created successfully."
 msgstr "S'ha creat el registre correctament."
 
-#: templates/portal/module_create.html:178
-#: templates/portal/module_edit.html:187
+#: templates/portal/module_create.html:69 templates/portal/module_edit.html:78
 msgid "Cancel"
 msgstr "Cancel·lar"
 
-#: templates/portal/module_create.html:185
+#: templates/portal/module_create.html:76
 #, python-format
 msgid "Module %(module)s has not defined the create view."
 msgstr "El mòdul %(module)s no té definida la vista creació."
@@ -316,7 +319,7 @@ msgstr "El mòdul %(module)s no té definida la vista creació."
 msgid "Remove"
 msgstr "Eliminar"
 
-#: templates/portal/module_detail.html:97 templates/portal/module_edit.html:193
+#: templates/portal/module_detail.html:97 templates/portal/module_edit.html:84
 msgid "The requested record was not found."
 msgstr "No s'ha trobat el registre sol·licitat."
 
@@ -363,7 +366,7 @@ msgstr "S'han desat els canvis correctament."
 msgid "View detail"
 msgstr "Veure detall"
 
-#: templates/portal/module_edit.html:198
+#: templates/portal/module_edit.html:89
 #, python-format
 msgid "Module %(module)s has not defined the edit view."
 msgstr "El mòdul %(module)s no té definida la vista edició."
@@ -398,6 +401,20 @@ msgstr "El mòdul %(module)s no té definida la vista llista."
 msgid "Filter"
 msgstr "Filtrar"
 
+#: templates/portal/user_profile.html:3
+#, python-format
+msgid "%(user)s profile"
+msgstr "Perfil de %(user)s"
+
+#: templates/portal/user_profile.html:6
+#, python-format
+msgid "Profile of <b>%(user)s</b>"
+msgstr "Perfil de <b>%(user)s</b>"
+
+#: templates/portal/user_profile.html:29
+msgid "Change my password"
+msgstr "Canviar la meva contrasenya"
+
 #. Translators: Format for date fields following python date format.
 #: templatetags/filters.py:69
 msgid "%d/%m/%Y"
@@ -413,93 +430,93 @@ msgstr "%H:%M"
 msgid "%d/%m/%Y %H:%M"
 msgstr "%d/%m/%Y %H:%M"
 
-#: views.py:110
+#: views.py:111
 msgid "User settings updated successfully."
 msgstr "S'han actualitzat les preferències de l'usuari."
 
-#: views.py:115
+#: views.py:116
 msgid "Error while saving user settings."
 msgstr "S'ha produït un error a l'actualizar les preferències de l'usuari."
 
-#: views.py:164
+#: views.py:174
 msgid "Error getting contact id."
 msgstr "S'ha produït un error a l'obtenir l'id del contacte."
 
-#: views.py:278
+#: views.py:293
 msgid "Empty case updates are not allowed."
 msgstr "No es permeten les actualitzacions de casos buides."
 
-#: views.py:305
+#: views.py:320
 msgid "An error occurred while uploading the attachment(s)."
 msgstr "S'ha produït un error al carregar els fitxers adjunts."
 
-#: views.py:310
+#: views.py:325
 msgid "An error occurred while creating the case update."
 msgstr "S'ha produït un error al crear l'actualització de cas."
 
-#: views.py:314
+#: views.py:329
 msgid "The case update has been added successfully."
 msgstr "S'ha actualitzat el cas correctament."
 
-#: views.py:326
+#: views.py:341
 msgid "An error occurred while updating the case."
 msgstr "S'ha produït un error al actualitzar el cas."
 
-#: views.py:330
+#: views.py:345
 msgid "Invalid request."
 msgstr "Petició invàlida."
 
-#: views.py:345
+#: views.py:360
 msgid "The requested file was not found."
 msgstr "No s'ha trobat el fitxer sol·licitat."
 
-#: views.py:357 views.py:413
+#: views.py:372 views.py:428
 msgid "Please specify 'selected_fields'."
 msgstr "Si us plau, especifiqui el camp 'selected_fields'."
 
-#: views.py:368 views.py:424
+#: views.py:383 views.py:439
 msgid "Layout updated successfully"
 msgstr "Vista actualitzada correctament"
 
-#: views.py:509
+#: views.py:524
 msgid "Please specify 'permissions'."
 msgstr "Si us plau, especifiqui el camp 'permissions'."
 
-#: views.py:516 views.py:556
+#: views.py:531 views.py:571
 #, python-format
 msgid "Role '%(role)s' does not exist."
 msgstr "El rol '%(role)s' no existeix."
 
-#: views.py:530
+#: views.py:545
 msgid "Role permissions have been updated."
 msgstr "S'han actualitzat els permisos del rol."
 
-#: views.py:546
+#: views.py:561
 #, python-format
 msgid "'%(role)s' role has been removed."
 msgstr "S'ha eliminat el rol '%(role)s'."
 
-#: views.py:551
+#: views.py:566
 msgid "Default role can not be deleted."
 msgstr "No es pot eliminar el rol per defecte."
 
-#: views.py:571
+#: views.py:586
 #, python-format
 msgid "'%(role)s' role has been created."
 msgstr "S'ha creat el rol '%(role)s'."
 
-#: views.py:576
+#: views.py:591
 msgid "Error creating role."
 msgstr "S'ha produït un error al crear el rol."
 
-#: views.py:592
+#: views.py:607
 msgid "Error retrieving contact"
 msgstr "S'ha produït un error al recuperar el contacte"
 
-#: views.py:597
+#: views.py:612
 msgid "Contact has no valid email"
 msgstr "El contacte no té un correu electrònic vàlid"
 
-#: views.py:608
+#: views.py:623
 msgid "Invalid request"
 msgstr "Petició invàlida"

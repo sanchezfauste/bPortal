@@ -123,6 +123,15 @@ def edit_user(request, user_id):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def user_profile(request):
+    context = basepage_processor(request)
+    template = loader.get_template('portal/user_profile.html')
+    context.update({
+        'user' : request.user
+    })
+    return HttpResponse(template.render(context, request))
+
+@login_required
 @permission_required('is_superuser')
 def edit_roles(request):
     return edit_roles_generic(request)

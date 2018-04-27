@@ -1,0 +1,31 @@
+{% extends "portal/basepage.html" %}
+{% load i18n %}
+{% block title %}{% blocktrans with user=user.username %}{{user}} profile{% endblocktrans %}{% endblock %}
+{% block content %}
+
+<h2><span class="oi oi-person"></span> {% blocktrans with user=user.username %}Profile of <b>{{user}}</b>{% endblocktrans %}</h2><br>
+
+<div class="row">
+    <div class="col-sm-2"><b>{% trans "Username" %}:</b></div>
+    <div class="col mr-4">
+        {{user.username}}
+    </div>
+    <div class="col-sm-2"><b>{% trans "Email" %}:</b></div>
+    <div class="col">
+        {{user.email}}
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-sm-2"><b>{% trans "First name" %}:</b></div>
+    <div class="col mr-4">
+        {{user.first_name}}
+    </div>
+    <div class="col-sm-2"><b>{% trans "Last name" %}:</b></div>
+    <div class="col">
+        {{user.last_name}}
+    </div>
+</div>
+
+<a href="{% url 'password_change' %}" class="btn btn-primary mt-4">{% trans 'Change my password' %}</a>
+
+{% endblock %}
