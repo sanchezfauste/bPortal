@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-27 16:32+0200\n"
+"POT-Creation-Date: 2018-04-27 23:00+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -102,6 +102,12 @@ msgstr ""
 msgid "Change my password"
 msgstr "Canvia la meva contrasenya"
 
+#: templates/registration/password_change_form.html:55
+#: templates/registration/password_reset_confirm.html:30
+#: templates/registration/password_reset_form.html:18
+msgid "Cancel"
+msgstr "Cancel·lar"
+
 #: templates/registration/password_reset_complete.html:7
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr ""
@@ -128,11 +134,11 @@ msgstr "Nova contrasenya:"
 msgid "Confirm password:"
 msgstr "Confirmeu la contrasenya:"
 
-#: templates/registration/password_reset_confirm.html:35
+#: templates/registration/password_reset_confirm.html:36
 msgid "Password reset failed"
 msgstr "Ha fallat la restauració de la contrasenya"
 
-#: templates/registration/password_reset_confirm.html:36
+#: templates/registration/password_reset_confirm.html:37
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -140,7 +146,7 @@ msgstr ""
 "L'enllaç de restabliment de la contrasenya no és vàlid, possiblement perquè "
 "ja s'ha usat. Torneu a sol·licitar el restabliment de la contrasenya."
 
-#: templates/registration/password_reset_confirm.html:38
+#: templates/registration/password_reset_confirm.html:39
 msgid "Request a new password reset"
 msgstr "Tornar a restablir la contrasenya"
 

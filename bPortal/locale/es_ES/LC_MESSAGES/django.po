@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-27 16:32+0200\n"
+"POT-Creation-Date: 2018-04-27 23:00+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -102,6 +102,12 @@ msgstr ""
 msgid "Change my password"
 msgstr "Cambiar mi contraseña"
 
+#: templates/registration/password_change_form.html:55
+#: templates/registration/password_reset_confirm.html:30
+#: templates/registration/password_reset_form.html:18
+msgid "Cancel"
+msgstr "Cancelar"
+
 #: templates/registration/password_reset_complete.html:7
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr ""
@@ -127,11 +133,11 @@ msgstr "Nueva contraseña:"
 msgid "Confirm password:"
 msgstr "Confirme la contraseña:"
 
-#: templates/registration/password_reset_confirm.html:35
+#: templates/registration/password_reset_confirm.html:36
 msgid "Password reset failed"
 msgstr "Restablecimiento de contraseña fallido"
 
-#: templates/registration/password_reset_confirm.html:36
+#: templates/registration/password_reset_confirm.html:37
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -139,7 +145,7 @@ msgstr ""
 "El enlace de restablecimiento de contraseña no es válido, posiblemente "
 "porque ya se ha utilizado. Solicite un nuevo restablecimiento de contraseña."
 
-#: templates/registration/password_reset_confirm.html:38
+#: templates/registration/password_reset_confirm.html:39
 msgid "Request a new password reset"
 msgstr "Solicitar un nuevo restablecimiento de contraseña"
 
@@ -148,8 +154,8 @@ msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
 msgstr ""
-"Le enviamos por correo electrónico las instrucciones para configurar su "
-"contraseña, si existe una cuenta con el correo electrónico que ingresó. "
+"Le hemos enviado por correo electrónico las instrucciones para restablecer "
+"su contraseña, si existe una cuenta con el correo electrónico que ingresó. "
 "Debería recibirlas en breve."
 
 #: templates/registration/password_reset_done.html:8
