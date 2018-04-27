@@ -41,6 +41,14 @@ fi
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH)
 
+ENV_DIR=env
+ENV_PATH=$ABSDIR/$ENV_DIR
+
+if [ ! -f $ENV_PATH/bin/activate ]; then
+    echo -e "[ERROR] Unable to find python virtualenv. Exiting."
+    exit 1
+fi
+
 echo -e -n "Processing portal app locale messages...\n"
 cd $ABSDIR/portal
 django-admin makemessages -l $1
@@ -48,3 +56,5 @@ django-admin makemessages -l $1
 echo -e -n "\nProcessing bPortal project locale messages...\n"
 cd $ABSDIR/bPortal
 django-admin makemessages -l $1
+
+deactivate

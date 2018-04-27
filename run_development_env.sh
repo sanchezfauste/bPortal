@@ -41,3 +41,5 @@ fi
 
 source $ENV_PATH/bin/activate
 python $ABSDIR/manage.py runserver 0.0.0.0:8080
+
+deactivate

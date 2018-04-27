@@ -30,6 +30,16 @@ echo -e -n "#############################################\n\n"
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH)
 
+ENV_DIR=env
+ENV_PATH=$ABSDIR/$ENV_DIR
+
+if [ ! -f $ENV_PATH/bin/activate ]; then
+    echo -e "[ERROR] Unable to find python virtualenv. Exiting."
+    exit 1
+fi
+
+source $ENV_PATH/bin/activate
+
 echo -e -n "Compiling portal app locale messages...\n"
 cd $ABSDIR/portal
 django-admin compilemessages
@@ -37,3 +47,5 @@ django-admin compilemessages
 echo -e -n "\nCompiling bPortal project locale messages...\n"
 cd $ABSDIR/bPortal
 django-admin compilemessages
+
+deactivate
