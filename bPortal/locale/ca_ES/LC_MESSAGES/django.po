@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-07 21:50+0100\n"
+"POT-Creation-Date: 2018-04-27 16:32+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -35,7 +35,6 @@ msgid "Logout"
 msgstr "Tancar sessió"
 
 #: templates/registration/logged_out.html:7
-#: templates/registration/password_reset_form.html:7
 msgid "You have been logged out."
 msgstr "Heu tancat la sessió."
 
@@ -43,11 +42,11 @@ msgstr "Heu tancat la sessió."
 msgid "Click here to login again."
 msgstr "Feu clic aquí per tornar a iniciar sessió."
 
-#: templates/registration/login.html:3 templates/registration/login.html:47
+#: templates/registration/login.html:3 templates/registration/login.html:50
 msgid "Login"
 msgstr "Iniciar sessió"
 
-#: templates/registration/login.html:9
+#: templates/registration/login.html:10
 msgid ""
 "Your account doesn't have access to this page. To proceed, please login with "
 "an account that has access."
@@ -55,48 +54,73 @@ msgstr ""
 "El vostre compte no té accés a aquesta pàgina. Per continuar, inicieu la "
 "sessió amb un compte que tingui accés."
 
-#: templates/registration/login.html:16
+#: templates/registration/login.html:18
 msgid "Please login to see this page."
 msgstr "Inicieu sessió per veure aquesta pàgina."
 
-#: templates/registration/login.html:24
+#: templates/registration/login.html:26
 msgid "Please sign in"
 msgstr "Si us plau, inicieu sessió"
 
-#: templates/registration/login.html:39
+#: templates/registration/login.html:42
 msgid "Lost password?"
 msgstr "Heu oblidat la contrasenya?"
 
-#: templates/registration/login.html:44
+#: templates/registration/login.html:47
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 "El vostre nom d'usuari o contrasenya no són correctes. Si us plau, torneu a "
 "provar-ho."
 
-#: templates/registration/password_reset_complete.html:3
-msgid "Password changed"
-msgstr "Contrasenya modificada"
+#: templates/registration/password_change_done.html:9
+msgid "Your password was changed."
+msgstr "S'ha modificat la contrasenya!"
+
+#: templates/registration/password_change_form.html:11
+msgid "Please correct the error below."
+msgstr "Si us plau, corregiu el següent error."
+
+#: templates/registration/password_change_form.html:13
+msgid "Please correct the errors below."
+msgstr "Si us plau, corregiu els següents errors."
+
+#: templates/registration/password_change_form.html:21
+msgid "Password change"
+msgstr "Modificar contrasenya"
+
+#: templates/registration/password_change_form.html:25
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+"Introduïu la contrasenya antiga, per motius de seguretat i, a continuació, "
+"introduïu la nova contrasenya dues vegades per tal que puguem verificar que "
+"l'heu escrit correctament."
+
+#: templates/registration/password_change_form.html:54
+#: templates/registration/password_reset_confirm.html:29
+msgid "Change my password"
+msgstr "Canvia la meva contrasenya"
 
 #: templates/registration/password_reset_complete.html:7
-msgid "The password has been changed!"
-msgstr "S'ha modificat la contrasenya!"
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+"S'ha modificat la vostra contrasenya. Podeu seguir endavant i iniciar sessió "
+"ara."
 
 #: templates/registration/password_reset_complete.html:9
 msgid "Login again?"
 msgstr "Tonar a iniciar sessió?"
 
-#: templates/registration/password_reset_confirm.html:3
-#: templates/registration/password_reset_done.html:3
-#: templates/registration/password_reset_form.html:3
-#: templates/registration/password_reset_form.html:13
-msgid "Reset password"
-msgstr "Restablir la contrasenya"
+#: templates/registration/password_reset_confirm.html:12
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+"Introduïu la vostra nova contrasenya dues vegades per poder verificar que "
+"l'heu escrit correctament."
 
-#: templates/registration/password_reset_confirm.html:8
-msgid "Please enter (and confirm) your new password."
-msgstr "Introduïu (i confirmeu) la vostra nova contrasenya."
-
-#: templates/registration/password_reset_confirm.html:17
+#: templates/registration/password_reset_confirm.html:14
 msgid "New password:"
 msgstr "Nova contrasenya:"
 
@@ -104,31 +128,81 @@ msgstr "Nova contrasenya:"
 msgid "Confirm password:"
 msgstr "Confirmeu la contrasenya:"
 
-#: templates/registration/password_reset_confirm.html:33
+#: templates/registration/password_reset_confirm.html:35
 msgid "Password reset failed"
 msgstr "Ha fallat la restauració de la contrasenya"
 
-#: templates/registration/password_reset_confirm.html:34
+#: templates/registration/password_reset_confirm.html:36
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used. Please request a new password reset."
+"used.  Please request a new password reset."
 msgstr ""
 "L'enllaç de restabliment de la contrasenya no és vàlid, possiblement perquè "
 "ja s'ha usat. Torneu a sol·licitar el restabliment de la contrasenya."
 
+#: templates/registration/password_reset_confirm.html:38
+msgid "Request a new password reset"
+msgstr "Tornar a restablir la contrasenya"
+
 #: templates/registration/password_reset_done.html:7
 msgid ""
-"We've emailed you instructions for setting your password. If they haven't "
-"arrived in a few minutes, check your spam folder."
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
 msgstr ""
-"Us hem enviat per correu electrònic les instruccions per configurar la "
-"vostra contrasenya. Si no han arribat en pocs minuts, consulteu la vostra "
-"carpeta de correu brossa."
+"Us hem enviat per correu electrònic les instruccions per restablir la vostra "
+"contrasenya, si existeix un compte amb el correu electrònic que heu "
+"introduït. Les heu de rebre en breus moments."
+
+#: templates/registration/password_reset_done.html:8
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Si no rebeu un correu electrònic, assegureu-vos que heu introduït l'adreça "
+"amb la que us heu registrat i consulteu la vostra carpeta de correu brossa."
 
 #: templates/registration/password_reset_email.html:2
 #, python-format
 msgid ""
-"Someone asked for password reset for email %(email)s. Follow the link below:"
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
 msgstr ""
-"Algú ha sol·licitat el restabliment de la contrasenya per al correu "
-"electrònic %(email)s. Feu clic al següent enllaç:"
+"Heu rebut aquest correu electrònic perquè heu sol·licitat un restabliment de "
+"la contrasenya del vostre compte d'usuari a %(site_name)s."
+
+#: templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Aneu a la següent pàgina i configureu una contrasenya nova."
+
+#: templates/registration/password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr "El vostre nom d'usuari, en cas que l'hagueu oblidat:"
+
+#: templates/registration/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr "Gràcies per utilitzar el nostre lloc!"
+
+#: templates/registration/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "L'equip de %(site_name)s"
+
+#: templates/registration/password_reset_form.html:7
+msgid "Password reset"
+msgstr "Restablir contrasenya"
+
+#: templates/registration/password_reset_form.html:10
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+"Heu oblidat la vostra contrassenya? Introduïu la vostra adreça de correu "
+"electrònic i us enviarem les instruccions per configurar-ne una de nova."
+
+#: templates/registration/password_reset_form.html:12
+msgid "Email address:"
+msgstr "Direcció de correu electrònic:"
+
+#: templates/registration/password_reset_form.html:17
+msgid "Reset my password"
+msgstr "Restablir la contrasenya"
