@@ -106,6 +106,8 @@ def edit_user(request, user_id):
             role_user = RoleUser.objects.get(user=user)
             role_user.role = role
             role_user.save()
+            user.userattr.user_type = request.POST['user_type']
+            user.userattr.save()
             context.update({
                 'success_msg' : True,
                 'msg' : _('User settings updated successfully.')
@@ -118,7 +120,8 @@ def edit_user(request, user_id):
     template = loader.get_template('portal/edit_user.html')
     context.update({
         'user' : User.objects.get(id=user_id),
-        'roles' : Role.objects.all()
+        'roles' : Role.objects.all(),
+        'user_types': UserAttr.USER_TYPE_CHOISES
     })
     return HttpResponse(template.render(context, request))
 

@@ -92,8 +92,14 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="col-sm-2"></div>
-        <div class="col"></div>
+        <label class="col-sm-2 col-form-label">{% trans "User type" %}</label>
+        <div class="col">
+            <select class="custom-select" name="user_type">
+                {% for user_type in user_types %}
+                    <option value="{{user_type.0}}" {% if user_type.0 == user.userattr.user_type %} selected {% endif %}>{{user_type.1}}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
     <div class="text-right">
         <button type="submit" class="btn btn-primary mb-2">{% trans "Save" %}</button>
