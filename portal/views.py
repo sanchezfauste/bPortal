@@ -55,22 +55,22 @@ def index(request):
 
 @login_required
 def modules(request):
-    modules = SuiteCRMCached().get_available_modules()
+    modules = get_available_modules()
     template = loader.get_template('portal/modules.html')
     context = basepage_processor(request)
     context.update({
-        'modules' : modules['modules']
+        'modules' : modules
     })
     return HttpResponse(template.render(context, request))
 
 @login_required
 @permission_required('is_superuser')
 def edit_layouts(request):
-    modules = SuiteCRMCached().get_available_modules()
+    modules = get_available_modules()
     template = loader.get_template('portal/edit_layouts.html')
     context = basepage_processor(request)
     context.update({
-        'available_modules' : modules['modules']
+        'available_modules' : modules
     })
     return HttpResponse(template.render(context, request))
 
@@ -503,11 +503,7 @@ def edit_role(request, role):
             role_bean = Role.objects.get(name=role)
         except:
             pass
-        available_modules = SuiteCRMCached().get_available_modules()
-        module_labels = {}
-        for available_module in available_modules['modules']:
-            module_labels[available_module['module_key']] = \
-                available_module['module_label']
+        module_labels = get_module_labels()
         role_permissions = RolePermission.objects.filter(role=role, grant=1)
         modules_order = role_permissions.values_list('module').distinct()
         module_permissions = OrderedDict()

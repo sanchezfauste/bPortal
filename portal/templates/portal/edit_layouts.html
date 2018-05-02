@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for module in available_modules %}
+                {% for key, module in available_modules.items %}
                 <tr>
                     <td>{{ module.module_label }}</td>
                     <td>

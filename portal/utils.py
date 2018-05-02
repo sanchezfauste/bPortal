@@ -202,6 +202,11 @@ FIELD_NAMES_DISALLOWED_ON_VIEWS=[
     'assigned_user_id'
 ]
 
+FORBIDDEN_MODULES=[
+    'Home',
+    'Calendar'
+]
+
 def set_sortable_atribute_on_module_fields(module_fields):
     for field_name, field_def in module_fields.items():
         if field_def['type'] in NON_SORTABLE_FIELD_TYPES\
@@ -606,12 +611,23 @@ def contact_is_linked_to_record(user, module, id):
 def get_module_labels():
     module_labels = {}
     try:
-        available_modules = SuiteCRMCached().get_available_modules()['modules']
-        for module in available_modules:
-            module_labels[module['module_key']] = module['module_label']
+        available_modules = get_available_modules()
+        for key, module in available_modules.items():
+            module_labels[key] = module['module_label']
     except:
         pass
     return module_labels
+
+def get_available_modules():
+    available_modules = OrderedDict()
+    try:
+        all_modules = SuiteCRMCached().get_available_modules()['modules']
+        for module in all_modules:
+            if module['module_key'] not in FORBIDDEN_MODULES:
+                available_modules[module['module_key']] = module
+    except Exception as e:
+        pass
+    return available_modules
 
 def encode_multienum(values):
     if len(values) > 0:
