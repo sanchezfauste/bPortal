@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -10,10 +11,10 @@ class Layout(models.Model):
 
     module = models.CharField(max_length=50)
     VIEW_CHOICES = (
-        ('list', 'List View'),
-        ('detail', 'Detail View'),
-        ('edit', 'Edit View'),
-        ('create', 'Create View'),
+        ('list', _('List View')),
+        ('detail', _('Detail View')),
+        ('edit', _('Edit View')),
+        ('create', _('Create View')),
     )
     view = models.CharField(max_length=30, choices=VIEW_CHOICES)
     fields = models.TextField()
@@ -36,10 +37,10 @@ class RolePermission(models.Model):
     role = models.ForeignKey('Role', on_delete=models.CASCADE)
     module = models.CharField(max_length=50)
     ACTION_CHOICES = (
-        ('read', 'Read'),
-        ('create', 'Create'),
-        ('edit', 'Edit'),
-        ('delete', 'Delete'),
+        ('read', _('Read')),
+        ('create', _('Create')),
+        ('edit', _('Edit')),
+        ('delete', _('Delete')),
     )
     action = models.CharField(max_length=30, choices=ACTION_CHOICES)
     grant = models.BooleanField()
@@ -65,6 +66,15 @@ class UserAttr(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     contact_id = models.CharField(max_length=36)
     account_id = models.CharField(max_length=36)
+    USER_TYPE_CHOISES = (
+        ('single', _('Single')),
+        ('account', _('Account'))
+    )
+    user_type = models.CharField(
+        max_length=30,
+        choices=USER_TYPE_CHOISES,
+        default='single'
+    )
 
     def __str__(self):
         return self.user.username
