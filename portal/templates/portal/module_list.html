@@ -3,6 +3,9 @@
 {% load filters %}
 {% block title %}{{ module_labels|get_label:module_key }}{% endblock %}
 {% load staticfiles %}
+{% block static_files %}
+<script src="{% static 'portal/session.js' %}"></script>
+{% endblock %}
 {% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
 {% block content %}
 {% load filters %}
@@ -155,7 +158,7 @@
                                 {% endif %}
                                 {% if user_can_delete %}
                                     <td>
-                                        <button type="button" class="btn btn-outline-danger btn-sm"><span class="oi oi-trash"></span> {% trans "Remove" %}</button>
+                                        {% include "portal/module_remove.html" %}
                                     </td>
                                 {% endif %}
                             </tr>

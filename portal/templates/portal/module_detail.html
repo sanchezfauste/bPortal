@@ -9,6 +9,9 @@
     {% endif %}
 {% endblock %}
 {% load staticfiles %}
+{% block static_files %}
+<script src="{% static 'portal/session.js' %}"></script>
+{% endblock %}
 {% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
 {% block content %}
 {% load filters %}
@@ -31,7 +34,9 @@
                 <div class="card-header">
                     <b>{{record.name}}</b>
                     {% if user_can_delete %}
-                        <button type="button" class="btn btn-outline-danger btn-sm float-right ml-2"><span class="oi oi-trash"></span> {% trans "Remove" %}</button>
+                        <div class="float-right ml-2">
+                            {% include "portal/module_remove.html" %}
+                        </div>
                     {% endif %}
                     {% if user_can_edit %}
                         <a href="{% url 'module_edit' module_key record.id %}" class="btn btn-outline-primary btn-sm float-right ml-2"><span class="oi oi-pencil"></span> {% trans "Edit" %}</a>

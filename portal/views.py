@@ -211,6 +211,36 @@ def module_detail(request, module, id):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def module_remove_record(request, module):
+    if request.method == 'POST' and 'id' in request.POST:
+        id = request.POST['id']
+        if user_can_delete_module(request.user, module) \
+                and contact_is_linked_to_record(request.user, module, id):
+            bean = Bean(module)
+            bean['id'] = id
+            bean['deleted'] = 1
+            try:
+                SuiteCRM().save_bean(bean)
+                return JsonResponse({
+                    "status" : "Success",
+                    "msg" : _("Record deleted successfully.")
+                })
+            except Exception as e:
+                return JsonResponse({
+                    "status" : "Error",
+                    "error" : _("Error deleting record.")
+                }, status = 400)
+        else:
+            return JsonResponse({
+                "status" : "Error",
+                "error" : _("Insufficient permissions.")
+            }, status = 400)
+    return JsonResponse({
+        "status" : "Error",
+        "error" : _("Invalid request.")
+    }, status = 400)
+
+@login_required
 def module_create(request, module):
     context = basepage_processor(request)
     ordered_module_fields = get_module_view_fields(module, 'create')
