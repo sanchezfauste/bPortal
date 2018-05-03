@@ -190,7 +190,7 @@ def module_detail(request, module, id):
     context = basepage_processor(request)
     record = None
     ordered_module_fields = get_module_view_fields(module, 'detail')
-    if user_can_read_module(request.user, module) and contact_can_read_record(request.user, module, id):
+    if user_can_read_module(request.user, module) and user_can_read_record(request.user, module, id):
         template = loader.get_template('portal/module_detail.html')
         try:
             if module == 'Cases':
@@ -218,7 +218,7 @@ def module_remove_record(request, module):
     if request.method == 'POST' and 'id' in request.POST:
         id = request.POST['id']
         if user_can_delete_module(request.user, module) \
-                and contact_is_linked_to_record(request.user, module, id):
+                and user_is_linked_to_record(request.user, module, id):
             bean = Bean(module)
             bean['id'] = id
             bean['deleted'] = 1
@@ -284,7 +284,7 @@ def module_edit(request, module, id):
     context = basepage_processor(request)
     record = None
     ordered_module_fields = get_module_view_fields(module, 'edit')
-    if user_can_edit_module(request.user, module) and contact_is_linked_to_record(request.user, module, id):
+    if user_can_edit_module(request.user, module) and user_is_linked_to_record(request.user, module, id):
         template = loader.get_template('portal/module_edit.html')
         if request.method == 'POST':
             try:

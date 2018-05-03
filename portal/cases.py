@@ -124,4 +124,4 @@ def get_case_updates(case_id):
     )
 
 def user_is_linked_to_case(user, case_id):
-    return contact_is_linked_to_record(user, 'Cases', case_id)
+    return user_is_linked_to_record(user, 'Cases', case_id)

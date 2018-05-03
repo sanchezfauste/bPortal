@@ -553,9 +553,9 @@ def enable_portal_user(contact):
             "error" : "Error enabling account"
         }, status = 400)
 
-def contact_can_read_record(user, module, id):
+def user_can_read_record(user, module, id):
     try:
-        if contact_is_linked_to_record(user, module, id):
+        if user_is_linked_to_record(user, module, id):
             return True
         module_def = ModuleDefinitionFactory.get_module_definition(module)
         if module_def.contacts_link_type == LinkType.NONE:
@@ -564,27 +564,38 @@ def contact_can_read_record(user, module, id):
         pass
     return False
 
-def contact_is_linked_to_record(user, module, id):
+def user_is_linked_to_record(user, module, id):
     try:
-        contact_id = user.userattr.contact_id
         module_def = ModuleDefinitionFactory.get_module_definition(module)
-        if module_def.contacts_link_type == LinkType.RELATED:
+        user_type = user.userattr.user_type
+        if user_type == 'account':
+            related_module = 'Accounts'
+            related_id = user.userattr.account_id
+            link_type = module_def.accounts_link_type
+            link_name = module_def.accounts_link_name
+        else:
+            related_module = 'Contacts'
+            related_id = user.userattr.contact_id
+            link_type = module_def.contacts_link_type
+            link_name = module_def.contacts_link_name
+
+        if link_type == LinkType.RELATED:
             filter_query = module.lower() + '.id = \'' + id + '\' AND '
             filter_query += get_filter_related(
                 module,
-                module_def.contacts_link_name,
-                contact_id
+                link_name,
+                related_id
             )
             records = SuiteCRM().get_bean_list(
                 module,
                 max_results = 1,
                 query = filter_query
             )
-        elif module_def.contacts_link_type == LinkType.RELATIONSHIP:
+        elif link_type == LinkType.RELATIONSHIP:
             records = SuiteCRM().get_relationships(
-                'Contacts',
-                contact_id,
-                module_def.contacts_link_name,
+                related_module,
+                related_id,
+                link_name,
                 related_fields = ['id'],
                 limit = 1,
                 related_module_query = module.lower() + '.id = \'' + id + '\''
@@ -593,8 +604,8 @@ def contact_is_linked_to_record(user, module, id):
             filter_query = module.lower() + '.id = \'' + id + '\' AND '
             filter_query += get_filter_parent(
                 module,
-                'Contacts',
-                contact_id
+                related_module,
+                related_id
             )
             records = SuiteCRM().get_bean_list(
                 module,
