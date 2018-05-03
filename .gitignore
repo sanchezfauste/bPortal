@@ -108,3 +108,6 @@ ENV/
 
 # Custom settings file
 bPortal/custom_settings.py
+
+# Static cache
+static/
