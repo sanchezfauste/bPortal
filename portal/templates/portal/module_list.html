@@ -182,6 +182,12 @@
                                 value="{{ records.previous_offset }}"
                                 name="offset"
                             >
+                            {% if order_by %}
+                                <input type="hidden" value="{{ order_by }}" name="order_by">
+                                {% if order %}
+                                    <input type="hidden" value="{{ order }}" name="order">
+                                {% endif %}
+                            {% endif %}
                             <button class="page-link" type="submit"><span class="oi oi-arrow-left"></span> {% trans "Previous" %}</button>
                         </form>
                       {% else %}
@@ -204,6 +210,12 @@
                                   value="{{ records.next_offset }}"
                                   name="offset"
                               >
+                              {% if order_by %}
+                                  <input type="hidden" value="{{ order_by }}" name="order_by">
+                                  {% if order %}
+                                      <input type="hidden" value="{{ order }}" name="order">
+                                  {% endif %}
+                              {% endif %}
                               <button class="page-link" type="submit">{% trans "Next" %} <span class="oi oi-arrow-right"></span></button>
                           </form>
                       {% else %}
