@@ -234,18 +234,28 @@ def get_allowed_module_fields(module):
 
 def retrieve_list_view_records(module, arguments, user):
     try:
-        contact_id = user.userattr.contact_id
-    except:
-        return {
-            'module_key' : module,
-            'invalid_contact_id' : True
-        }
-    try:
         module_def = ModuleDefinitionFactory.get_module_definition(module)
     except ModuleDefinitionNotFoundException:
         return {
             'module_key' : module,
             'unsupported_module' : True
+        }
+    try:
+        user_type = user.userattr.user_type
+        if user_type == 'account':
+            related_module = 'Accounts'
+            related_id = user.userattr.account_id
+            link_type = module_def.accounts_link_type
+            link_name = module_def.accounts_link_name
+        else:
+            related_module = 'Contacts'
+            related_id = user.userattr.contact_id
+            link_type = module_def.contacts_link_type
+            link_name = module_def.contacts_link_name
+    except:
+        return {
+            'module_key' : module,
+            'error_retrieving_records' : True
         }
     records = []
     module_fields = {}
@@ -281,13 +291,13 @@ def retrieve_list_view_records(module, arguments, user):
         else:
             order = None
         filter_query = get_filter_query(module, filterable_fields, arguments)
-        if module_def.contacts_link_type == LinkType.RELATED:
+        if link_type == LinkType.RELATED:
             if filter_query:
                 filter_query += " AND "
             filter_query += get_filter_related(
                 module,
-                module_def.contacts_link_name,
-                contact_id
+                link_name,
+                related_id
             )
             if module_def.custom_where:
                 if filter_query:
@@ -300,28 +310,28 @@ def retrieve_list_view_records(module, arguments, user):
                 order_by = order_by_string,
                 query = filter_query
             )
-        elif module_def.contacts_link_type == LinkType.RELATIONSHIP:
+        elif link_type == LinkType.RELATIONSHIP:
             if module_def.custom_where:
                 if filter_query:
                     filter_query += " AND "
                 filter_query += module_def.custom_where
             records = SuiteCRM().get_relationships(
-                'Contacts',
-                contact_id,
-                module_def.contacts_link_name,
+                related_module,
+                related_id,
+                link_name,
                 related_fields = ['id'] + fields_list,
                 limit = limit,
                 offset = offset,
                 order_by = order_by_string,
                 related_module_query = filter_query
             )
-        elif module_def.contacts_link_type == LinkType.PARENT:
+        elif link_type == LinkType.PARENT:
             if filter_query:
                 filter_query += " AND "
             filter_query += get_filter_parent(
                 module,
-                'Contacts',
-                contact_id
+                related_module,
+                related_id
             )
             if module_def.custom_where:
                 if filter_query:
@@ -334,7 +344,7 @@ def retrieve_list_view_records(module, arguments, user):
                 order_by = order_by_string,
                 query = filter_query
             )
-        elif module_def.contacts_link_type == LinkType.NONE:
+        elif link_type == LinkType.NONE:
             if module_def.custom_where:
                 if filter_query:
                     filter_query += " AND "
@@ -360,17 +370,29 @@ def retrieve_list_view_records(module, arguments, user):
     }
 
 # Function used to populate dropdowns
-def get_related_contact_records(module, contact_id):
+def get_related_user_records(module, user):
     records = None
     try:
         module_def = ModuleDefinitionFactory.get_module_definition(module)
+        user_type = user.userattr.user_type
+        if user_type == 'account':
+            related_module = 'Accounts'
+            related_id = user.userattr.account_id
+            link_type = module_def.accounts_link_type
+            link_name = module_def.accounts_link_name
+        else:
+            related_module = 'Contacts'
+            related_id = user.userattr.contact_id
+            link_type = module_def.contacts_link_type
+            link_name = module_def.contacts_link_name
+
         fields_list = ['id', 'name']
         order_by = 'name'
-        if module_def.contacts_link_type == LinkType.RELATED:
+        if link_type == LinkType.RELATED:
             filter_query = get_filter_related(
                 module,
-                module_def.contacts_link_name,
-                contact_id
+                link_name,
+                related_id
             )
             if module_def.custom_where:
                 if filter_query:
@@ -382,23 +404,23 @@ def get_related_contact_records(module, contact_id):
                 select_fields = fields_list,
                 query = filter_query
             )
-        elif module_def.contacts_link_type == LinkType.RELATIONSHIP:
+        elif link_type == LinkType.RELATIONSHIP:
             filter_query = ''
             if module_def.custom_where:
                 filter_query = module_def.custom_where
             records = SuiteCRM().get_relationships(
-                'Contacts',
-                contact_id,
-                module_def.contacts_link_name,
+                related_module,
+                related_id,
+                link_name,
                 related_fields = fields_list,
                 order_by = order_by,
                 related_module_query = filter_query
             )
-        elif module_def.contacts_link_type == LinkType.PARENT:
+        elif link_type == LinkType.PARENT:
             filter_query = get_filter_parent(
                 module,
-                'Contacts',
-                contact_id
+                related_module,
+                related_id
             )
             if module_def.custom_where:
                 if filter_query:
@@ -410,7 +432,7 @@ def get_related_contact_records(module, contact_id):
                 query = filter_query,
                 select_fields = fields_list
             )
-        elif module_def.contacts_link_type == LinkType.NONE:
+        elif link_type == LinkType.NONE:
             filter_query = ''
             if module_def.custom_where:
                 filter_query = module_def.custom_where

@@ -168,15 +168,8 @@ def module_list(request, module):
     return HttpResponse(template.render(context, request))
 
 @login_required
-def contact_records(request, module):
-    try:
-        contact_id = request.user.userattr.contact_id
-    except:
-        return JsonResponse({
-            "status" : "Error",
-            "error" : _("Error getting contact id.")
-        }, status = 400)
-    records = get_related_contact_records(module, contact_id)
+def user_records(request, module):
+    records = get_related_user_records(module, request.user)
     records_json = {
         'records' : []
     }

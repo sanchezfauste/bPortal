@@ -45,7 +45,7 @@
     </select>
     <script type="text/javascript">
         $.ajax({
-            url: "{% url 'contact_records' field.related_module %}",
+            url: "{% url 'user_records' field.related_module %}",
             type: "GET"
         }).done(function(response) {
             response.records.forEach(option => {
@@ -79,21 +79,23 @@
             <option value="{{record.parent_id}}" selected>{{record.parent_name}}</option>
         </select>
         <script type="text/javascript">
-            $.ajax({
-                url: "{% url 'contact_records' value %}",
-                type: "GET"
-            }).done(function(response) {
-                response.records.forEach(option => {
-                    if ('{{record.parent_id}}' != option.id) {
-                        $("#parent_id").append("<option value='" + option.id + "'>" + option.name + "</option>");
-                    }
+            {% if value %}
+                $.ajax({
+                    url: "{% url 'user_records' value %}",
+                    type: "GET"
+                }).done(function(response) {
+                    response.records.forEach(option => {
+                        if ('{{record.parent_id}}' != option.id) {
+                            $("#parent_id").append("<option value='" + option.id + "'>" + option.name + "</option>");
+                        }
+                    });
+                }).fail(function(response) {
+                    console.log('Error retrieving "parent_id" options.');
                 });
-            }).fail(function(response) {
-                console.log('Error retrieving "parent_id" options.');
-            });
+            {% endif %}
             function change_parent_id_options(module) {
                 $.ajax({
-                    url: '/contact_records/' + module,
+                    url: '/user_records/' + module,
                     type: "GET"
                 }).done(function(response) {
                     var parent_id = $("#parent_id");
