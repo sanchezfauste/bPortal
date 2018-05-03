@@ -113,6 +113,33 @@
                                 .change();
                         </script>
                     {% endif %}
+                {% elif def.type == 'int' or def.type == 'uint' or def.type == 'ulong' or def.type == 'long' or def.type == 'short' or def.type == 'tinyint' %}
+                    <input type="number"
+                        name="{{ field }}"
+                        value="{% if field in current_filters %}{{ current_filters|get:field }}{% endif %}"
+                        class="form-control"
+                    >
+                {% elif def.type == 'double' or def.type == 'float' or def.type == 'decimal' or def.type == 'decimal2' %}
+                    <input type="number"
+                        name="{{ field }}"
+                        value="{% if field in current_filters %}{{ current_filters|get:field }}{% endif %}"
+                        class="form-control"
+                        step="0.01"
+                    >
+                {% elif def.type == 'currency' %}
+                    <input type="number"
+                        name="{{ field }}"
+                        value="{% if field in current_filters %}{{ current_filters|get:field }}{% endif %}"
+                        class="form-control"
+                        step="0.01"
+                    >
+                {% elif def.type == 'text' or def.type == 'longtext' or def.type == 'html' or def.type == 'longhtml' %}
+                    <textarea class="form-control"
+                        name="{{ field }}"
+                        rows="3"
+                    >
+                        {% if field in current_filters %}{{ current_filters|get:field }}{% endif %}
+                    </textarea>
                 {% else %}
                     <input type="text"
                         class="form-control"
