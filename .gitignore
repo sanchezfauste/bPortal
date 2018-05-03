@@ -102,6 +102,7 @@ ENV/
 
 # Config files
 *.ini
+*.cnf
 
 # sqlite databases
 *.sqlite3
