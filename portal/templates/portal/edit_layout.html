@@ -68,9 +68,9 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">{% trans "Fields" %}</h4>
-                <a href="#" class="btn btn-primary" onclick="add_layout_row();">{% trans "Add row (1 col)" %}</a>
-                <a href="#" class="btn btn-primary" onclick="add_layout_row2();">{% trans "Add row (2 col)" %}</a>
-                <div id="selected-fields" class="card mt-4">
+                <a href="#" class="btn btn-primary mb-2 mr-2" onclick="add_layout_row();">{% trans "Add row (1 col)" %}</a>
+                <a href="#" class="btn btn-primary mb-2" onclick="add_layout_row2();">{% trans "Add row (2 col)" %}</a>
+                <div id="selected-fields" class="card mt-2">
                     <div class="list-group list-group-flush" id="selected_fields_list_group">
                         {% for row in module_fields %}
                             <div class="list-group-item justify-content-between">
