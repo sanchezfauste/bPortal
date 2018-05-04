@@ -160,6 +160,7 @@
             {% endif %}
         {% endfor %}
         <div class="text-right">
+            <a href="{% url 'module_list' module_key %}" class="btn btn-secondary mr-2"><span class="oi oi-delete"></span> {% trans "Clear filter" %}</a>
             <button class="btn btn-primary" type="submit"><span class="oi oi-magnifying-glass"></span> {% trans "Filter" %}</button>
         </div>
     </form>

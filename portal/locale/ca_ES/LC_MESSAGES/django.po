@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 19:01+0200\n"
+"POT-Creation-Date: 2018-05-04 15:47+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -84,7 +84,9 @@ msgstr "Mòduls"
 msgid "Configure portal"
 msgstr "Configurar el portal"
 
-#: templates/portal/basepage.html:42 templates/portal/edit_layouts.html:3
+#: templates/portal/basepage.html:42 templates/portal/edit_layout.html:34
+#: templates/portal/edit_layouts.html:3
+#: templates/portal/edit_list_layout.html:20
 msgid "Edit views"
 msgstr "Editar vistes"
 
@@ -110,58 +112,77 @@ msgstr "Perfil"
 msgid "Logout"
 msgstr "Tanca sessió"
 
-#: templates/portal/edit_layout.html:11 templates/portal/edit_layout.html:21
+#: templates/portal/edit_layout.html:11 templates/portal/edit_layout.html:25
 #, python-format
 msgid "%(module)s detail view"
 msgstr "Vista detallada de %(module)s"
 
-#: templates/portal/edit_layout.html:13 templates/portal/edit_layout.html:23
+#: templates/portal/edit_layout.html:13 templates/portal/edit_layout.html:27
 #, python-format
 msgid "%(module)s edit view"
 msgstr "Vista edició de %(module)s"
 
-#: templates/portal/edit_layout.html:15 templates/portal/edit_layout.html:25
+#: templates/portal/edit_layout.html:15 templates/portal/edit_layout.html:29
 #, python-format
 msgid "%(module)s create view"
 msgstr "Vista creació de %(module)s"
 
-#: templates/portal/edit_layout.html:32
-#: templates/portal/edit_list_layout.html:18
+#: templates/portal/edit_layout.html:35 templates/portal/edit_layouts.html:22
+msgid "List view"
+msgstr "Vista llista"
+
+#: templates/portal/edit_layout.html:37 templates/portal/edit_layouts.html:25
+#: templates/portal/edit_list_layout.html:21
+msgid "Detail view"
+msgstr "Vista detallada"
+
+#: templates/portal/edit_layout.html:40 templates/portal/edit_layouts.html:31
+#: templates/portal/edit_list_layout.html:22
+msgid "Edit view"
+msgstr "Vista edició"
+
+#: templates/portal/edit_layout.html:43 templates/portal/edit_layouts.html:28
+#: templates/portal/edit_list_layout.html:23
+msgid "Create view"
+msgstr "Vista creació"
+
+#: templates/portal/edit_layout.html:52
+#: templates/portal/edit_list_layout.html:31
 msgid "Available fields"
 msgstr "Camps disponibles"
 
-#: templates/portal/edit_layout.html:43
-#: templates/portal/edit_list_layout.html:29
+#: templates/portal/edit_layout.html:63
+#: templates/portal/edit_list_layout.html:42
 msgid "Drag a field here to not show it"
 msgstr "Arrastrar un camp aquí per a no mostrar-lo"
 
-#: templates/portal/edit_layout.html:50
-#: templates/portal/edit_list_layout.html:36
+#: templates/portal/edit_layout.html:70
+#: templates/portal/edit_list_layout.html:49
 msgid "Fields"
 msgstr "Camps"
 
-#: templates/portal/edit_layout.html:51
+#: templates/portal/edit_layout.html:71
 msgid "Add row (1 col)"
 msgstr "Afegir fila (1a columna)"
 
-#: templates/portal/edit_layout.html:52
+#: templates/portal/edit_layout.html:72
 msgid "Add row (2 col)"
 msgstr "Afegir fila (2 columnes)"
 
-#: templates/portal/edit_layout.html:80
+#: templates/portal/edit_layout.html:100
 msgid "Fields that will be shown in detail view."
 msgstr "Camps que es mostraran a la vista detallada."
 
-#: templates/portal/edit_layout.html:82
+#: templates/portal/edit_layout.html:102
 msgid "Fields that will be shown in edit view."
 msgstr "Camps que es mostraran a la vista edició."
 
-#: templates/portal/edit_layout.html:84
+#: templates/portal/edit_layout.html:104
 msgid "Fields that will be shown in create view."
 msgstr "Camps que es mostraran a la vista creació."
 
-#: templates/portal/edit_layout.html:87
-#: templates/portal/edit_list_layout.html:48 templates/portal/edit_role.html:16
+#: templates/portal/edit_layout.html:107
+#: templates/portal/edit_list_layout.html:61 templates/portal/edit_role.html:16
 #: templates/portal/edit_role.html:39 templates/portal/edit_user.html:105
 #: templates/portal/module_edit.html:81
 msgid "Save"
@@ -171,33 +192,17 @@ msgstr "Guardar"
 msgid "Module"
 msgstr "Mòdul"
 
-#: templates/portal/edit_layouts.html:22
-msgid "List view"
-msgstr "Vista llista"
-
-#: templates/portal/edit_layouts.html:25
-msgid "Detail view"
-msgstr "Vista detallada"
-
-#: templates/portal/edit_layouts.html:28
-msgid "Create view"
-msgstr "Vista creació"
-
-#: templates/portal/edit_layouts.html:31
-msgid "Edit view"
-msgstr "Vista edició"
-
 #: templates/portal/edit_layouts.html:38 templates/portal/edit_role.html:48
 msgid "There are no modules available."
 msgstr "No hi han mòduls disponibles."
 
 #: templates/portal/edit_list_layout.html:9
-#: templates/portal/edit_list_layout.html:12
+#: templates/portal/edit_list_layout.html:16
 #, python-format
 msgid "%(module)s list view"
 msgstr "Vista llista de %(module)s"
 
-#: templates/portal/edit_list_layout.html:47
+#: templates/portal/edit_list_layout.html:60
 msgid "Fields that will be shown in list view."
 msgstr "Camps que es mostraran a la vista llista."
 
@@ -408,24 +413,28 @@ msgstr "Error al carregar la definició del mòdul %(module)s."
 msgid "Crear"
 msgstr "Crear"
 
-#: templates/portal/module_list.html:185 templates/portal/module_list.html:189
+#: templates/portal/module_list.html:191 templates/portal/module_list.html:195
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/portal/module_list.html:207 templates/portal/module_list.html:211
+#: templates/portal/module_list.html:219 templates/portal/module_list.html:223
 msgid "Next"
 msgstr "Següent"
 
-#: templates/portal/module_list.html:231
+#: templates/portal/module_list.html:243
 msgid "No records found."
 msgstr "No s'han trobat registres."
 
-#: templates/portal/module_list.html:236
+#: templates/portal/module_list.html:248
 #, python-format
 msgid "Module %(module)s has not defined the list view."
 msgstr "El mòdul %(module)s no té definida la vista llista."
 
-#: templates/portal/module_list_filter.html:136
+#: templates/portal/module_list_filter.html:163
+msgid "Clear filter"
+msgstr "Esborrar cerca"
+
+#: templates/portal/module_list_filter.html:164
 msgid "Filter"
 msgstr "Filtrar"
 
@@ -481,97 +490,93 @@ msgstr "S'han actualitzat les preferències de l'usuari."
 msgid "Error while saving user settings."
 msgstr "S'ha produït un error a l'actualizar les preferències de l'usuari."
 
-#: views.py:177
-msgid "Error getting contact id."
-msgstr "S'ha produït un error a l'obtenir l'id del contacte."
-
-#: views.py:229
+#: views.py:222
 msgid "Record deleted successfully."
 msgstr "S'ha eliminat el registre."
 
-#: views.py:234
+#: views.py:227
 msgid "Error deleting record."
 msgstr "S'ha produït un error a l'eliminar el registre."
 
-#: views.py:239
+#: views.py:232
 msgid "Insufficient permissions."
 msgstr "Permisos insuficients."
 
-#: views.py:243 views.py:378
+#: views.py:236 views.py:379
 msgid "Invalid request."
 msgstr "Petició invàlida."
 
-#: views.py:326
+#: views.py:327
 msgid "Empty case updates are not allowed."
 msgstr "No es permeten les actualitzacions de casos buides."
 
-#: views.py:353
+#: views.py:354
 msgid "An error occurred while uploading the attachment(s)."
 msgstr "S'ha produït un error al carregar els fitxers adjunts."
 
-#: views.py:358
+#: views.py:359
 msgid "An error occurred while creating the case update."
 msgstr "S'ha produït un error al crear l'actualització de cas."
 
-#: views.py:362
+#: views.py:363
 msgid "The case update has been added successfully."
 msgstr "S'ha actualitzat el cas correctament."
 
-#: views.py:374
+#: views.py:375
 msgid "An error occurred while updating the case."
 msgstr "S'ha produït un error al actualitzar el cas."
 
-#: views.py:393
+#: views.py:394
 msgid "The requested file was not found."
 msgstr "No s'ha trobat el fitxer sol·licitat."
 
-#: views.py:405 views.py:461
+#: views.py:406 views.py:462
 msgid "Please specify 'selected_fields'."
 msgstr "Si us plau, especifiqui el camp 'selected_fields'."
 
-#: views.py:416 views.py:472
+#: views.py:417 views.py:473
 msgid "Layout updated successfully"
 msgstr "Vista actualitzada correctament"
 
-#: views.py:553
+#: views.py:554
 msgid "Please specify 'permissions'."
 msgstr "Si us plau, especifiqui el camp 'permissions'."
 
-#: views.py:560 views.py:600
+#: views.py:561 views.py:601
 #, python-format
 msgid "Role '%(role)s' does not exist."
 msgstr "El rol '%(role)s' no existeix."
 
-#: views.py:574
+#: views.py:575
 msgid "Role permissions have been updated."
 msgstr "S'han actualitzat els permisos del rol."
 
-#: views.py:590
+#: views.py:591
 #, python-format
 msgid "'%(role)s' role has been removed."
 msgstr "S'ha eliminat el rol '%(role)s'."
 
-#: views.py:595
+#: views.py:596
 msgid "Default role can not be deleted."
 msgstr "No es pot eliminar el rol per defecte."
 
-#: views.py:615
+#: views.py:616
 #, python-format
 msgid "'%(role)s' role has been created."
 msgstr "S'ha creat el rol '%(role)s'."
 
-#: views.py:620
+#: views.py:621
 msgid "Error creating role."
 msgstr "S'ha produït un error al crear el rol."
 
-#: views.py:636
+#: views.py:637
 msgid "Error retrieving contact"
 msgstr "S'ha produït un error al recuperar el contacte"
 
-#: views.py:641
+#: views.py:642
 msgid "Contact has no valid email"
 msgstr "El contacte no té un correu electrònic vàlid"
 
-#: views.py:652
+#: views.py:653
 msgid "Invalid request"
 msgstr "Petició invàlida"
