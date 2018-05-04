@@ -37,11 +37,11 @@
          </li>
          {% if request.user.is_superuser %}
            <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-wrench"></span> {% trans "Configure portal" %}</a>
+             <a class="nav-link dropdown-toggle" id="configure_portal_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-wrench"></span> {% trans "Configure portal" %}</a>
              <div class="dropdown-menu scrollable-dropdown" aria-labelledby="modules_dropdown">
-               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_layouts' %}"><span class="oi oi-list-rich"></span> {% trans "Edit views" %}</a>
-               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_roles' %}"><span class="oi oi-shield"></span> {% trans "Edit roles" %}</a>
-               <a class="dropdown-item" id="edit_layouts" href="{% url 'edit_users' %}"><span class="oi oi-people"></span> {% trans "Edit users" %}</a>
+               <a class="dropdown-item" id="edit_views" href="{% url 'edit_layouts' %}"><span class="oi oi-list-rich"></span> {% trans "Edit views" %}</a>
+               <a class="dropdown-item" id="edit_roles" href="{% url 'edit_roles' %}"><span class="oi oi-shield"></span> {% trans "Edit roles" %}</a>
+               <a class="dropdown-item" id="edit_users" href="{% url 'edit_users' %}"><span class="oi oi-people"></span> {% trans "Edit users" %}</a>
              </div>
             </li>
          {% endif %}
