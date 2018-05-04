@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 15:47+0200\n"
+"POT-Creation-Date: 2018-05-04 16:07+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -46,21 +46,21 @@ msgstr "Vista edició"
 msgid "Create View"
 msgstr "Vista creació"
 
-#: models.py:40 templates/portal/edit_role.html:21
+#: models.py:40 templates/portal/edit_role.html:28
 msgid "Read"
 msgstr "Veure"
 
-#: models.py:41 templates/portal/edit_role.html:22
+#: models.py:41 templates/portal/edit_role.html:29
 #: templates/portal/module_create.html:72
 msgid "Create"
 msgstr "Crear"
 
-#: models.py:42 templates/portal/edit_role.html:23
+#: models.py:42 templates/portal/edit_role.html:30
 #: templates/portal/module_detail.html:42 templates/portal/module_list.html:156
 msgid "Edit"
 msgstr "Editar"
 
-#: models.py:43 templates/portal/edit_role.html:24
+#: models.py:43 templates/portal/edit_role.html:31
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -90,7 +90,8 @@ msgstr "Configurar el portal"
 msgid "Edit views"
 msgstr "Editar vistes"
 
-#: templates/portal/basepage.html:43 templates/portal/edit_roles.html:3
+#: templates/portal/basepage.html:43 templates/portal/edit_role.html:16
+#: templates/portal/edit_roles.html:3
 msgid "Edit roles"
 msgstr "Editar rols"
 
@@ -182,17 +183,17 @@ msgid "Fields that will be shown in create view."
 msgstr "Camps que es mostraran a la vista creació."
 
 #: templates/portal/edit_layout.html:107
-#: templates/portal/edit_list_layout.html:61 templates/portal/edit_role.html:16
-#: templates/portal/edit_role.html:39 templates/portal/edit_user.html:105
+#: templates/portal/edit_list_layout.html:61 templates/portal/edit_role.html:23
+#: templates/portal/edit_role.html:46 templates/portal/edit_user.html:105
 #: templates/portal/module_edit.html:81
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/portal/edit_layouts.html:10 templates/portal/edit_role.html:20
+#: templates/portal/edit_layouts.html:10 templates/portal/edit_role.html:27
 msgid "Module"
 msgstr "Mòdul"
 
-#: templates/portal/edit_layouts.html:38 templates/portal/edit_role.html:48
+#: templates/portal/edit_layouts.html:38 templates/portal/edit_role.html:55
 msgid "There are no modules available."
 msgstr "No hi han mòduls disponibles."
 
@@ -211,12 +212,12 @@ msgstr "Camps que es mostraran a la vista llista."
 msgid "%(role)s role"
 msgstr "Rol %(role)s"
 
-#: templates/portal/edit_role.html:11
+#: templates/portal/edit_role.html:13
 #, python-format
 msgid "<b>%(role)s</b> role configuration"
 msgstr "Configuració del rol <b>%(role)s</b>"
 
-#: templates/portal/edit_role.html:54
+#: templates/portal/edit_role.html:61
 #, python-format
 msgid "<b>%(role)s</b> role does not exist."
 msgstr "El rol <b>%(role)s</b> no existeix."
@@ -560,23 +561,27 @@ msgstr "S'ha eliminat el rol '%(role)s'."
 msgid "Default role can not be deleted."
 msgstr "No es pot eliminar el rol per defecte."
 
-#: views.py:616
+#: views.py:617
 #, python-format
 msgid "'%(role)s' role has been created."
 msgstr "S'ha creat el rol '%(role)s'."
 
-#: views.py:621
+#: views.py:622
+msgid "Error creating role: Invalid role name."
+msgstr "S'ha produït un error al crear el rol: El nom no és vàlid."
+
+#: views.py:627
 msgid "Error creating role."
 msgstr "S'ha produït un error al crear el rol."
 
-#: views.py:637
+#: views.py:643
 msgid "Error retrieving contact"
 msgstr "S'ha produït un error al recuperar el contacte"
 
-#: views.py:642
+#: views.py:648
 msgid "Contact has no valid email"
 msgstr "El contacte no té un correu electrònic vàlid"
 
-#: views.py:653
+#: views.py:659
 msgid "Invalid request"
 msgstr "Petició invàlida"

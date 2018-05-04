@@ -609,12 +609,18 @@ def create_role(request):
     if request.method == 'POST':
         try:
             role = request.POST['role_name']
-            r = Role(name=role)
-            r.save()
-            context.update({
-                'success_msg' : True,
-                'msg' : _('\'%(role)s\' role has been created.') % {'role': role}
-            })
+            if len(role.strip()) > 0:
+                r = Role(name=role)
+                r.save()
+                context.update({
+                    'success_msg' : True,
+                    'msg' : _('\'%(role)s\' role has been created.') % {'role': role}
+                })
+            else:
+                context.update({
+                    'error_msg' : True,
+                    'msg' : _('Error creating role: Invalid role name.')
+                })
         except:
             context.update({
                 'error_msg' : True,
