@@ -287,6 +287,14 @@ def module_edit(request, module, id):
                 context.update({
                     'record_edited' : True
                 })
+                url = reverse(
+                    'module_detail',
+                    kwargs={
+                        'module': module,
+                        'id': id
+                    }
+                )
+                return HttpResponseRedirect(url)
             except:
                 context.update({
                     'error_on_save' : True
