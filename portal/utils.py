@@ -168,7 +168,8 @@ def get_listview_filter(parameters):
 NON_SORTABLE_FIELD_TYPES=[
     'html',
     'text',
-    'encrypt'
+    'encrypt',
+    'relate'
 ]
 NON_SORTABLE_FIELD_NAMES=[
     'email1',
