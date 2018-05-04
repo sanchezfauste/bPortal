@@ -109,6 +109,7 @@ LANGUAGE_CODE = 'es_ES'
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'bPortal/locale'),
+    os.path.join(BASE_DIR, 'portal/locale'),
 )
 
 TIME_ZONE = 'UTC'
