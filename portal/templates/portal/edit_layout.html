@@ -15,15 +15,35 @@
         {% blocktrans with module=module_labels|get_label:module_key %}{{module}} create view{% endblocktrans %}
     {% endif %}
 {% endblock %}
+{% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
 {% block content %}
 
-<h2>{% if layout == 'detail' %}
-    {% blocktrans with module=module_labels|get_label:module_key %}{{module}} detail view{% endblocktrans %}
-{% elif layout == 'edit' %}
-    {% blocktrans with module=module_labels|get_label:module_key %}{{module}} edit view{% endblocktrans %}
-{% elif layout == 'create' %}
-    {% blocktrans with module=module_labels|get_label:module_key %}{{module}} create view{% endblocktrans %}
-{% endif %}</h2><br>
+<div class="row mb-4">
+    <div class="col-auto">
+        <h2><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="33px"> 
+            {% if layout == 'detail' %}
+                {% blocktrans with module=module_labels|get_label:module_key %}{{module}} detail view{% endblocktrans %}
+            {% elif layout == 'edit' %}
+                {% blocktrans with module=module_labels|get_label:module_key %}{{module}} edit view{% endblocktrans %}
+            {% elif layout == 'create' %}
+                {% blocktrans with module=module_labels|get_label:module_key %}{{module}} create view{% endblocktrans %}
+            {% endif %}
+        </h2>
+    </div>
+    <div class="col text-right">
+        <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_layouts' %}"><span class="oi oi-list-rich"></span> {% trans "Edit views" %}</a>
+        <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_list_layout' module_key %}"><span class="oi oi-list"></span> {% trans "List view" %}</a>
+        {% if layout != 'detail' %}
+            <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_detail_layout' module_key %}"><span class="oi oi-eye"></span> {% trans "Detail view" %}</a>
+        {% endif %}
+        {% if layout != 'edit' %}
+            <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_edit_layout' module_key %}"><span class="oi oi-pencil"></span> {% trans "Edit view" %}</a>
+        {% endif %}
+        {% if layout != 'create' %}
+            <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_create_layout' module_key %}"><span class="oi oi-document"></span> {% trans "Create view" %}</a>
+        {% endif %}
+    </div>
+</div>
 
 <div class="row">
     <div class="col">
