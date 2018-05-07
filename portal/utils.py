@@ -23,7 +23,6 @@ from .models import Layout
 from suitepy.suitecrm import SuiteCRM
 from suitepy.suitecrm_cached import SuiteCRMCached
 from collections import OrderedDict
-import urllib
 import json
 from django.http import JsonResponse
 from django.contrib.auth.models import User

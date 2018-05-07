@@ -18,7 +18,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 
-from suitepy.suitecrm import SuiteCRM
 from utils import *
 
 def basepage_processor(request):
