@@ -266,7 +266,7 @@ def retrieve_list_view_records(module, arguments, user):
     if limit:
         limit = int(limit)
     else:
-        limit = 10
+        limit = 20
     offset = arguments.get('offset')
     if offset:
         offset = int(offset)
