@@ -8,6 +8,8 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>{% trans "User" %}</th>
+                    <th>{% trans "First name" %}</th>
+                    <th>{% trans "Last name" %}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -15,6 +17,8 @@
                 {% for user in users %}
                 <tr>
                     <td>{{ user.username }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
                     <td>
                         <a href="{% url 'edit_user' user.id %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-pencil"></span> {% trans "Edit user" %}</a>
                     </td>
