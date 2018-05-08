@@ -6,7 +6,11 @@
 {% block static_files %}
 <script src="{% static 'portal/session.js' %}"></script>
 {% endblock %}
-{% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
+{% block favicon %}
+    {% with module_ico=module_key|get_module_ico %}
+        <link rel="shortcut icon" href="{% static module_ico %}">
+    {% endwith %}
+{% endblock %}
 {% block content %}
 {% load filters %}
 
@@ -17,7 +21,9 @@
     {% else %}
         <div class="row">
             <div class="col">
-                <h1><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="44px"> {{ module_labels|get_label:module_key }}</h1>
+                {% with module_img=module_key|get_module_dark_svg %}
+                    <h1><img src="{% static module_img %}" width="44px"> {{ module_labels|get_label:module_key }}</h1>
+                {% endwith %}
             </div>
             {% if user_can_create %}
                 <div class="col text-right">

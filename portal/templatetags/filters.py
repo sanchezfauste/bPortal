@@ -23,6 +23,7 @@ import HTMLParser
 from datetime import datetime
 from django.conf import settings
 from django.utils.translation import gettext as _
+from django.contrib.staticfiles import finders
 
 register = template.Library()
 
@@ -101,3 +102,39 @@ def unencode_multienum(value):
     if len(value) >= 2 and value[0] == '^' and value[-1] == '^':
         value = value[1:-1]
     return value.split('^,^')
+
+@register.filter(name='get_module_dark_svg')
+def get_module_dark_svg(module):
+    custom_module_img = 'portal/img/custom/modules/dark/' + module + '.svg'
+    module_img = 'portal/img/modules/dark/' + module + '.svg'
+    default_img = 'portal/img/modules/dark/basic.svg'
+    if finders.find(custom_module_img):
+        return custom_module_img
+    elif finders.find(module_img):
+        return module_img
+    else:
+        return default_img
+
+@register.filter(name='get_module_light_svg')
+def get_module_light_svg(module):
+    custom_module_img = 'portal/img/custom/modules/light/' + module + '.svg'
+    module_img = 'portal/img/modules/light/' + module + '.svg'
+    default_img = 'portal/img/modules/light/basic.svg'
+    if finders.find(custom_module_img):
+        return custom_module_img
+    elif finders.find(module_img):
+        return module_img
+    else:
+        return default_img
+
+@register.filter(name='get_module_ico')
+def get_module_ico(module):
+    custom_module_img = 'portal/img/custom/modules/favicon/' + module + '.ico'
+    module_img = 'portal/img/modules/favicon/' + module + '.ico'
+    default_img = 'portal/img/modules/favicon/basic.ico'
+    if finders.find(custom_module_img):
+        return custom_module_img
+    elif finders.find(module_img):
+        return module_img
+    else:
+        return default_img

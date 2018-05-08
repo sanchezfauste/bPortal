@@ -31,7 +31,9 @@
            <a class="nav-link dropdown-toggle" id="modules_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-spreadsheet"></span> {% trans "Modules" %}</a>
            <div class="dropdown-menu scrollable-dropdown" aria-labelledby="modules_dropdown">
                 {% for module_key, module in modules.items %}
-                    <a class="dropdown-item" id="modules_dropdown_{{ module.module_key }}" href="{% url 'module_list' module.module_key %}"><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="25px"> {{ module_labels|get_label:module_key }}</a>
+                    {% with module_img=module_key|get_module_dark_svg %}
+                        <a class="dropdown-item" id="modules_dropdown_{{ module.module_key }}" href="{% url 'module_list' module.module_key %}"><img src="{% static module_img %}" width="25px"> {{ module_labels|get_label:module_key }}</a>
+                    {% endwith %}
                 {% endfor %}
            </div>
          </li>

@@ -7,12 +7,18 @@
 <script src="{% static 'portal/save_layouts.js' %}"></script>
 {% endblock %}
 {% block title %}{% blocktrans with module=module_labels|get_label:module_key %}{{module}} list view{% endblocktrans %}{% endblock %}
-{% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/modules/favicon/' %}{{ module_key }}.ico">{% endblock %}
+{% block favicon %}
+    {% with module_ico=module_key|get_module_ico %}
+        <link rel="shortcut icon" href="{% static module_ico %}">
+    {% endwith %}
+{% endblock %}
 {% block content %}
 
 <div class="row mb-4">
     <div class="col-auto">
-        <h2><img src="{% static 'portal/img/modules/dark/' %}{{ module_key }}.svg" width="33px"> 
+        {% with module_img=module_key|get_module_dark_svg %}
+            <h2><img src="{% static module_img %}" width="33px">
+        {% endwith %}
             {% blocktrans with module=module_labels|get_label:module_key %}{{module}} list view{% endblocktrans %}
         </h2>
     </div>

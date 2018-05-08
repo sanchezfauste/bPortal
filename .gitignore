@@ -111,4 +111,7 @@ ENV/
 bPortal/custom_settings.py
 
 # Static cache
-static/
+/static
+
+# Custom module images
+portal/static/portal/img/custom/modules/
