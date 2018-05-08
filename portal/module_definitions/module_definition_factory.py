@@ -38,6 +38,7 @@ from fp_events import FP_events
 from project import Project
 from aok_knowledgebase import AOK_KnowledgeBase
 from module_definition_not_found_exception import ModuleDefinitionNotFoundException
+from importlib import import_module
 
 class ModuleDefinitionFactory:
 
@@ -64,4 +65,10 @@ class ModuleDefinitionFactory:
         if module_name == 'Project': return Project()
         if module_name == 'Project': return Project()
         if module_name == 'AOK_KnowledgeBase': return AOK_KnowledgeBase()
+        try:
+            mod_def = import_module('portal.module_definitions.custom.' + module_name)
+            md = getattr(mod_def, module_name)
+            return md()
+        except:
+            pass
         raise ModuleDefinitionNotFoundException(module_name)

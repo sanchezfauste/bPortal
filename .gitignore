@@ -115,3 +115,6 @@ bPortal/custom_settings.py
 
 # Custom module images
 portal/static/portal/img/custom/modules/
+
+# Custom module definitions
+portal/module_definitions/custom/

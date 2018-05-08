@@ -18,7 +18,26 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 
-from module_definition_factory import ModuleDefinitionFactory
-from module_definition_not_found_exception import ModuleDefinitionNotFoundException
-from link_type import LinkType
-from module_definition import ModuleDefinition
+from portal.module_definitions import ModuleDefinition, LinkType
+
+class cm_my_module(ModuleDefinition):
+
+    @property
+    def name(self):
+        return 'cm_my_module'
+
+    @property
+    def contacts_link_type(self):
+        return LinkType.RELATIONSHIP
+
+    @property
+    def contacts_link_name(self):
+        return 'cm_my_module_contacts'
+
+    @property
+    def accounts_link_type(self):
+        return LinkType.RELATIONSHIP
+
+    @property
+    def accounts_link_name(self):
+        return 'cm_my_module_accounts'
