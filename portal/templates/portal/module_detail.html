@@ -90,6 +90,10 @@
                                             {{ value|format_time }}
                                         {% elif field.type == 'datetime' or field.type == 'datetimecombo' %}
                                             {{ value|format_datetime }}
+                                        {% elif field.type == 'double' or field.type == 'float' or field.type == 'decimal' or field.type == 'decimal2' %}
+                                            {{ value|floatformat:2 }}
+                                        {% elif field.type == 'currency' %}
+                                            {{ value|floatformat:2 }}
                                         {% else %}
                                             {{ value|decode|safe }}
                                         {% endif %}

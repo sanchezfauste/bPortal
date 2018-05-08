@@ -148,6 +148,10 @@
                                             <td id="{{ field }}" colspan="2">{{ value|format_time }}</td>
                                         {% elif def.type == 'datetime' or def.type == 'datetimecombo' %}
                                             <td id="{{ field }}" colspan="2">{{ value|format_datetime }}</td>
+                                        {% elif def.type == 'double' or def.type == 'float' or def.type == 'decimal' or def.type == 'decimal2' %}
+                                            <td id="{{ field }}" colspan="2">{{ value|floatformat:2 }}</td>
+                                        {% elif def.type == 'currency' %}
+                                            <td id="{{ field }}" colspan="2">{{ value|floatformat:2 }}</td>
                                         {% else %}
                                             {% if forloop.first %}
                                                 <td id="{{ field }}" colspan="2"><a href="{% url 'module_detail' module_key record.id %}">{{ value|safe }}</a></td>
