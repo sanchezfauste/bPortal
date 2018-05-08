@@ -41,7 +41,11 @@
     <input type="hidden" name="{{field.name}}">
     <select name="{{field.id_name}}" id="{{field.id_name}}" class="form-control"{% if field.required %} required{% endif %}>
         <option value=""></option>
-        <option value="{{record|get:field.id_name}}" selected>{{ value }}</option>
+        {% with selected_value=record|get:field.id_name %}
+            {% if selected_value %}
+                <option value="{{selected_value}}" selected>{{ value }}</option>
+            {% endif %}
+        {% endwith %}
     </select>
     <script type="text/javascript">
         $.ajax({
@@ -76,7 +80,11 @@
     </div><div class="col">
         <select name="parent_id" id="parent_id" class="form-control"{% if field.required %} required{% endif %}>
             <option value=""></option>
-            <option value="{{record.parent_id}}" selected>{{record.parent_name}}</option>
+            {% with selected_value=record.parent_id %}
+                {% if selected_value %}
+                    <option value="{{selected_value}}" selected>{{record.parent_name}}</option>
+                {% endif %}
+            {% endwith %}
         </select>
         <script type="text/javascript">
             {% if value %}
