@@ -242,7 +242,9 @@ def retrieve_list_view_records(module, arguments, user):
         }
     try:
         user_type = user.userattr.user_type
-        if user_type == 'account':
+        if (user_type == 'account' \
+                and module_def.accounts_link_type != LinkType.CONTACT) \
+                or module_def.contacts_link_type == LinkType.ACCOUNT:
             related_module = 'Accounts'
             related_id = user.userattr.account_id
             link_type = module_def.accounts_link_type
@@ -375,7 +377,9 @@ def get_related_user_records(module, user):
     try:
         module_def = ModuleDefinitionFactory.get_module_definition(module)
         user_type = user.userattr.user_type
-        if user_type == 'account':
+        if (user_type == 'account' \
+                and module_def.accounts_link_type != LinkType.CONTACT) \
+                or module_def.contacts_link_type == LinkType.ACCOUNT:
             related_module = 'Accounts'
             related_id = user.userattr.account_id
             link_type = module_def.accounts_link_type
@@ -590,7 +594,9 @@ def user_is_linked_to_record(user, module, id):
     try:
         module_def = ModuleDefinitionFactory.get_module_definition(module)
         user_type = user.userattr.user_type
-        if user_type == 'account':
+        if (user_type == 'account' \
+                and module_def.accounts_link_type != LinkType.CONTACT) \
+                or module_def.contacts_link_type == LinkType.ACCOUNT:
             related_module = 'Accounts'
             related_id = user.userattr.account_id
             link_type = module_def.accounts_link_type

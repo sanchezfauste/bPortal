@@ -18,13 +18,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 
-from enum import Enum
+from portal.module_definitions import ModuleDefinition, LinkType
 
-class LinkType(Enum):
+class cm_my_module2(ModuleDefinition):
 
-    RELATIONSHIP = 'relationship'
-    RELATED = 'related'
-    PARENT = 'parent'
-    CONTACT = 'contact'
-    ACCOUNT = 'account'
-    NONE = 'none'
+    @property
+    def name(self):
+        return 'cm_my_module2'
+
+    @property
+    def contacts_link_type(self):
+        return LinkType.RELATIONSHIP
+
+    @property
+    def contacts_link_name(self):
+        return 'cm_my_module2_contacts'
+
+    @property
+    def accounts_link_type(self):
+        """Use contact link on account user_type"""
+        return LinkType.CONTACT
+
+    @property
+    def accounts_link_name(self):
+        return None
