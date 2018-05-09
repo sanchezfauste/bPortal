@@ -66,7 +66,9 @@ class ModuleDefinitionFactory:
         if module_name == 'Project': return Project()
         if module_name == 'AOK_KnowledgeBase': return AOK_KnowledgeBase()
         try:
-            mod_def = import_module('portal.module_definitions.custom.' + module_name)
+            mod_def = import_module(
+                'portal.module_definitions.custom.' + module_name.lower()
+            )
             md = getattr(mod_def, module_name)
             return md()
         except:
