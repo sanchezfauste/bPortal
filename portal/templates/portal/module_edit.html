@@ -71,7 +71,7 @@
                                 {% else %}
                                     <div class="col-4">
                                 {% endif %}
-                                    <b>{{ field.label }}:</b>
+                                    <b>{{ field.label|safe }}:</b>
                                 </div>
                                 <div class="col">
                                     {% with value=record|get:field.name %}

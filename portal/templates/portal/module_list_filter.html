@@ -13,7 +13,7 @@
             {% endif %}
 
             <div class="col-md-6 mb-3">
-                <label>{{ def.label }}</label>
+                <label>{{ def.label|safe }}</label>
                 {% if def.type == 'enum' or def.type == 'dynamicenum' or def.type == 'datetimecombo' or def.type == 'datetime' or def.type == 'date' or def.type == 'radioenum' or def.type == 'multienum' %}
                     <div class="row">
                         <div class="col">
@@ -143,7 +143,7 @@
                 {% else %}
                     <input type="text"
                         class="form-control"
-                        placeholder="{{ def.label }}"
+                        placeholder="{{ def.label|safe }}"
                         value="{% if field in current_filters %}{{ current_filters|get:field }}{% endif %}"
                         name="{{ field }}"
                     >

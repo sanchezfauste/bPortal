@@ -60,7 +60,7 @@
                     <div class="list-group list-group-flush sortable-ul" id="available-fields">
                         {% for field, def in available_fields.items %}
                             <div class="list-group-item justify-content-between" id="{{ field }}">
-                                {{ def.label }}
+                                {{ def.label|safe }}
                                 <span class="text-muted">[{{ field }}]</span>
                             </div>
                         {% endfor %}
@@ -85,7 +85,7 @@
                                         <div class="col card sortable-ul selected-field ml-2">
                                             {% if field %}
                                                 <div class="list-group-item justify-content-between" id="{{ field.name }}">
-                                                    {{ field.label }}
+                                                    {{ field.label|safe }}
                                                     <span class="text-muted">[{{ field.name }}]</span>
                                                 </div>
                                             {% endif %}

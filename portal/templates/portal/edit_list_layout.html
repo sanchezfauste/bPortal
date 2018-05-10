@@ -39,7 +39,7 @@
                     <ul class="list-group list-group-flush sortable-ul" id="available-fields">
                         {% for field, def in available_fields.items %}
                             <li class="list-group-item justify-content-between" id="{{ field }}">
-                                {{ def.label }}
+                                {{ def.label|safe }}
                                 <span class="text-muted">[{{ field }}]</span>
                             </li>
                         {% endfor %}
@@ -57,7 +57,7 @@
                     <ul class="list-group list-group-flush sortable-ul" id="selected-fields">
                         {% for field, def in module_fields.items %}
                             <li class="list-group-item justify-content-between" id="{{ field }}">
-                                {{ def.label }}
+                                {{ def.label|safe }}
                                 <span class="text-muted">[{{ field }}]</span>
                             </li>
                         {% endfor %}
