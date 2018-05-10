@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'portal/iconic/font/css/open-iconic-bootstrap.css' %}" />
     {% block static_files %}{% endblock %}
     <title>{% block title %}bPortal{% endblock %}</title>
+    {% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/icons/favicon/favicon.ico' %}">{% endblock %}
 </head>
 
 <body>
