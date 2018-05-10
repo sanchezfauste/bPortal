@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 16:07+0200\n"
+"POT-Creation-Date: 2018-05-10 13:23+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -51,12 +51,12 @@ msgid "Read"
 msgstr "Veure"
 
 #: models.py:41 templates/portal/edit_role.html:29
-#: templates/portal/module_create.html:72
+#: templates/portal/module_create.html:78 templates/portal/module_list.html:30
 msgid "Create"
 msgstr "Crear"
 
 #: models.py:42 templates/portal/edit_role.html:30
-#: templates/portal/module_detail.html:42 templates/portal/module_list.html:156
+#: templates/portal/module_detail.html:48 templates/portal/module_list.html:166
 msgid "Edit"
 msgstr "Editar"
 
@@ -72,7 +72,7 @@ msgstr "Usuari individual"
 msgid "Account"
 msgstr "Compta d'usuari"
 
-#: templates/portal/basepage.html:24 templates/portal/index.html:4
+#: templates/portal/basepage.html:24 templates/portal/index.html:5
 msgid "Home"
 msgstr "Inici"
 
@@ -80,112 +80,112 @@ msgstr "Inici"
 msgid "Modules"
 msgstr "Mòduls"
 
-#: templates/portal/basepage.html:40
+#: templates/portal/basepage.html:42
 msgid "Configure portal"
 msgstr "Configurar el portal"
 
-#: templates/portal/basepage.html:42 templates/portal/edit_layout.html:34
+#: templates/portal/basepage.html:44 templates/portal/edit_layout.html:40
 #: templates/portal/edit_layouts.html:3
-#: templates/portal/edit_list_layout.html:20
+#: templates/portal/edit_list_layout.html:26
 msgid "Edit views"
 msgstr "Editar vistes"
 
-#: templates/portal/basepage.html:43 templates/portal/edit_role.html:16
+#: templates/portal/basepage.html:45 templates/portal/edit_role.html:16
 #: templates/portal/edit_roles.html:3
 msgid "Edit roles"
 msgstr "Editar rols"
 
-#: templates/portal/basepage.html:44 templates/portal/edit_user.html:7
+#: templates/portal/basepage.html:46 templates/portal/edit_user.html:7
 #: templates/portal/edit_users.html:3
 msgid "Edit users"
 msgstr "Editar usuaris"
 
-#: templates/portal/basepage.html:50
+#: templates/portal/basepage.html:52
 #, python-format
 msgid "Signed in as <b>%(username)s</b>"
 msgstr "Sessió iniciada com a <b>%(username)s</b>"
 
-#: templates/portal/basepage.html:51
+#: templates/portal/basepage.html:53
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/portal/basepage.html:52
+#: templates/portal/basepage.html:54
 msgid "Logout"
 msgstr "Tanca sessió"
 
-#: templates/portal/edit_layout.html:11 templates/portal/edit_layout.html:25
+#: templates/portal/edit_layout.html:11 templates/portal/edit_layout.html:31
 #, python-format
 msgid "%(module)s detail view"
 msgstr "Vista detallada de %(module)s"
 
-#: templates/portal/edit_layout.html:13 templates/portal/edit_layout.html:27
+#: templates/portal/edit_layout.html:13 templates/portal/edit_layout.html:33
 #, python-format
 msgid "%(module)s edit view"
 msgstr "Vista edició de %(module)s"
 
-#: templates/portal/edit_layout.html:15 templates/portal/edit_layout.html:29
+#: templates/portal/edit_layout.html:15 templates/portal/edit_layout.html:35
 #, python-format
 msgid "%(module)s create view"
 msgstr "Vista creació de %(module)s"
 
-#: templates/portal/edit_layout.html:35 templates/portal/edit_layouts.html:22
+#: templates/portal/edit_layout.html:41 templates/portal/edit_layouts.html:22
 msgid "List view"
 msgstr "Vista llista"
 
-#: templates/portal/edit_layout.html:37 templates/portal/edit_layouts.html:25
-#: templates/portal/edit_list_layout.html:21
+#: templates/portal/edit_layout.html:43 templates/portal/edit_layouts.html:25
+#: templates/portal/edit_list_layout.html:27
 msgid "Detail view"
 msgstr "Vista detallada"
 
-#: templates/portal/edit_layout.html:40 templates/portal/edit_layouts.html:31
-#: templates/portal/edit_list_layout.html:22
+#: templates/portal/edit_layout.html:46 templates/portal/edit_layouts.html:31
+#: templates/portal/edit_list_layout.html:28
 msgid "Edit view"
 msgstr "Vista edició"
 
-#: templates/portal/edit_layout.html:43 templates/portal/edit_layouts.html:28
-#: templates/portal/edit_list_layout.html:23
+#: templates/portal/edit_layout.html:49 templates/portal/edit_layouts.html:28
+#: templates/portal/edit_list_layout.html:29
 msgid "Create view"
 msgstr "Vista creació"
 
-#: templates/portal/edit_layout.html:52
-#: templates/portal/edit_list_layout.html:31
+#: templates/portal/edit_layout.html:58
+#: templates/portal/edit_list_layout.html:37
 msgid "Available fields"
 msgstr "Camps disponibles"
 
-#: templates/portal/edit_layout.html:63
-#: templates/portal/edit_list_layout.html:42
+#: templates/portal/edit_layout.html:69
+#: templates/portal/edit_list_layout.html:48
 msgid "Drag a field here to not show it"
 msgstr "Arrastrar un camp aquí per a no mostrar-lo"
 
-#: templates/portal/edit_layout.html:70
-#: templates/portal/edit_list_layout.html:49
+#: templates/portal/edit_layout.html:76
+#: templates/portal/edit_list_layout.html:55
 msgid "Fields"
 msgstr "Camps"
 
-#: templates/portal/edit_layout.html:71
+#: templates/portal/edit_layout.html:77
 msgid "Add row (1 col)"
 msgstr "Afegir fila (1a columna)"
 
-#: templates/portal/edit_layout.html:72
+#: templates/portal/edit_layout.html:78
 msgid "Add row (2 col)"
 msgstr "Afegir fila (2 columnes)"
 
-#: templates/portal/edit_layout.html:100
+#: templates/portal/edit_layout.html:106
 msgid "Fields that will be shown in detail view."
 msgstr "Camps que es mostraran a la vista detallada."
 
-#: templates/portal/edit_layout.html:102
+#: templates/portal/edit_layout.html:108
 msgid "Fields that will be shown in edit view."
 msgstr "Camps que es mostraran a la vista edició."
 
-#: templates/portal/edit_layout.html:104
+#: templates/portal/edit_layout.html:110
 msgid "Fields that will be shown in create view."
 msgstr "Camps que es mostraran a la vista creació."
 
-#: templates/portal/edit_layout.html:107
-#: templates/portal/edit_list_layout.html:61 templates/portal/edit_role.html:23
+#: templates/portal/edit_layout.html:113
+#: templates/portal/edit_list_layout.html:67 templates/portal/edit_role.html:23
 #: templates/portal/edit_role.html:46 templates/portal/edit_user.html:105
-#: templates/portal/module_edit.html:81
+#: templates/portal/module_edit.html:87
 msgid "Save"
 msgstr "Guardar"
 
@@ -198,12 +198,12 @@ msgid "There are no modules available."
 msgstr "No hi han mòduls disponibles."
 
 #: templates/portal/edit_list_layout.html:9
-#: templates/portal/edit_list_layout.html:16
+#: templates/portal/edit_list_layout.html:22
 #, python-format
 msgid "%(module)s list view"
 msgstr "Vista llista de %(module)s"
 
-#: templates/portal/edit_list_layout.html:60
+#: templates/portal/edit_list_layout.html:66
 msgid "Fields that will be shown in list view."
 msgstr "Camps que es mostraran a la vista llista."
 
@@ -268,11 +268,13 @@ msgstr "Nom d'usuari"
 msgid "Email"
 msgstr "Correu electrònic"
 
-#: templates/portal/edit_user.html:43 templates/portal/user_profile.html:19
+#: templates/portal/edit_user.html:43 templates/portal/edit_users.html:11
+#: templates/portal/user_profile.html:19
 msgid "First name"
 msgstr "Nom"
 
-#: templates/portal/edit_user.html:47 templates/portal/user_profile.html:23
+#: templates/portal/edit_user.html:47 templates/portal/edit_users.html:12
+#: templates/portal/user_profile.html:23
 msgid "Last name"
 msgstr "Cognoms"
 
@@ -304,15 +306,15 @@ msgstr "Tipus d'usuari"
 msgid "User"
 msgstr "Usuari"
 
-#: templates/portal/edit_users.html:19
+#: templates/portal/edit_users.html:23
 msgid "Edit user"
 msgstr "Editar usuari"
 
-#: templates/portal/edit_users.html:27
+#: templates/portal/edit_users.html:31
 msgid "No users found."
 msgstr "No s'han trobat usuaris."
 
-#: templates/portal/index.html:18
+#: templates/portal/index.html:21
 msgid "You do not have access to any module."
 msgstr "No té permisos per a veure cap mòdul."
 
@@ -328,34 +330,34 @@ msgstr ""
 "No teniu permisos suficients per realitzar aquesta acció o esteu intentant "
 "accedir a un mòdul inexistent."
 
-#: templates/portal/module_create.html:18
-#: templates/portal/module_detail.html:24 templates/portal/module_edit.html:22
+#: templates/portal/module_create.html:24
+#: templates/portal/module_detail.html:30 templates/portal/module_edit.html:28
 msgid "List"
 msgstr "Llista"
 
-#: templates/portal/module_create.html:27
+#: templates/portal/module_create.html:33
 msgid "Error creating record."
 msgstr "S'ha produït un error en crear el registre."
 
-#: templates/portal/module_create.html:35
+#: templates/portal/module_create.html:41
 msgid "Record created successfully."
 msgstr "S'ha creat el registre correctament."
 
-#: templates/portal/module_create.html:73 templates/portal/module_edit.html:82
+#: templates/portal/module_create.html:79 templates/portal/module_edit.html:88
 #: templates/portal/module_remove.html:26
 msgid "Cancel"
 msgstr "Cancel·lar"
 
-#: templates/portal/module_create.html:80
+#: templates/portal/module_create.html:86
 #, python-format
 msgid "Module %(module)s has not defined the create view."
 msgstr "El mòdul %(module)s no té definida la vista creació."
 
-#: templates/portal/module_detail.html:106 templates/portal/module_edit.html:88
+#: templates/portal/module_detail.html:116 templates/portal/module_edit.html:94
 msgid "The requested record was not found."
 msgstr "No s'ha trobat el registre sol·licitat."
 
-#: templates/portal/module_detail.html:111
+#: templates/portal/module_detail.html:121
 #, python-format
 msgid "Module %(module)s has not defined the detail view."
 msgstr "El mòdul %(module)s no té definida la vista detallada."
@@ -388,45 +390,41 @@ msgstr "Afegir actualització"
 msgid "Ok"
 msgstr "Acceptar"
 
-#: templates/portal/module_edit.html:31
+#: templates/portal/module_edit.html:37
 msgid "Error updating record."
 msgstr "S'ha produït un error en actualitzar el registre."
 
-#: templates/portal/module_edit.html:39
+#: templates/portal/module_edit.html:45
 msgid "Record updated successfully."
 msgstr "S'han desat els canvis correctament."
 
-#: templates/portal/module_edit.html:53
+#: templates/portal/module_edit.html:59
 msgid "View detail"
 msgstr "Veure detall"
 
-#: templates/portal/module_edit.html:93
+#: templates/portal/module_edit.html:99
 #, python-format
 msgid "Module %(module)s has not defined the edit view."
 msgstr "El mòdul %(module)s no té definida la vista edició."
 
-#: templates/portal/module_list.html:15
+#: templates/portal/module_list.html:19
 #, python-format
 msgid "Error loading definition of %(module)s module."
 msgstr "Error al carregar la definició del mòdul %(module)s."
 
-#: templates/portal/module_list.html:24
-msgid "Crear"
-msgstr "Crear"
-
-#: templates/portal/module_list.html:191 templates/portal/module_list.html:195
+#: templates/portal/module_list.html:201 templates/portal/module_list.html:205
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/portal/module_list.html:219 templates/portal/module_list.html:223
+#: templates/portal/module_list.html:229 templates/portal/module_list.html:233
 msgid "Next"
 msgstr "Següent"
 
-#: templates/portal/module_list.html:243
+#: templates/portal/module_list.html:253
 msgid "No records found."
 msgstr "No s'han trobat registres."
 
-#: templates/portal/module_list.html:248
+#: templates/portal/module_list.html:258
 #, python-format
 msgid "Module %(module)s has not defined the list view."
 msgstr "El mòdul %(module)s no té definida la vista llista."
@@ -469,17 +467,17 @@ msgid "Change my password"
 msgstr "Canviar la meva contrasenya"
 
 #. Translators: Format for date fields following python date format.
-#: templatetags/filters.py:69
+#: templatetags/filters.py:70
 msgid "%d/%m/%Y"
 msgstr "%d/%m/%Y"
 
 #. Translators: Format for time fields following python date format.
-#: templatetags/filters.py:78
+#: templatetags/filters.py:79
 msgid "%H:%M"
 msgstr "%H:%M"
 
 #. Translators: Format for datetime fields following python date format.
-#: templatetags/filters.py:87
+#: templatetags/filters.py:88
 msgid "%d/%m/%Y %H:%M"
 msgstr "%d/%m/%Y %H:%M"
 
