@@ -3,6 +3,7 @@
 {% load filters %}
 {% load staticfiles %}
 {% block title %}{% trans "Home" %}{% endblock %}
+{% block favicon %}<link rel="shortcut icon" href="{% static 'portal/img/icons/favicon/home.ico' %}">{% endblock %}
 {% block content %}
 
 {% if modules %}
