@@ -11,7 +11,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="remove_record_modal_title_{{record.id}}">
-            {% blocktrans with record_name=record.name %}Remove <b>{{record_name}}</b>{% endblocktrans %}
+            {% blocktrans with record_name=record.name|safe %}Remove <b>{{record_name}}</b>{% endblocktrans %}
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -19,7 +19,7 @@
       </div>
       <div class="modal-body">
           <div class="alert alert-warning" role="alert">
-              <span class="oi oi-warning"></span> {% blocktrans with record_name=record.name %}Are you sure to delete <b>{{record_name}}</b> ?{% endblocktrans %}
+              <span class="oi oi-warning"></span> {% blocktrans with record_name=record.name|safe %}Are you sure to delete <b>{{record_name}}</b> ?{% endblocktrans %}
           </div>
       </div>
       <div class="modal-footer">
@@ -34,7 +34,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="notification_modal_title_{{record.id}}">
-            {% blocktrans with record_name=record.name %}Remove <b>{{record_name}}</b>{% endblocktrans %}
+            {% blocktrans with record_name=record.name|safe %}Remove <b>{{record_name}}</b>{% endblocktrans %}
         </h5>
       </div>
       <div class="modal-body">

@@ -3,7 +3,7 @@
 {% load filters %}
 {% block title %}
     {% if record %}
-        {{record.name}}
+        {{record.name|safe}}
     {% else %}
         {{ module_labels|get_label:module_key }}
     {% endif %}
@@ -38,7 +38,7 @@
         {% if record %}
             <div class="card">
                 <div class="card-header">
-                    <b>{{record.name}}</b>
+                    <b>{{record.name|safe}}</b>
                     {% if user_can_delete %}
                         <div class="float-right ml-2">
                             {% include "portal/module_remove.html" %}
