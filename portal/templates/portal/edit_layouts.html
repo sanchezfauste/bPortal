@@ -12,6 +12,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +21,9 @@
                     <td>{{ module.module_label }}</td>
                     <td>
                         <a href="{% url 'edit_list_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-list"></span> {% trans "List view" %}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_filter_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-magnifying-glass"></span> {% trans "Filter view" %}</a>
                     </td>
                     <td>
                         <a href="{% url 'edit_detail_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-eye"></span> {% trans "Detail view" %}</a>

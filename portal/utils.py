@@ -215,7 +215,8 @@ def set_sortable_atribute_on_module_fields(module_fields):
         else:
             field_def['sortable'] = True
 
-def get_filterable_fields(module_fields):
+def get_filterable_fields(module):
+    module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
     filterable_fields = OrderedDict()
     for field_name, field_def in module_fields.items():
         if field_def['type'] not in NON_FILTERABLE_FIELD_TYPES\
@@ -231,6 +232,19 @@ def get_allowed_module_fields(module):
                 and field_name not in FIELD_NAMES_DISALLOWED_ON_VIEWS:
             allowed_fields[field_name] = field_def
     return allowed_fields
+
+def get_filter_layout(module):
+    try:
+        ordered_module_fields = OrderedDict()
+        view = Layout.objects.get(module=module, view='filter')
+        fields_list = json.loads(view.fields)
+        module_fields = SuiteCRMCached().get_module_fields(module, fields_list)['module_fields']
+        for field in fields_list:
+            if field in module_fields:
+                ordered_module_fields[field] = module_fields[field]
+        return ordered_module_fields
+    except Exception:
+        return OrderedDict()
 
 def retrieve_list_view_records(module, arguments, user):
     try:
@@ -262,7 +276,7 @@ def retrieve_list_view_records(module, arguments, user):
     records = []
     module_fields = {}
     ordered_module_fields = OrderedDict()
-    filterable_fields = OrderedDict()
+    filterable_fields = get_filter_layout(module)
     limit = arguments.get('limit')
     if limit:
         limit = int(limit)
@@ -282,7 +296,6 @@ def retrieve_list_view_records(module, arguments, user):
                 ordered_module_fields[field] = module_fields[field]
         remove_colon_of_field_labels(module_fields)
         set_sortable_atribute_on_module_fields(module_fields)
-        filterable_fields = get_filterable_fields(ordered_module_fields)
         order_by_string = None
         if order_by in fields_list and module_fields[order_by]['sortable']:
             order_by_string = order_by
@@ -358,8 +371,8 @@ def retrieve_list_view_records(module, arguments, user):
                 order_by = order_by_string,
                 query = filter_query
             )
-    except:
-        pass
+    except Exception as e:
+        print e
 
     return {
         'module_key' : module,

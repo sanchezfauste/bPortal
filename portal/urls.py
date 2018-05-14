@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^layouts/$', views.edit_layouts, name='edit_layouts'),
     url(r'^user_records/(?P<module>\w+)/$', views.user_records, name='user_records'),
     url(r'^layout/list/(?P<module>\w+)/$', views.edit_list_layout, name='edit_list_layout'),
+    url(r'^layout/filter/(?P<module>\w+)/$', views.edit_filter_layout, name='edit_filter_layout'),
     url(r'^layout/detail/(?P<module>\w+)/$', views.edit_detail_layout, name='edit_detail_layout'),
     url(r'^layout/edit/(?P<module>\w+)/$', views.edit_edit_layout, name='edit_edit_layout'),
     url(r'^layout/create/(?P<module>\w+)/$', views.edit_create_layout, name='edit_create_layout'),

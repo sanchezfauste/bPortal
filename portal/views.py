@@ -396,6 +396,14 @@ def note_attachment(request, id):
 @login_required
 @permission_required('is_superuser')
 def edit_list_layout(request, module):
+    return list_layout(request, module, 'list')
+
+@login_required
+@permission_required('is_superuser')
+def edit_filter_layout(request, module):
+    return list_layout(request, module, 'filter')
+    
+def list_layout(request, module, layout):
     if request.method == 'POST':
         post_data = json.loads(request.body.decode("utf-8"))
         try:
@@ -407,9 +415,9 @@ def edit_list_layout(request, module):
             }, status = 400)
         view = None
         try:
-            view = Layout.objects.get(module=module, view='list')
+            view = Layout.objects.get(module=module, view=layout)
         except:
-            view = Layout(module=module, view='list')
+            view = Layout(module=module, view=layout)
         view.fields = json.dumps(selected_fields)
         view.save()
         return JsonResponse({
@@ -417,11 +425,14 @@ def edit_list_layout(request, module):
             "msg" : _("Layout updated successfully")
         })
     elif request.method == 'GET':
-        available_fields = get_allowed_module_fields(module)
+        if layout == 'filter':
+            available_fields = get_filterable_fields(module)
+        else:
+            available_fields = get_allowed_module_fields(module)
         module_fields = OrderedDict()
         template = loader.get_template('portal/edit_list_layout.html')
         try:
-            view = Layout.objects.get(module=module, view='list')
+            view = Layout.objects.get(module=module, view=layout)
             for field in json.loads(view.fields):
                 if field in available_fields:
                     module_fields[field] = available_fields[field]
@@ -432,7 +443,8 @@ def edit_list_layout(request, module):
         context.update({
             'module_key' : module,
             'module_fields' : module_fields,
-            'available_fields' : available_fields
+            'available_fields' : available_fields,
+            'layout': layout
         })
         return HttpResponse(template.render(context, request))
 

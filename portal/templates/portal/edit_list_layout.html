@@ -6,7 +6,13 @@
 <script src="{% static 'portal/session.js' %}"></script>
 <script src="{% static 'portal/save_layouts.js' %}"></script>
 {% endblock %}
-{% block title %}{% blocktrans with module=module_labels|get_label:module_key %}{{module}} list view{% endblocktrans %}{% endblock %}
+{% block title %}
+    {% if layout == 'filter' %}
+        {% blocktrans with module=module_labels|get_label:module_key %}{{module}} filter view{% endblocktrans %}
+    {% else %}
+        {% blocktrans with module=module_labels|get_label:module_key %}{{module}} list view{% endblocktrans %}
+    {% endif %}
+{% endblock %}
 {% block favicon %}
     {% with module_ico=module_key|get_module_ico %}
         <link rel="shortcut icon" href="{% static module_ico %}">
@@ -19,11 +25,21 @@
         {% with module_img=module_key|get_module_dark_svg %}
             <h2><img src="{% static module_img %}" width="33px">
         {% endwith %}
-            {% blocktrans with module=module_labels|get_label:module_key %}{{module}} list view{% endblocktrans %}
+            {% if layout == 'filter' %}
+                {% blocktrans with module=module_labels|get_label:module_key %}{{module}} filter view{% endblocktrans %}
+            {% else %}
+                {% blocktrans with module=module_labels|get_label:module_key %}{{module}} list view{% endblocktrans %}
+            {% endif %}
         </h2>
     </div>
     <div class="col text-right">
         <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_layouts' %}"><span class="oi oi-list-rich"></span> {% trans "Edit views" %}</a>
+        {% if layout != 'filter' %}
+            <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_filter_layout' module_key %}"><span class="oi oi-magnifying-glass"></span> {% trans "Filter view" %}</a>
+        {% endif %}
+        {% if layout != 'list' %}
+            <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_list_layout' module_key %}"><span class="oi oi-list"></span> {% trans "List view" %}</a>
+        {% endif %}
         <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_detail_layout' module_key %}"><span class="oi oi-eye"></span> {% trans "Detail view" %}</a>
         <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_edit_layout' module_key %}"><span class="oi oi-pencil"></span> {% trans "Edit view" %}</a>
         <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_create_layout' module_key %}"><span class="oi oi-document"></span> {% trans "Create view" %}</a>
@@ -63,7 +79,13 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <p class="card-text"><small class="text-muted">{% trans "Fields that will be shown in list view." %}</small></p>
+                <p class="card-text"><small class="text-muted">
+                    {% if layout == 'filter' %}
+                        {% trans "Fields that will be shown in filter view." %}
+                    {% else %}
+                        {% trans "Fields that will be shown in list view." %}
+                    {% endif %}
+                </small></p>
                 <a href="#" class="btn btn-primary" onclick="save_list_layout();">{% trans "Save" %}</a>
             </div>
         </div>

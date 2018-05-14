@@ -39,6 +39,7 @@
     <div class="col text-right">
         <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_layouts' %}"><span class="oi oi-list-rich"></span> {% trans "Edit views" %}</a>
         <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_list_layout' module_key %}"><span class="oi oi-list"></span> {% trans "List view" %}</a>
+        <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_list_layout' module_key %}"><span class="oi oi-magnifying-glass"></span> {% trans "Filter view" %}</a>
         {% if layout != 'detail' %}
             <a class="btn btn-primary ml-2 mb-2" href="{% url 'edit_detail_layout' module_key %}"><span class="oi oi-eye"></span> {% trans "Detail view" %}</a>
         {% endif %}
