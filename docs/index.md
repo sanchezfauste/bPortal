@@ -1,2 +1,2 @@
 
-[Installation of bPortal on virtualmin](docs/INSTALLATION_ON_VIRTUALMIN.md)
+[Installation of bPortal on virtualmin](installation_on_virtualmin)
