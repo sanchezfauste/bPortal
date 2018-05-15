@@ -58,9 +58,9 @@
                     {% if field %}
                         <div class="row">
                             {% if row|length == 1 %}
-                                <div class="col-2">
+                                <div class="col-2 {% if field.required %} required{% endif %}">
                             {% else %}
-                                <div class="col-4">
+                                <div class="col-4 {% if field.required %} required{% endif %}">
                             {% endif %}
                                 <b>{{ field.label|safe }}:</b>
                             </div>

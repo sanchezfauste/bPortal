@@ -17,3 +17,9 @@ body > .container {
 .selected-arrow {
     color: gray;
 }
+
+.required:after {
+    content:"*";
+    color: #f08377;
+    padding: 10px;
+}
