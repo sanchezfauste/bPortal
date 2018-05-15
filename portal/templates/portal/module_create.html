@@ -56,7 +56,7 @@
             {% for field in row %}
                 <div class="col">
                     {% if field %}
-                        <div class="row">
+                        <div class="row {% if field.required %} was-validated{% endif %}">
                             {% if row|length == 1 %}
                                 <div class="col-2 {% if field.required %} required{% endif %}">
                             {% else %}
