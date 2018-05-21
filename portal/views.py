@@ -358,6 +358,58 @@ def module_edit(request, module, id):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def close_case(request):
+    if user_can_read_module(request.user, 'Cases') and request.method == 'POST' \
+            and 'case-id' in request.POST \
+            and user_is_linked_to_case(request.user, request.POST['case-id']):
+        try:
+            bean = Bean('Cases')
+            bean['id'] = request.POST['case-id']
+            bean['state'] = 'Closed'
+            bean['status'] = 'Closed_Closed'
+            SuiteCRM().save_bean(bean)
+        except Exception:
+            pass
+        url = reverse(
+            'module_detail',
+            kwargs={
+                'module': 'Cases',
+                'id': request.POST['case-id']
+            }
+        )
+        return HttpResponseRedirect(url)
+    else:
+        context = basepage_processor(request)
+        template = loader.get_template('portal/insufficient_permissions.html')
+        return HttpResponse(template.render(context, request))
+
+@login_required
+def reopen_case(request):
+    if user_can_read_module(request.user, 'Cases') and request.method == 'POST' \
+            and 'case-id' in request.POST \
+            and user_is_linked_to_case(request.user, request.POST['case-id']):
+        try:
+            bean = Bean('Cases')
+            bean['id'] = request.POST['case-id']
+            bean['state'] = 'Open'
+            bean['status'] = 'Open_New'
+            SuiteCRM().save_bean(bean)
+        except Exception:
+            pass
+        url = reverse(
+            'module_detail',
+            kwargs={
+                'module': 'Cases',
+                'id': request.POST['case-id']
+            }
+        )
+        return HttpResponseRedirect(url)
+    else:
+        context = basepage_processor(request)
+        template = loader.get_template('portal/insufficient_permissions.html')
+        return HttpResponse(template.render(context, request))
+
+@login_required
 def add_case_update(request):
     if user_can_read_module(request.user, 'Cases') and request.method == 'POST':
         if request.method == 'POST' and 'case-id' in request.POST \

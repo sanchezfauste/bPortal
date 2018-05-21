@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-21 11:50+0200\n"
+"POT-Creation-Date: 2018-05-21 12:50+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -379,11 +379,19 @@ msgstr "Cancel·lar"
 msgid "Module %(module)s has not defined the create view."
 msgstr "El mòdul %(module)s no té definida la vista creació."
 
-#: templates/portal/module_detail.html:116 templates/portal/module_edit.html:94
+#: templates/portal/module_detail.html:55
+msgid "Close"
+msgstr "Tancar"
+
+#: templates/portal/module_detail.html:61
+msgid "Reopen"
+msgstr "Tornar a obrir"
+
+#: templates/portal/module_detail.html:131 templates/portal/module_edit.html:94
 msgid "The requested record was not found."
 msgstr "No s'ha trobat el registre sol·licitat."
 
-#: templates/portal/module_detail.html:121
+#: templates/portal/module_detail.html:136
 #, python-format
 msgid "Module %(module)s has not defined the detail view."
 msgstr "El mòdul %(module)s no té definida la vista detallada."
@@ -522,85 +530,85 @@ msgstr "S'ha produït un error a l'eliminar el registre."
 msgid "Insufficient permissions."
 msgstr "Permisos insuficients."
 
-#: views.py:247 views.py:422
+#: views.py:247 views.py:474
 msgid "Invalid request."
 msgstr "Petició invàlida."
 
-#: views.py:370
+#: views.py:422
 msgid "Empty case updates are not allowed."
 msgstr "No es permeten les actualitzacions de casos buides."
 
-#: views.py:397
+#: views.py:449
 msgid "An error occurred while uploading the attachment(s)."
 msgstr "S'ha produït un error al carregar els fitxers adjunts."
 
-#: views.py:402
+#: views.py:454
 msgid "An error occurred while creating the case update."
 msgstr "S'ha produït un error al crear l'actualització de cas."
 
-#: views.py:406
+#: views.py:458
 msgid "The case update has been added successfully."
 msgstr "S'ha actualitzat el cas correctament."
 
-#: views.py:418
+#: views.py:470
 msgid "An error occurred while updating the case."
 msgstr "S'ha produït un error al actualitzar el cas."
 
-#: views.py:437
+#: views.py:489
 msgid "The requested file was not found."
 msgstr "No s'ha trobat el fitxer sol·licitat."
 
-#: views.py:457 views.py:517
+#: views.py:509 views.py:569
 msgid "Please specify 'selected_fields'."
 msgstr "Si us plau, especifiqui el camp 'selected_fields'."
 
-#: views.py:468 views.py:528
+#: views.py:520 views.py:580
 msgid "Layout updated successfully"
 msgstr "Vista actualitzada correctament"
 
-#: views.py:609
+#: views.py:661
 msgid "Please specify 'permissions'."
 msgstr "Si us plau, especifiqui el camp 'permissions'."
 
-#: views.py:616 views.py:656
+#: views.py:668 views.py:708
 #, python-format
 msgid "Role '%(role)s' does not exist."
 msgstr "El rol '%(role)s' no existeix."
 
-#: views.py:630
+#: views.py:682
 msgid "Role permissions have been updated."
 msgstr "S'han actualitzat els permisos del rol."
 
-#: views.py:646
+#: views.py:698
 #, python-format
 msgid "'%(role)s' role has been removed."
 msgstr "S'ha eliminat el rol '%(role)s'."
 
-#: views.py:651
+#: views.py:703
 msgid "Default role can not be deleted."
 msgstr "No es pot eliminar el rol per defecte."
 
-#: views.py:672
+#: views.py:724
 #, python-format
 msgid "'%(role)s' role has been created."
 msgstr "S'ha creat el rol '%(role)s'."
 
-#: views.py:677
+#: views.py:729
 msgid "Error creating role: Invalid role name."
 msgstr "S'ha produït un error al crear el rol: El nom no és vàlid."
 
-#: views.py:682
+#: views.py:734
 msgid "Error creating role."
 msgstr "S'ha produït un error al crear el rol."
 
-#: views.py:698
+#: views.py:750
 msgid "Error retrieving contact"
 msgstr "S'ha produït un error al recuperar el contacte"
 
-#: views.py:703
+#: views.py:755
 msgid "Contact has no valid email"
 msgstr "El contacte no té un correu electrònic vàlid"
 
-#: views.py:714
+#: views.py:766
 msgid "Invalid request"
 msgstr "Petició invàlida"
