@@ -103,11 +103,22 @@ def edit_user(request, user_id):
         try:
             user = User.objects.get(id=user_id)
             role = Role.objects.get(name=request.POST['user_role'])
-            role_user = RoleUser.objects.get(user=user)
-            role_user.role = role
-            role_user.save()
-            user.userattr.user_type = request.POST['user_type']
-            user.userattr.save()
+            try:
+                user.roleuser.role = role
+                user.roleuser.save()
+            except Exception:
+                RoleUser(
+                    user = user,
+                    role = role
+                ).save()
+            try:
+                user.userattr.user_type = request.POST['user_type']
+                user.userattr.save()
+            except Exception:
+                UserAttr(
+                    user = user,
+                    user_type = request.POST['user_type']
+                ).save()
             context.update({
                 'success_msg' : True,
                 'msg' : _('User settings updated successfully.')
