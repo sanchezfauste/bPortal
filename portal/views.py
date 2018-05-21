@@ -247,6 +247,36 @@ def module_remove_record(request, module):
         "error" : _("Invalid request.")
     }, status = 400)
 
+def create_case_add_attachments(request, bean_case):
+    try:
+        files = request.FILES.getlist('update-case-attachment')
+        if files:
+            case_update = Bean('AOP_Case_Updates')
+            case_update['contact_id'] = request.user.userattr.contact_id
+            case_update['case_id'] = bean_case['id']
+            case_update['name'] = bean_case['description'][:45]
+            case_update['description'] = bean_case['description'].replace('\n', '<br>')
+            case_update['internal'] = 0
+            SuiteCRM().save_bean(case_update)
+            if case_update['id']:
+                for f in files:
+                    note = Bean('Notes')
+                    note['name'] = f.name
+                    note['parent_type'] = 'AOP_Case_Updates'
+                    note['parent_id'] = case_update['id']
+                    note['contact_id'] = request.user.userattr.contact_id
+                    SuiteCRM().save_bean(note)
+                    if note['id']:
+                        SuiteCRM().set_note_attachment(
+                            note['id'],
+                            f.name,
+                            base64.b64encode(f.read())
+                        )
+                return True
+    except Exception:
+        pass
+    return False
+
 @login_required
 def module_create(request, module):
     context = basepage_processor(request)
@@ -262,6 +292,8 @@ def module_create(request, module):
                 context.update({
                     'record_created_successfully' : True
                 })
+                if module == 'Cases':
+                    create_case_add_attachments(request, bean)
                 url = reverse(
                     'module_detail',
                     kwargs={

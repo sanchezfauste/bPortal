@@ -47,7 +47,7 @@
 
     {% if module_fields %}
 
-        <form class="card" action="{% url 'module_create' module_key %}" method="post">
+        <form class="card" action="{% url 'module_create' module_key %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card-body">
                 <div class="container">
@@ -75,6 +75,9 @@
             {% endfor %}
             </div>
         {% endfor %}
+        {% if module_key == 'Cases' %}
+            {% include "portal/create_case_attachment.html" %}
+        {% endif %}
                     <button type="submit" class="btn btn-success mt-2 float-right"><span class="oi oi-circle-check"></span> {% trans "Create" %}</button>
                     <a href="{% url 'module_list' module_key %}" class="btn btn-danger mt-2 float-right mr-2"><span class="oi oi-circle-x"></span> {% trans "Cancel" %}</a>
                 </div>
