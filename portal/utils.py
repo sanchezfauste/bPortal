@@ -717,6 +717,12 @@ def get_bean_from_post(module, view, data):
     view_def = Layout.objects.get(module=module, view=view)
     fields = json.loads(view_def.fields)
     bean = Bean(module)
+    default_values = {}
+    try:
+        module_def = ModuleDefinitionFactory.get_module_definition(module)
+        default_values = module_def.default_values
+    except Exception:
+        pass
     for row in fields:
         for field in row:
             if field in module_fields:
@@ -740,6 +746,9 @@ def get_bean_from_post(module, view, data):
                             bean['parent_id'] = data['parent_id']
                     else:
                         bean[field] = value
+    for field, value in default_values.items():
+        if field not in data:
+            bean[field] = value
     return bean
 
 def relate_bean_with_user(bean, user):

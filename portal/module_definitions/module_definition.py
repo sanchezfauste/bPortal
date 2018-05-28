@@ -47,3 +47,7 @@ class ModuleDefinition:
     @property
     def custom_where(self):
         return None
+
+    @property
+    def default_values(self):
+        return {}
