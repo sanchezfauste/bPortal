@@ -42,3 +42,10 @@ class Cases(ModuleDefinition):
     @property
     def accounts_link_name(self):
         return 'cases'
+
+    @property
+    def default_values(self):
+        return {
+            'state': 'Open',
+            'status': 'Open_New'
+        }
