@@ -19,6 +19,7 @@
 #######################################################################
 
 from abc import ABCMeta, abstractproperty
+from django.conf import settings
 
 class ModuleDefinition:
 
@@ -51,3 +52,11 @@ class ModuleDefinition:
     @property
     def default_values(self):
         return {}
+
+    @property
+    def default_order_by_field(self):
+        return settings.DEFAULT_ORDER_BY_FIELD
+
+    @property
+    def default_order(self):
+        return settings.DEFAULT_ORDER

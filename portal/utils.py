@@ -300,7 +300,12 @@ def retrieve_list_view_records(module, arguments, user):
         if order_by in fields_list and module_fields[order_by]['sortable']:
             order_by_string = order_by
         else:
-            order_by = None
+            if not order_by:
+                order_by = module_def.default_order_by_field
+                order_by_string = order_by
+                order = module_def.default_order
+            else:
+                order_by = None
         if order_by and order in ['asc', 'desc']:
             order_by_string += ' ' + order
         else:

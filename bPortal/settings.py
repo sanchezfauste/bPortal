@@ -137,7 +137,16 @@ SUITECRM_TIME_FORMAT='%H:%M'
 SUITECRM_DATETIME_FORMAT='%Y-%m-%d %H:%M:%S'
 
 # Portal settings
+# NOTE: You can override this values in custom_settings.py file.
+#       Do not change it here.
 DEFAULT_ROLE = 'default'
+
+# NOTE: This field MUST exist on all modules
+DEFAULT_ORDER_BY_FIELD='date_entered'
+
+# NOTE: Allowed values are 'asc' or 'desc'
+DEFAULT_ORDER='desc'
+
 
 try:
     from custom_settings import *
