@@ -50,6 +50,10 @@ class ModuleDefinition:
         return None
 
     @property
+    def custom_dropdown_where(self):
+        return None
+
+    @property
     def default_values(self):
         return {}
 

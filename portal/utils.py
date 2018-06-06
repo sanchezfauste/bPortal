@@ -420,6 +420,10 @@ def get_related_user_records(module, user):
                 if filter_query:
                     filter_query += " AND "
                 filter_query += module_def.custom_where
+            if module_def.custom_dropdown_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_dropdown_where
             records = SuiteCRM().get_bean_list(
                 module,
                 order_by = order_by,
@@ -430,6 +434,10 @@ def get_related_user_records(module, user):
             filter_query = ''
             if module_def.custom_where:
                 filter_query = module_def.custom_where
+            if module_def.custom_dropdown_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_dropdown_where
             records = SuiteCRM().get_relationships(
                 related_module,
                 related_id,
@@ -448,6 +456,10 @@ def get_related_user_records(module, user):
                 if filter_query:
                     filter_query += " AND "
                 filter_query += module_def.custom_where
+            if module_def.custom_dropdown_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_dropdown_where
             records = SuiteCRM().get_bean_list(
                 module,
                 order_by = order_by,
@@ -458,6 +470,10 @@ def get_related_user_records(module, user):
             filter_query = ''
             if module_def.custom_where:
                 filter_query = module_def.custom_where
+            if module_def.custom_dropdown_where:
+                if filter_query:
+                    filter_query += " AND "
+                filter_query += module_def.custom_dropdown_where
             records = SuiteCRM().get_bean_list(
                 module,
                 order_by = order_by,
