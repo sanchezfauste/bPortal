@@ -18,30 +18,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 
-from abc import ABCMeta
-from module_definition_not_found_exception import ModuleDefinitionNotFoundException
-from importlib import import_module
+from portal.module_definitions import ModuleDefinition, LinkType
+from portal.module_definitions.accounts import Accounts as AccountsBase
 
-class ModuleDefinitionFactory:
+class Accounts(AccountsBase):
 
-    __metaclass__ = ABCMeta
-
-    @staticmethod
-    def get_module_definition(module_name):
-        try:
-            mod_def = import_module(
-                'portal.module_definitions.custom.' + module_name.lower()
-            )
-            md = getattr(mod_def, module_name)
-            return md()
-        except:
-            pass
-        try:
-            mod_def = import_module(
-                'portal.module_definitions.' + module_name.lower()
-            )
-            md = getattr(mod_def, module_name)
-            return md()
-        except:
-            pass
-        raise ModuleDefinitionNotFoundException(module_name)
+    @property
+    def custom_dropdown_where(self):
+        return "account_type = 'Customer'"
