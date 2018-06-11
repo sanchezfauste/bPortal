@@ -125,7 +125,7 @@ Comment/remove `DocumentRoot` directive.
 If you have SSL enabled you can redirect `HTTP` requests to `HTTPS` setting the following directive to the configuration of port 80:
 
 ```
-Redirect permanent / https://{virtualserver_domain}
+Redirect permanent / https://{virtualserver_domain}/
 ```
 
 Finally reload apache2 configuration with:
