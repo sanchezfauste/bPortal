@@ -54,3 +54,8 @@ EMAIL_HOST_USER = 'portal@example.com'
 EMAIL_HOST_PASSWORD = '123456'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'bPortal <portal@example.com>'
+
+# Default lang
+# https://docs.djangoproject.com/en/1.11/topics/i18n/
+# Uncomment the following line to change the default lang
+# LANGUAGE_CODE = 'en-us'
