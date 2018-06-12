@@ -133,3 +133,10 @@ Finally reload apache2 configuration with:
 ```bash
 service apache2 reload
 ```
+
+### apache2 configuration to support Let's Encrypt certificates
+If you are planning to use the portal with a Let's Encrypt certificate you need to add the following rule in the virtualserver configuration, so Let's Encrypt can validate the certificate correctly.
+
+```
+Alias /.well-known/acme-challenge/ /home/{virtualserver_home}/public_html/.well-known/acme-challenge/
+```
