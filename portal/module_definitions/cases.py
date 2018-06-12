@@ -49,3 +49,7 @@ class Cases(ModuleDefinition):
             'state': 'Open',
             'status': 'Open_New'
         }
+
+    @staticmethod
+    def before_save_on_create_hook(bean, request):
+        bean['contact_created_by_id'] = request.user.userattr.contact_id
