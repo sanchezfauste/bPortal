@@ -767,9 +767,10 @@ def get_bean_from_post(module, view, data):
                             bean['parent_id'] = data['parent_id']
                     else:
                         bean[field] = value
-    for field, value in default_values.items():
-        if field not in data:
-            bean[field] = value
+    if view == 'create':
+        for field, value in default_values.items():
+            if field not in data:
+                bean[field] = value
     return bean
 
 def relate_bean_with_user(bean, user):
