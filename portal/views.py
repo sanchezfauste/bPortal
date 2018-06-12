@@ -290,6 +290,7 @@ def module_create(request, module):
                     module_def = ModuleDefinitionFactory.get_module_definition(module)
                     module_def.before_save_on_create_hook(bean, request)
                 except Exception:
+                    pass
                 SuiteCRM().save_bean(bean)
                 relate_result = relate_bean_with_user(bean, request.user)
                 context.update(relate_result)
