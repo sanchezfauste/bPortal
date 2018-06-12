@@ -64,3 +64,11 @@ class ModuleDefinition:
     @property
     def default_order(self):
         return settings.DEFAULT_ORDER
+
+    @staticmethod
+    def before_save_on_create_hook(bean, request):
+        pass
+
+    @staticmethod
+    def before_save_on_edit_hook(bean, request):
+        pass
