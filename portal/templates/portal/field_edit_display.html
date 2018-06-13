@@ -14,7 +14,7 @@
         <option value="{{defs.name}}"{% if option == value %} selected{% endif %}>{{defs.value}}</option>
     {% endfor %}
 </select>
-<script src="{% static 'portal/field_edit.js' %}"></script>
+<script src="{% static 'portal/field_edit_dynamicenum.js' %}"></script>
 <script type="text/javascript">
     if(typeof de_entries == 'undefined') {
         var de_entries = new Array;
