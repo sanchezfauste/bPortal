@@ -1,6 +1,7 @@
 {% load i18n %}
 {% if filterable_fields %}
     {% load filters %}
+    {% load staticfiles %}
     <form
         id="{{ module_key }}_filter"
         action="{% url 'module_list' module_key %}"
@@ -100,6 +101,31 @@
                         </script>
                     {% endif %}
                     </div>
+                    {% if def.type == 'dynamicenum' %}
+                        <script src="{% static 'portal/field_edit_dynamicenum.js' %}"></script>
+                        <script type="text/javascript">
+                            if(typeof de_entries == 'undefined') {
+                                var de_entries = new Array;
+                            }
+                            if (de_entries['filter_{{def.name}}'] == null) {
+                                de_entries['filter_{{def.name}}'] = [];
+                                {% for option, defs in def.options.items %}
+                                    de_entries['filter_{{def.name}}']['{{defs.name}}'] = '{{defs.value}}';
+                                {% endfor %}
+                            }
+                            {% if def.parentenum %}
+                                $( document ).ready(function() {
+                                    var el = document.getElementById('filter_{{def.parentenum}}');
+                                    if (el) {
+                                        el.addEventListener("change", function () {
+                                            update_dynamicenum('filter_{{def.parentenum}}', 'filter_{{def.name}}')
+                                        }, false);
+                                        update_dynamicenum('filter_{{def.parentenum}}', 'filter_{{def.name}}');
+                                    }
+                                });
+                            {% endif %}
+                        </script>
+                    {% endif %}
                 {% elif def.type == 'bool' %}
                     <select class="form-control" name="{{ field }}" id="filter_{{field}}">
                         <option value=""></option>
