@@ -2,41 +2,37 @@
 {% load filters %}
 {% load staticfiles %}
 
-{% if field.type == 'enum' %}
+{% if field.type == 'enum' or field.type == 'dynamicenum' %}
     <select name="{{field.name}}" class="form-control"{% if field.required %} required{% endif %} id="{{field.name}}">
         {% for option, defs in field.options.items %}
             <option value="{{defs.name}}"{% if option == value %} selected{% endif %}>{{defs.value}}</option>
         {% endfor %}
     </select>
-{% elif field.type == 'dynamicenum' %}
-<select name="{{field.name}}" class="form-control"{% if field.required %} required{% endif %} id="{{field.name}}">
-    {% for option, defs in field.options.items %}
-        <option value="{{defs.name}}"{% if option == value %} selected{% endif %}>{{defs.value}}</option>
-    {% endfor %}
-</select>
-<script src="{% static 'portal/field_edit_dynamicenum.js' %}"></script>
-<script type="text/javascript">
-    if(typeof de_entries == 'undefined') {
-        var de_entries = new Array;
-    }
-    if (de_entries['{{field.name}}'] == null) {
-        de_entries['{{field.name}}'] = [];
-        {% for option, defs in field.options.items %}
-            de_entries['{{field.name}}']['{{defs.name}}'] = '{{defs.value}}';
-        {% endfor %}
-    }
-    {% if field.parentenum %}
-        $( document ).ready(function() {
-            var el = document.getElementById('{{field.parentenum}}');
-            if (el) {
-                el.addEventListener("change", function () {
-                    update_dynamicenum('{{field.parentenum}}', '{{field.name}}')
-                }, false);
-                update_dynamicenum('{{field.parentenum}}', '{{field.name}}');
+    {% if field.type == 'dynamicenum' %}
+        <script src="{% static 'portal/field_edit_dynamicenum.js' %}"></script>
+        <script type="text/javascript">
+            if(typeof de_entries == 'undefined') {
+                var de_entries = new Array;
             }
-        });
+            if (de_entries['{{field.name}}'] == null) {
+                de_entries['{{field.name}}'] = [];
+                {% for option, defs in field.options.items %}
+                    de_entries['{{field.name}}']['{{defs.name}}'] = '{{defs.value}}';
+                {% endfor %}
+            }
+            {% if field.parentenum %}
+                $( document ).ready(function() {
+                    var el = document.getElementById('{{field.parentenum}}');
+                    if (el) {
+                        el.addEventListener("change", function () {
+                            update_dynamicenum('{{field.parentenum}}', '{{field.name}}')
+                        }, false);
+                        update_dynamicenum('{{field.parentenum}}', '{{field.name}}');
+                    }
+                });
+            {% endif %}
+        </script>
     {% endif %}
-</script>
 {% elif field.type == 'bool' %}
     <input class="checkbox"
         id="{{ field }}"
