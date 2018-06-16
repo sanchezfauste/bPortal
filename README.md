@@ -1,3 +1,5 @@
+[![bPortal documentation](https://img.shields.io/badge/docs-passing-brightgreen.svg?style=flat-square)](https://sanchezfauste.github.io/bPortal)  
+
 # bPortal
 bPortal is a SuiteCRM portal written using django project.
 
