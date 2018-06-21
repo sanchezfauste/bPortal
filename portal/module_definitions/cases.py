@@ -52,4 +52,5 @@ class Cases(ModuleDefinition):
 
     @staticmethod
     def before_save_on_create_hook(bean, request):
+        bean['description'] = bean['description'].replace('\n', '<br />')
         bean['contact_created_by_id'] = request.user.userattr.contact_id
