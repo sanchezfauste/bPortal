@@ -48,7 +48,15 @@
 {% elif field.type == 'currency' %}
     <input type="number" name="{{field.name}}" value="{{ value }}" class="form-control" {% if field.required %} required{% endif %} step="0.01">
 {% elif field.type == 'text' or field.type == 'longtext' or field.type == 'html' or field.type == 'longhtml' %}
-    <textarea class="form-control" name="{{field.name}}" rows="3" {% if field.required %} required{% endif %}>{{ value|safe }}</textarea>
+    <textarea class="form-control" name="{{field.name}}" id="{{field.name}}" rows="10" {% if field.required %} required{% endif %}>{{ value|safe }}</textarea>
+    {% if field.type == 'html' or field.type == 'longhtml' or module_key == 'Cases' and field.name == 'description' %}
+        <script src="{% static 'portal/tinymce/tinymce.min.js' %}"></script>
+        <script>
+            tinymce.init({
+                selector: '#{{field.name}}'
+            });
+        </script>
+    {% endif %}
 {% elif field.type == 'multienum' %}
     <select name="{{field.name}}" class="form-control"{% if field.required %} required{% endif %} multiple>
         {% with selected_values=value|unencode_multienum %}
