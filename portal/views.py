@@ -435,7 +435,7 @@ def add_case_update(request):
             case_update['contact_id'] = request.user.userattr.contact_id
             case_update['case_id'] = request.POST['case-id']
             case_update['name'] = update_case_text[:45]
-            case_update['description'] = update_case_text.replace('\n', '<br>')
+            case_update['description'] = update_case_text
             case_update['internal'] = 0
             try:
                 SuiteCRM().save_bean(case_update)

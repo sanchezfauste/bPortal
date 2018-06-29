@@ -33,10 +33,17 @@
         <label for="update-case-attachment-label">{% trans "Attachments:" %}</label>
         <input type="file" class="form-control-file" id="update-case-attachment" name="update-case-attachment" multiple>
       </div>
-      <button type="submit" class="btn btn-primary" id="update-case-form-submit-button" disabled><span class="oi oi-share"></span> {% trans "Add update" %}</button>
+      <button type="submit" class="btn btn-primary" id="update-case-form-submit-button"><span class="oi oi-share"></span> {% trans "Add update" %}</button>
     </form>
   </div>
 </div>
+
+<script src="{% static 'portal/tinymce/tinymce.min.js' %}"></script>
+<script>
+    tinymce.init({
+        selector: '#update-case-text'
+    });
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="update_case_modal" tabindex="-1" role="dialog" aria-labelledby="update_case_modal_title" aria-hidden="true">

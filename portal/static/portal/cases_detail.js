@@ -1,16 +1,4 @@
 $( document ).ready(function() {
-    
-    $('textarea').each(function () {
-        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;resize:none;');
-    }).on('input', function () {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
-        if (this.value.length > 0) {
-            $('#update-case-form-submit-button').prop('disabled', false);
-        } else {
-            $('#update-case-form-submit-button').prop('disabled', true);
-        }
-    });
 
     $('#update-case-form').submit(function(event) {
         // Stop the browser from submitting the form.
@@ -36,7 +24,7 @@ $( document ).ready(function() {
             $('#update_case_modal').each(function () {
                 $('#update-case-text').val('');
                 $('#update-case-attachment').val(null);
-                $('#update-case-form-submit-button').prop('disabled', true);
+                tinyMCE.get('update-case-text').load();
                 $('#case-updates').append(response.case_update);
                 $(this).find('.modal-body').html(
                     '<div class="alert alert-success" role="alert">'
