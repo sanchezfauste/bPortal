@@ -1,5 +1,7 @@
 {% extends "portal/basepage.html" %}
 {% load i18n %}
+{% load filters %}
+{% load staticfiles %}
 {% block title %}{% trans "Edit views" %}{% endblock %}
 {% block content %}
 
@@ -18,7 +20,11 @@
             <tbody>
                 {% for key, module in available_modules.items %}
                 <tr>
-                    <td>{{ module.module_label }}</td>
+                    {% with module_img=module.module_key|get_module_dark_svg %}
+                        <td>
+                            <img src="{% static module_img %}" width="25px"> {{ module.module_label }}
+                        </td>
+                    {% endwith %}
                     <td>
                         <a href="{% url 'edit_list_layout' module.module_key %}" role="button" class="btn btn-outline-primary btn-sm"><span class="oi oi-list"></span> {% trans "List view" %}</a>
                     </td>

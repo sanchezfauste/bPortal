@@ -1,5 +1,6 @@
 {% extends "portal/basepage.html" %}
 {% load i18n %}
+{% load filters %}
 {% block static_files %}
 {% load staticfiles %}
 <script src="{% static 'portal/session.js' %}"></script>
@@ -34,7 +35,11 @@
                 <tbody id="module_permissions">
                     {% for module_key, def in module_permissions.items %}
                         <tr id="{{ module_key }}_permissions">
-                            <td>{{ def.module_label }}</td>
+                            {% with module_img=module_key|get_module_dark_svg %}
+                                <td>
+                                    <img src="{% static module_img %}" width="25px"> {{ def.module_label }}
+                                </td>
+                            {% endwith %}
                             <td><input type="checkbox" {% if def.read %} checked {% endif %} module="{{ module_key }}" permission="read" id="{{ module_key }}_read"></td>
                             <td><input type="checkbox" {% if def.create %} checked {% endif %} module="{{ module_key }}" permission="create" id="{{ module_key }}_create"></td>
                             <td><input type="checkbox" {% if def.edit %} checked {% endif %} module="{{ module_key }}" permission="edit" id="{{ module_key }}_edit"></td>
