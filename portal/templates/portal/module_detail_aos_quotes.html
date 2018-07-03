@@ -27,7 +27,7 @@
                     {% endif %}
                     <td>
                         {% if line.item_description %}
-                            <a href="#" data-toggle="tooltip" title="{{line.item_description}}" data-placement="right">{{line.name}}</a>
+                            <span style="color: #007bff;" data-toggle="tooltip" title="{{line.item_description}}" data-placement="right">{{line.name}}</span>
                         {% else %}
                             {{line.name}}
                         {% endif %}
