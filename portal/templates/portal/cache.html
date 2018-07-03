@@ -1,0 +1,41 @@
+{% extends "portal/basepage.html" %}
+{% load i18n %}
+{% block title %}{% trans "Portal cache" %}{% endblock %}
+{% block content %}
+
+{% if success_msg %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        {{msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+
+{% if error_msg %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+
+<h1>{% trans "Portal cache" %}</h1>
+
+{% blocktrans with cached_calls=cached_calls %}There are {{cached_calls}} requests to SuiteCRM cached.{% endblocktrans %}
+
+<form id="create_role_form" method="post" action="{% url 'cache' %}">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="clean_cache">
+    <div class="form-group">
+        <small class="text-muted">
+            {% trans "* Clean the cache if you add new fields in the modules or modify the labels, so that the changes appear." %}
+        </small>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary mb-2"><span class="oi oi-trash"></span> {% trans "Clear cache" %}</button>
+    </div>
+</form>
+
+{% endblock %}

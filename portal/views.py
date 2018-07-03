@@ -778,3 +778,20 @@ def crm_entry_point(request):
         "status" : "Error",
         "error" : _("Invalid request")
     }, status = 400)
+
+@login_required
+@permission_required('is_superuser')
+def cache(request):
+    context = basepage_processor(request)
+    if request.method == 'POST' and 'action' in request.POST:
+        if request.POST['action'] == 'clean_cache':
+            SuiteCRMCached().clear_cache()
+            context.update({
+                'success_msg' : True,
+                'msg' : _('The cache has been cleared.')
+            })
+    context.update({
+        'cached_calls' : SuiteCRMCached().get_number_of_cached_calls()
+    })
+    template = loader.get_template('portal/cache.html')
+    return HttpResponse(template.render(context, request))

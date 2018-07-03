@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-03 10:44+0200\n"
+"POT-Creation-Date: 2018-07-03 11:49+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -104,18 +104,43 @@ msgstr "Editar rols"
 msgid "Edit users"
 msgstr "Editar usuaris"
 
-#: templates/portal/basepage.html:52
+#: templates/portal/basepage.html:47
+msgid "Cache"
+msgstr "Cache"
+
+#: templates/portal/basepage.html:53
 #, python-format
 msgid "Signed in as <b>%(username)s</b>"
 msgstr "Sessió iniciada com a <b>%(username)s</b>"
 
-#: templates/portal/basepage.html:53
+#: templates/portal/basepage.html:54
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/portal/basepage.html:54
+#: templates/portal/basepage.html:55
 msgid "Logout"
 msgstr "Tanca sessió"
+
+#: templates/portal/cache.html:3 templates/portal/cache.html:24
+msgid "Portal cache"
+msgstr "Cache del portal"
+
+#: templates/portal/cache.html:26
+#, python-format
+msgid "There are %(cached_calls)s requests to SuiteCRM cached."
+msgstr "Hi han %(cached_calls)s peticions a SuiteCRM a la cache."
+
+#: templates/portal/cache.html:33
+msgid ""
+"* Clean the cache if you add new fields in the modules or modify the labels, "
+"so that the changes appear."
+msgstr ""
+"* Netejar la cache si s'han afegit nous camps als mòduls o si s'han "
+"modificat les etiquetes, per aplicar els canvis."
+
+#: templates/portal/cache.html:37
+msgid "Clear cache"
+msgstr "Netejar cache"
 
 #: templates/portal/create_case_attachment.html:7
 #: templates/portal/module_detail_case_update.html:39
@@ -413,7 +438,7 @@ msgid "List Price"
 msgstr "Preu tarifa"
 
 #: templates/portal/module_detail_aos_quotes.html:12
-#: templates/portal/module_detail_aos_quotes.html:64
+#: templates/portal/module_detail_aos_quotes.html:67
 msgid "Discount"
 msgstr "Descompte"
 
@@ -422,7 +447,7 @@ msgid "Sale Price"
 msgstr "Preu tarifa descompte"
 
 #: templates/portal/module_detail_aos_quotes.html:14
-#: templates/portal/module_detail_aos_quotes.html:80
+#: templates/portal/module_detail_aos_quotes.html:87
 msgid "Tax"
 msgstr "IVA"
 
@@ -431,7 +456,7 @@ msgid "Tax Amount"
 msgstr "Import IVA"
 
 #: templates/portal/module_detail_aos_quotes.html:16
-#: templates/portal/module_detail_aos_quotes.html:88
+#: templates/portal/module_detail_aos_quotes.html:97
 msgid "Total"
 msgstr "Total"
 
@@ -439,11 +464,11 @@ msgstr "Total"
 msgid "Total (tax included)"
 msgstr "Total (IVA inclòs)"
 
-#: templates/portal/module_detail_aos_quotes.html:56
+#: templates/portal/module_detail_aos_quotes.html:57
 msgid "Tax base"
 msgstr "Base imponible"
 
-#: templates/portal/module_detail_aos_quotes.html:72
+#: templates/portal/module_detail_aos_quotes.html:77
 msgid "Subtotal"
 msgstr "Subtotal"
 
@@ -663,3 +688,7 @@ msgstr "El contacte no té un correu electrònic vàlid"
 #: views.py:779
 msgid "Invalid request"
 msgstr "Petició invàlida"
+
+#: views.py:791
+msgid "The cache has been cleared."
+msgstr "S'ha netejat la cache."

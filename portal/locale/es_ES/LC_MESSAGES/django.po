@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-03 10:44+0200\n"
+"POT-Creation-Date: 2018-07-03 11:49+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -104,18 +104,43 @@ msgstr "Editar roles"
 msgid "Edit users"
 msgstr "Editar usuarios"
 
-#: templates/portal/basepage.html:52
+#: templates/portal/basepage.html:47
+msgid "Cache"
+msgstr "Cache"
+
+#: templates/portal/basepage.html:53
 #, python-format
 msgid "Signed in as <b>%(username)s</b>"
 msgstr "Conectado como <b>%(username)s</b>"
 
-#: templates/portal/basepage.html:53
+#: templates/portal/basepage.html:54
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/portal/basepage.html:54
+#: templates/portal/basepage.html:55
 msgid "Logout"
 msgstr "Cerrar sesión"
+
+#: templates/portal/cache.html:3 templates/portal/cache.html:24
+msgid "Portal cache"
+msgstr "Cache del portal"
+
+#: templates/portal/cache.html:26
+#, python-format
+msgid "There are %(cached_calls)s requests to SuiteCRM cached."
+msgstr "Hay %(cached_calls)s peticiones a SuiteCRM en la cache."
+
+#: templates/portal/cache.html:33
+msgid ""
+"* Clean the cache if you add new fields in the modules or modify the labels, "
+"so that the changes appear."
+msgstr ""
+"* Limpie la cache si ha añadido nuevos campos en los módulos o si ha "
+"modificado las etiquetas, para que los cambios se vean reflejados."
+
+#: templates/portal/cache.html:37
+msgid "Clear cache"
+msgstr "Limpiar cache"
 
 #: templates/portal/create_case_attachment.html:7
 #: templates/portal/module_detail_case_update.html:39
@@ -413,7 +438,7 @@ msgid "List Price"
 msgstr "Precio tarifa"
 
 #: templates/portal/module_detail_aos_quotes.html:12
-#: templates/portal/module_detail_aos_quotes.html:64
+#: templates/portal/module_detail_aos_quotes.html:67
 msgid "Discount"
 msgstr "Descuento"
 
@@ -422,7 +447,7 @@ msgid "Sale Price"
 msgstr "Precio tarifa descuento"
 
 #: templates/portal/module_detail_aos_quotes.html:14
-#: templates/portal/module_detail_aos_quotes.html:80
+#: templates/portal/module_detail_aos_quotes.html:87
 msgid "Tax"
 msgstr "IVA"
 
@@ -431,7 +456,7 @@ msgid "Tax Amount"
 msgstr "Importe IVA"
 
 #: templates/portal/module_detail_aos_quotes.html:16
-#: templates/portal/module_detail_aos_quotes.html:88
+#: templates/portal/module_detail_aos_quotes.html:97
 msgid "Total"
 msgstr "Total"
 
@@ -439,11 +464,11 @@ msgstr "Total"
 msgid "Total (tax included)"
 msgstr "Total (IVA incluído)"
 
-#: templates/portal/module_detail_aos_quotes.html:56
+#: templates/portal/module_detail_aos_quotes.html:57
 msgid "Tax base"
 msgstr "Base imponible"
 
-#: templates/portal/module_detail_aos_quotes.html:72
+#: templates/portal/module_detail_aos_quotes.html:77
 msgid "Subtotal"
 msgstr "Subtotal"
 
@@ -663,3 +688,7 @@ msgstr "El contacto no tiene un correo electrónico válido"
 #: views.py:779
 msgid "Invalid request"
 msgstr "Solicitud no válida"
+
+#: views.py:791
+msgid "The cache has been cleared."
+msgstr "Se ha limpiado la cache."
