@@ -138,3 +138,10 @@ def get_module_ico(module):
         return module_img
     else:
         return default_img
+
+@register.filter(name='add')
+def add(a, b):
+    try:
+        return float(a) + float(b)
+    except Exception:
+        return 0

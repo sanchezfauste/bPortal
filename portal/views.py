@@ -40,6 +40,7 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from cases import *
+from aos_quotes_utils import *
 import mimetypes
 import base64
 from django.http import Http404
@@ -202,6 +203,8 @@ def module_detail(request, module, id):
                 context.update({
                     'case_updates' : get_case_updates(id)
                 })
+            elif module == 'AOS_Invoices' or module == 'AOS_Quotes' or module == 'AOS_Contracts':
+                record = get_aos_quotes_record(module, id)
             else:
                 record = SuiteCRM().get_bean(module, id)
         except:

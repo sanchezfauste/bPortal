@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-21 12:50+0200\n"
+"POT-Creation-Date: 2018-07-03 10:44+0200\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -50,21 +50,21 @@ msgstr "Vista edición"
 msgid "Create View"
 msgstr "Vista creación"
 
-#: models.py:41 templates/portal/edit_role.html:28
+#: models.py:41 templates/portal/edit_role.html:29
 msgid "Read"
 msgstr "Ver"
 
-#: models.py:42 templates/portal/edit_role.html:29
+#: models.py:42 templates/portal/edit_role.html:30
 #: templates/portal/module_create.html:81 templates/portal/module_list.html:30
 msgid "Create"
 msgstr "Crear"
 
-#: models.py:43 templates/portal/edit_role.html:30
+#: models.py:43 templates/portal/edit_role.html:31
 #: templates/portal/module_detail.html:48 templates/portal/module_list.html:166
 msgid "Edit"
 msgstr "Editar"
 
-#: models.py:44 templates/portal/edit_role.html:31
+#: models.py:44 templates/portal/edit_role.html:32
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -89,12 +89,12 @@ msgid "Configure portal"
 msgstr "Configurar portal"
 
 #: templates/portal/basepage.html:44 templates/portal/edit_layout.html:40
-#: templates/portal/edit_layouts.html:3
+#: templates/portal/edit_layouts.html:5
 #: templates/portal/edit_list_layout.html:36
 msgid "Edit views"
 msgstr "Editar vistas"
 
-#: templates/portal/basepage.html:45 templates/portal/edit_role.html:16
+#: templates/portal/basepage.html:45 templates/portal/edit_role.html:17
 #: templates/portal/edit_roles.html:3
 msgid "Edit roles"
 msgstr "Editar roles"
@@ -138,27 +138,27 @@ msgstr "Vista edición de %(module)s"
 msgid "%(module)s create view"
 msgstr "Vista creación de %(module)s"
 
-#: templates/portal/edit_layout.html:41 templates/portal/edit_layouts.html:23
+#: templates/portal/edit_layout.html:41 templates/portal/edit_layouts.html:29
 #: templates/portal/edit_list_layout.html:41
 msgid "List view"
 msgstr "Vista lista"
 
-#: templates/portal/edit_layout.html:42 templates/portal/edit_layouts.html:26
+#: templates/portal/edit_layout.html:42 templates/portal/edit_layouts.html:32
 #: templates/portal/edit_list_layout.html:38
 msgid "Filter view"
 msgstr "Vista filtro"
 
-#: templates/portal/edit_layout.html:44 templates/portal/edit_layouts.html:29
+#: templates/portal/edit_layout.html:44 templates/portal/edit_layouts.html:35
 #: templates/portal/edit_list_layout.html:43
 msgid "Detail view"
 msgstr "Vista detallada"
 
-#: templates/portal/edit_layout.html:47 templates/portal/edit_layouts.html:35
+#: templates/portal/edit_layout.html:47 templates/portal/edit_layouts.html:41
 #: templates/portal/edit_list_layout.html:44
 msgid "Edit view"
 msgstr "Vista edición"
 
-#: templates/portal/edit_layout.html:50 templates/portal/edit_layouts.html:32
+#: templates/portal/edit_layout.html:50 templates/portal/edit_layouts.html:38
 #: templates/portal/edit_list_layout.html:45
 msgid "Create view"
 msgstr "Vista creación"
@@ -199,17 +199,17 @@ msgid "Fields that will be shown in create view."
 msgstr "Campos que se mostraran en la vista creación."
 
 #: templates/portal/edit_layout.html:114
-#: templates/portal/edit_list_layout.html:89 templates/portal/edit_role.html:23
-#: templates/portal/edit_role.html:46 templates/portal/edit_user.html:105
+#: templates/portal/edit_list_layout.html:89 templates/portal/edit_role.html:24
+#: templates/portal/edit_role.html:51 templates/portal/edit_user.html:105
 #: templates/portal/module_edit.html:87
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/portal/edit_layouts.html:10 templates/portal/edit_role.html:27
+#: templates/portal/edit_layouts.html:12 templates/portal/edit_role.html:28
 msgid "Module"
 msgstr "Módulo"
 
-#: templates/portal/edit_layouts.html:42 templates/portal/edit_role.html:55
+#: templates/portal/edit_layouts.html:48 templates/portal/edit_role.html:60
 msgid "There are no modules available."
 msgstr "No hay módulos disponibles."
 
@@ -233,17 +233,17 @@ msgstr "Campos que se mostraran en la vista filtro."
 msgid "Fields that will be shown in list view."
 msgstr "Campos que se mostraran en la vista lista."
 
-#: templates/portal/edit_role.html:8
+#: templates/portal/edit_role.html:9
 #, python-format
 msgid "%(role)s role"
 msgstr "Rol %(role)s"
 
-#: templates/portal/edit_role.html:13
+#: templates/portal/edit_role.html:14
 #, python-format
 msgid "<b>%(role)s</b> role configuration"
 msgstr "Configuración del rol <b>%(role)s</b>"
 
-#: templates/portal/edit_role.html:61
+#: templates/portal/edit_role.html:66
 #, python-format
 msgid "<b>%(role)s</b> role does not exist."
 msgstr "El rol <b>%(role)s</b> no existe."
@@ -387,14 +387,65 @@ msgstr "Cerrar"
 msgid "Reopen"
 msgstr "Reabrir"
 
-#: templates/portal/module_detail.html:131 templates/portal/module_edit.html:94
+#: templates/portal/module_detail.html:133 templates/portal/module_edit.html:94
 msgid "The requested record was not found."
 msgstr "No se ha encontrado el registro solicitado."
 
-#: templates/portal/module_detail.html:136
+#: templates/portal/module_detail.html:138
 #, python-format
 msgid "Module %(module)s has not defined the detail view."
 msgstr "El módulo %(module)s no tiene definida la vista detallada."
+
+#: templates/portal/module_detail_aos_quotes.html:5
+msgid "Line items"
+msgstr "Líneas"
+
+#: templates/portal/module_detail_aos_quotes.html:9
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: templates/portal/module_detail_aos_quotes.html:10
+msgid "Description"
+msgstr "Descripción"
+
+#: templates/portal/module_detail_aos_quotes.html:11
+msgid "List Price"
+msgstr "Precio tarifa"
+
+#: templates/portal/module_detail_aos_quotes.html:12
+#: templates/portal/module_detail_aos_quotes.html:64
+msgid "Discount"
+msgstr "Descuento"
+
+#: templates/portal/module_detail_aos_quotes.html:13
+msgid "Sale Price"
+msgstr "Precio tarifa descuento"
+
+#: templates/portal/module_detail_aos_quotes.html:14
+#: templates/portal/module_detail_aos_quotes.html:80
+msgid "Tax"
+msgstr "IVA"
+
+#: templates/portal/module_detail_aos_quotes.html:15
+msgid "Tax Amount"
+msgstr "Importe IVA"
+
+#: templates/portal/module_detail_aos_quotes.html:16
+#: templates/portal/module_detail_aos_quotes.html:88
+msgid "Total"
+msgstr "Total"
+
+#: templates/portal/module_detail_aos_quotes.html:17
+msgid "Total (tax included)"
+msgstr "Total (IVA incluído)"
+
+#: templates/portal/module_detail_aos_quotes.html:56
+msgid "Tax base"
+msgstr "Base imponible"
+
+#: templates/portal/module_detail_aos_quotes.html:72
+msgid "Subtotal"
+msgstr "Subtotal"
 
 #: templates/portal/module_detail_cases.html:14
 msgid "Collapse all updates"
@@ -405,7 +456,7 @@ msgid "Expand all updates"
 msgstr "Expandir actualizaciones"
 
 #: templates/portal/module_detail_cases.html:26
-#: templates/portal/module_detail_cases.html:46
+#: templates/portal/module_detail_cases.html:53
 msgid "Update case"
 msgstr "Actualitzar caso"
 
@@ -413,7 +464,7 @@ msgstr "Actualitzar caso"
 msgid "Add update"
 msgstr "Añadir actualización"
 
-#: templates/portal/module_detail_cases.html:58
+#: templates/portal/module_detail_cases.html:65
 #: templates/portal/module_remove.html:67
 #: templates/portal/module_remove.html:78
 msgid "Ok"
@@ -458,11 +509,11 @@ msgstr "No se han encontrado registros."
 msgid "Module %(module)s has not defined the list view."
 msgstr "El módulo %(module)s no tiene definida la vista lista."
 
-#: templates/portal/module_list_filter.html:163
+#: templates/portal/module_list_filter.html:191
 msgid "Clear filter"
 msgstr "Eliminar filtro"
 
-#: templates/portal/module_list_filter.html:164
+#: templates/portal/module_list_filter.html:192
 msgid "Filter"
 msgstr "Filtrar"
 
@@ -510,105 +561,105 @@ msgstr "%H:%M"
 msgid "%d/%m/%Y %H:%M"
 msgstr "%d/%m/%Y %H:%M"
 
-#: views.py:124
+#: views.py:125
 msgid "User settings updated successfully."
 msgstr "Se han actualizado las preferencias del usuario."
 
-#: views.py:129
+#: views.py:130
 msgid "Error while saving user settings."
 msgstr "Se ha producido un error al actualizar las preferencias del usuario."
 
-#: views.py:233
+#: views.py:236
 msgid "Record deleted successfully."
 msgstr "Registro eliminado con éxito."
 
-#: views.py:238
+#: views.py:241
 msgid "Error deleting record."
 msgstr "Error al eliminar el registro."
 
-#: views.py:243
+#: views.py:246
 msgid "Insufficient permissions."
 msgstr "Permisos insuficientes."
 
-#: views.py:247 views.py:474
+#: views.py:250 views.py:487
 msgid "Invalid request."
 msgstr "Solicitud no válida."
 
-#: views.py:422
+#: views.py:435
 msgid "Empty case updates are not allowed."
 msgstr "No se permiten las actualizaciones de casos vacías."
 
-#: views.py:449
+#: views.py:462
 msgid "An error occurred while uploading the attachment(s)."
 msgstr "Se produjo un error al cargar los archivos adjuntos."
 
-#: views.py:454
+#: views.py:467
 msgid "An error occurred while creating the case update."
 msgstr "Se produjo un error al crear la actualización del caso."
 
-#: views.py:458
+#: views.py:471
 msgid "The case update has been added successfully."
 msgstr "Se ha actualizado el caso correctamente."
 
-#: views.py:470
+#: views.py:483
 msgid "An error occurred while updating the case."
 msgstr "Se ha producido un error al actualizar el caso."
 
-#: views.py:489
+#: views.py:502
 msgid "The requested file was not found."
 msgstr "No se ha encontrado el fichero solicitado."
 
-#: views.py:509 views.py:569
+#: views.py:522 views.py:582
 msgid "Please specify 'selected_fields'."
 msgstr "Por favor, especifique el campo 'selected_fields'."
 
-#: views.py:520 views.py:580
+#: views.py:533 views.py:593
 msgid "Layout updated successfully"
 msgstr "Vista actualizada correctamente"
 
-#: views.py:661
+#: views.py:674
 msgid "Please specify 'permissions'."
 msgstr "Por favor, especifique el campo 'permissions'."
 
-#: views.py:668 views.py:708
+#: views.py:681 views.py:721
 #, python-format
 msgid "Role '%(role)s' does not exist."
 msgstr "El rol '%(role)s' no existe."
 
-#: views.py:682
+#: views.py:695
 msgid "Role permissions have been updated."
 msgstr "Se han actualizado los permisos del rol."
 
-#: views.py:698
+#: views.py:711
 #, python-format
 msgid "'%(role)s' role has been removed."
 msgstr "Se ha eliminado el rol '%(role)s'."
 
-#: views.py:703
+#: views.py:716
 msgid "Default role can not be deleted."
 msgstr "No se puede eliminar el rol por defecto."
 
-#: views.py:724
+#: views.py:737
 #, python-format
 msgid "'%(role)s' role has been created."
 msgstr "Se ha creado el rol '%(role)s'."
 
-#: views.py:729
+#: views.py:742
 msgid "Error creating role: Invalid role name."
 msgstr "Error al crear el rol: El nombre no es válido."
 
-#: views.py:734
+#: views.py:747
 msgid "Error creating role."
 msgstr "Error al crear el rol."
 
-#: views.py:750
+#: views.py:763
 msgid "Error retrieving contact"
 msgstr "Error al recuperar el contacto"
 
-#: views.py:755
+#: views.py:768
 msgid "Contact has no valid email"
 msgstr "El contacto no tiene un correo electrónico válido"
 
-#: views.py:766
+#: views.py:779
 msgid "Invalid request"
 msgstr "Solicitud no válida"

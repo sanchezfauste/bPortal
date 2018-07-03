@@ -1,0 +1,104 @@
+{% load i18n %}
+{% load filters %}
+
+{% if record.aos_products_quotes %}
+    <h2 class="mt-4">{% trans "Line items" %}</h2>
+    <table class="table table-sm table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>{% trans "Quantity" %}</th>
+                <th>{% trans "Description" %}</th>
+                <th>{% trans "List Price" %}</th>
+                <th>{% trans "Discount" %}</th>
+                <th>{% trans "Sale Price" %}</th>
+                <th>{% trans "Tax" %}</th>
+                <th>{% trans "Tax Amount" %}</th>
+                <th>{% trans "Total" %}</th>
+                <th>{% trans "Total (tax included)" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in record.aos_products_quotes %}
+                <tr>
+                    {% if line.product_id == '0' %}
+                        <td></td>
+                    {% else %}
+                        <td>{{line.product_qty|floatformat:2}}</td>
+                    {% endif %}
+                    <td>
+                        {% if line.item_description %}
+                            <a href="#" data-toggle="tooltip" title="{{line.item_description}}" data-placement="right">{{line.name}}</a>
+                        {% else %}
+                            {{line.name}}
+                        {% endif %}
+                    </td>
+                    <td>{{line.product_list_price|floatformat:2}}{{currency_symbol}}</td>
+                    {% if line.discount == 'Percentage' %}
+                        <td>{{line.product_discount|floatformat:2}}%</td>
+                    {% else %}
+                        <td>{{line.product_discount|floatformat:2}}{{currency_symbol}}</td>
+                    {% endif %}
+                    <td>{{line.product_unit_price|floatformat:2}}{{currency_symbol}}</td>
+                    <td>{{line.vat|floatformat:2}}%</td>
+                    <td>{{line.vat_amt|floatformat:2}}{{currency_symbol}}</td>
+                    <td>{{line.product_total_price|floatformat:2}}{{currency_symbol}}</td>
+                    <td>{{line.product_total_price|add:line.vat_amt|floatformat:2}}{{currency_symbol}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-lg-3 ml-auto mt-3">
+            <table class="table table-sm table">
+                <tbody>
+                    <tr>
+                        <th class="left border-0">
+                            {% trans "Tax base" %}
+                        </th>
+                        <td class="right border-0">
+                            {{record.total_amt|floatformat:2}}{{currency_symbol}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left border-0">
+                            {% trans "Discount" %}
+                        </th>
+                        <td class="right border-0">
+                            {{record.discount_amount|floatformat:2}}{{currency_symbol}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left border-0">
+                            {% trans "Subtotal" %}
+                        </th>
+                        <td class="right border-0">
+                            {{record.subtotal_amount|floatformat:2}}{{currency_symbol}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left border-0">
+                            {% trans "Tax" %}
+                        </th>
+                        <td class="right border-0">
+                            {{record.tax_amount|floatformat:2}}{{currency_symbol}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left">
+                            {% trans "Total" %}
+                        </th>
+                        <td class="right">
+                            {{record.total_amount|floatformat:2}}{{currency_symbol}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+{% endif %}
