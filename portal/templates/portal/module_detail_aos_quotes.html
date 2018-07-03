@@ -106,6 +106,12 @@
         </div>
     </div>
 
+    {% if pdf_template_enabled %}
+        <div class="text-right">
+            <a class="btn btn-primary mt-4" href="{% url 'get_pdf' module_key record.id %}"><span class="oi oi-document"></span> {% trans "Download PDF" %}</a>
+        </div>
+    {% endif %}
+
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()

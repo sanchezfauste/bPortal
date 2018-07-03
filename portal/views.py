@@ -41,6 +41,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from cases import *
 from aos_quotes_utils import *
+from pdf_templates import *
 import mimetypes
 import base64
 from django.http import Http404
@@ -205,6 +206,9 @@ def module_detail(request, module, id):
                 })
             elif module == 'AOS_Invoices' or module == 'AOS_Quotes' or module == 'AOS_Contracts':
                 record = get_aos_quotes_record(module, id)
+                context.update({
+                    'pdf_template_enabled' : True if get_pdf_template_id(module) else None
+                })
             else:
                 record = SuiteCRM().get_bean(module, id)
         except:
@@ -795,3 +799,66 @@ def cache(request):
     })
     template = loader.get_template('portal/cache.html')
     return HttpResponse(template.render(context, request))
+
+@login_required
+@permission_required('is_superuser')
+def pdf_templates(request):
+    context = basepage_processor(request)
+    if request.method == 'POST' and 'action' in request.POST:
+        if request.POST['action'] == 'update_preferences':
+            try:
+                set_pdf_template_id('AOS_Invoices', request.POST['invoice_template'])
+                set_pdf_template_id('AOS_Quotes', request.POST['quote_template'])
+                set_pdf_template_id('AOS_Contracts', request.POST['contract_template'])
+                context.update({
+                    'success_msg' : True,
+                    'msg' : _('Preferences have been updated correctly.')
+                })
+            except Exception:
+                context.update({
+                    'error_msg' : True,
+                    'msg' : _('Error updating preferences.')
+                })
+    context.update({
+        'aos_invoices_templates': get_aos_invoices_pdf_templates(),
+        'aos_quotes_templates': get_aos_quotes_pdf_templates(),
+        'aos_contract_templates': get_aos_contracts_pdf_templates(),
+        'invoice_template': get_pdf_template_id('AOS_Invoices'),
+        'quote_template': get_pdf_template_id('AOS_Quotes'),
+        'contract_template': get_pdf_template_id('AOS_Contracts')
+    })
+    template = loader.get_template('portal/pdf_templates.html')
+    return HttpResponse(template.render(context, request))
+
+@login_required
+def get_pdf(request, module, id):
+    context = basepage_processor(request)
+    template_id = get_pdf_template_id(module)
+    if user_can_read_module(request.user, module) \
+            and user_can_read_record(request.user, module, id) \
+            and template_id:
+        try:
+            pdf = SuiteCRM().get_pdf_template(
+                template_id,
+                module,
+                id
+            )
+            if pdf['error']:
+                raise Http404(_("The requested file was not found."))
+            else:
+                response = HttpResponse(
+                    base64.b64decode(pdf['file']),
+                    content_type='application/octet-stream'
+                )
+                response['Content-Disposition'] = "attachment; filename=%s" \
+                        % pdf['filename']
+                return response
+        except Exception:
+            context.update({
+                'msg': _('Error while retrieving document.')
+            })
+            template = loader.get_template('portal/error.html')
+            return HttpResponse(template.render(context, request))
+    else:
+        template = loader.get_template('portal/insufficient_permissions.html')
+        return HttpResponse(template.render(context, request))

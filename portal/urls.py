@@ -49,5 +49,7 @@ urlpatterns = [
     url(r'^user/(?P<user_id>\d+)$', views.edit_user, name='edit_user'),
     url(r'^user_profile/$', views.user_profile, name='user_profile'),
     url(r'^cache/$', views.cache, name='cache'),
+    url(r'^pdf_templates/$', views.pdf_templates, name='pdf_templates'),
+    url(r'^get_pdf/(?P<module>\w+)/(?P<id>[\w-]+)/$', views.get_pdf, name='get_pdf'),
     url(r'^index.php$', views.crm_entry_point, name='crm_entry_point'),
 ]
