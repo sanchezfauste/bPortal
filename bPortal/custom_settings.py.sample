@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #######################################################################
 # bPortal is a SuiteCRM portal written using django project.
 
@@ -59,3 +61,6 @@ DEFAULT_FROM_EMAIL = 'bPortal <portal@example.com>'
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 # Uncomment the following line to change the default lang
 # LANGUAGE_CODE = 'en-us'
+
+# SuiteCRM currency
+# SUITECRM_CURRENCY_SYMBOL = '€'

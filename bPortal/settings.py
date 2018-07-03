@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for bPortal project.
 
@@ -135,6 +137,7 @@ LOGIN_REDIRECT_URL = '/'
 SUITECRM_DATE_FORMAT='%Y-%m-%d'
 SUITECRM_TIME_FORMAT='%H:%M'
 SUITECRM_DATETIME_FORMAT='%Y-%m-%d %H:%M:%S'
+SUITECRM_CURRENCY_SYMBOL='€'
 
 # Portal settings
 # NOTE: You can override this values in custom_settings.py file.

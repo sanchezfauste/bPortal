@@ -108,7 +108,7 @@
                                         {% elif field.type == 'double' or field.type == 'float' or field.type == 'decimal' or field.type == 'decimal2' %}
                                             {{ value|floatformat:2 }}
                                         {% elif field.type == 'currency' %}
-                                            {{ value|floatformat:2 }}
+                                            {{ value|floatformat:2 }}{{currency_symbol}}
                                         {% else %}
                                             {{ value|decode|safe }}
                                         {% endif %}
@@ -125,6 +125,8 @@
             </div>
             {% if module_key == 'Cases' %}
                 {% include "portal/module_detail_cases.html" %}
+            {% elif module_key == 'AOS_Invoices' or module_key == 'AOS_Quotes' or module_key == 'AOS_Contracts' %}
+                {% include "portal/module_detail_aos_quotes.html" %}
             {% endif %}
         {% else %}
             <div class="alert alert-danger" role="alert">
