@@ -51,46 +51,56 @@
         <div class="col-lg-3 ml-auto mt-3">
             <table class="table table-sm table">
                 <tbody>
-                    <tr>
-                        <th class="left border-0">
-                            {% trans "Tax base" %}
-                        </th>
-                        <td class="right border-0">
-                            {{record.total_amt|floatformat:2}}{{currency_symbol}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="left border-0">
-                            {% trans "Discount" %}
-                        </th>
-                        <td class="right border-0">
-                            {{record.discount_amount|floatformat:2}}{{currency_symbol}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="left border-0">
-                            {% trans "Subtotal" %}
-                        </th>
-                        <td class="right border-0">
-                            {{record.subtotal_amount|floatformat:2}}{{currency_symbol}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="left border-0">
-                            {% trans "Tax" %}
-                        </th>
-                        <td class="right border-0">
-                            {{record.tax_amount|floatformat:2}}{{currency_symbol}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="left">
-                            {% trans "Total" %}
-                        </th>
-                        <td class="right">
-                            {{record.total_amount|floatformat:2}}{{currency_symbol}}
-                        </td>
-                    </tr>
+                    {% if record.total_amt %}
+                        <tr>
+                            <th class="left border-0">
+                                {% trans "Tax base" %}
+                            </th>
+                            <td class="right border-0">
+                                {{record.total_amt|floatformat:2}}{{currency_symbol}}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if record.discount_amount %}
+                        <tr>
+                            <th class="left border-0">
+                                {% trans "Discount" %}
+                            </th>
+                            <td class="right border-0">
+                                {{record.discount_amount|floatformat:2}}{{currency_symbol}}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if record.subtotal_amount %}
+                        <tr>
+                            <th class="left border-0">
+                                {% trans "Subtotal" %}
+                            </th>
+                            <td class="right border-0">
+                                {{record.subtotal_amount|floatformat:2}}{{currency_symbol}}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if record.tax_amount %}
+                        <tr>
+                            <th class="left border-0">
+                                {% trans "Tax" %}
+                            </th>
+                            <td class="right border-0">
+                                {{record.tax_amount|floatformat:2}}{{currency_symbol}}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if record.total_amount %}
+                        <tr>
+                            <th class="left">
+                                {% trans "Total" %}
+                            </th>
+                            <td class="right">
+                                {{record.total_amount|floatformat:2}}{{currency_symbol}}
+                            </td>
+                        </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>
