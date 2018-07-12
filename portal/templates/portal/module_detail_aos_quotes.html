@@ -27,9 +27,9 @@
                     {% endif %}
                     <td>
                         {% if line.item_description %}
-                            <span style="color: #007bff;" data-toggle="tooltip" title="{{line.item_description}}" data-placement="right">{{line.name}}</span>
+                            <span style="color: #007bff;" data-toggle="tooltip" title="{{line.item_description|safe}}" data-placement="right">{{line.name|safe}}</span>
                         {% else %}
-                            {{line.name}}
+                            {{line.name|safe}}
                         {% endif %}
                     </td>
                     <td>{{line.product_list_price|floatformat:2}}{{currency_symbol}}</td>
