@@ -1,6 +1,7 @@
 [![license](https://img.shields.io/github/license/sanchezfauste/bPortal.svg?style=flat-square)](LICENSE)
 [![bPortal documentation](https://img.shields.io/badge/docs-passing-brightgreen.svg?style=flat-square)](https://sanchezfauste.github.io/bPortal)
 [![GitHub (pre-)release](https://img.shields.io/github/release/sanchezfauste/bPortal/all.svg?style=flat-square)](https://github.com/sanchezfauste/bPortal/releases/latest)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fddb7b98271148b284e8f251732e1435)](https://www.codacy.com/app/sanchezfauste/bPortal?utm_source=github.com&utm_medium=referral&utm_content=sanchezfauste/bPortal&utm_campaign=Badge_Grade)
 
 
 # bPortal
