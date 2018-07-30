@@ -120,7 +120,8 @@ def get_case_updates(case_id):
             }
         ],
         order_by = 'date_entered',
-        related_module_query = 'aop_case_updates.internal = 0'
+        related_module_query = 'aop_case_updates.internal = 0 '
+            + 'OR aop_case_updates.internal IS NULL'
     )
 
 def user_is_linked_to_case(user, case_id):
