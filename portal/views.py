@@ -131,7 +131,7 @@ def edit_user(request, user_id):
                 'success_msg': True,
                 'msg': _('User settings updated successfully.')
             })
-        except:
+        except Exception:
             context.update({
                 'error_msg': True,
                 'msg': _('Error while saving user settings.')
@@ -222,7 +222,7 @@ def module_detail(request, module, id):
                 })
             else:
                 record = SuiteCRM().get_bean(module, id)
-        except:
+        except Exception:
             pass
         context.update({
             'module_key': module,
@@ -379,7 +379,7 @@ def module_edit(request, module, id):
                     }
                 )
                 return HttpResponseRedirect(url)
-            except:
+            except Exception:
                 context.update({
                     'error_on_save': True
                 })
@@ -517,7 +517,7 @@ def add_case_update(request):
                         }
                     )
                 })
-            except:
+            except Exception:
                 return JsonResponse(
                     {
                         "status": "Error",
@@ -577,7 +577,7 @@ def list_layout(request, module, layout):
         view = None
         try:
             view = Layout.objects.get(module=module, view=layout)
-        except:
+        except Exception:
             view = Layout(module=module, view=layout)
         view.fields = json.dumps(selected_fields)
         view.save()
@@ -598,7 +598,7 @@ def list_layout(request, module, layout):
                 if field in available_fields:
                     module_fields[field] = available_fields[field]
                     del available_fields[field]
-        except:
+        except Exception:
             pass
         context = basepage_processor(request)
         context.update({
@@ -644,7 +644,7 @@ def edit_layout(request, module, layout):
         view = None
         try:
             view = Layout.objects.get(module=module, view=layout)
-        except:
+        except Exception:
             view = Layout(module=module, view=layout)
         view.fields = json.dumps(selected_fields)
         view.save()
@@ -667,7 +667,7 @@ def edit_layout(request, module, layout):
                     elif not field:
                         module_fields_row.append(None)
                 module_fields.append(module_fields_row)
-        except:
+        except Exception:
             pass
         context = basepage_processor(request)
         context.update({
@@ -686,7 +686,7 @@ def edit_role(request, role):
         role_bean = None
         try:
             role_bean = Role.objects.get(name=role)
-        except:
+        except Exception:
             pass
         module_labels = get_module_labels()
         role_permissions = RolePermission.objects.filter(role=role, grant=1)
@@ -739,7 +739,7 @@ def edit_role(request, role):
             )
         try:
             role_bean = Role.objects.get(name=role)
-        except:
+        except Exception:
             return JsonResponse(
                 {
                     "status": "Error",
@@ -783,7 +783,7 @@ def delete_role(request):
                     'error_msg': True,
                     'msg':  _('Default role can not be deleted.')
                 })
-        except:
+        except Exception:
             context.update({
                 'error_msg': True,
                 'msg': _('Role \'%(role)s\' does not exist.') % {'role': role_name}
@@ -810,7 +810,7 @@ def create_role(request):
                     'error_msg': True,
                     'msg': _('Error creating role: Invalid role name.')
                 })
-        except:
+        except Exception:
             context.update({
                 'error_msg': True,
                 'msg': _('Error creating role.')
@@ -827,7 +827,7 @@ def crm_entry_point(request):
                 request.GET['sug'],
                 ['id', 'first_name', 'last_name', 'email1', 'account_id']
             )
-        except:
+        except Exception:
             return JsonResponse(
                 {
                     "status": "Error",

@@ -44,7 +44,7 @@ def remove_colon_of_field_labels(module_fields):
 def get_user_role(user):
     try:
         return user.roleuser.role
-    except:
+    except Exception:
         default_role = get_default_role()
         if default_role:
             RoleUser(
@@ -69,7 +69,7 @@ def get_user_accesible_modules(user):
                 "module_label": module_key
             }
         return modules
-    except:
+    except Exception:
         return OrderedDict()
 
 
@@ -97,7 +97,7 @@ def _user_can_perform_action_on_module(user, action, module):
             grant=True,
             action=action
         ).exists()
-    except:
+    except Exception:
         return False
 
 
@@ -288,7 +288,7 @@ def retrieve_list_view_records(module, arguments, user):
             related_id = user.userattr.contact_id
             link_type = module_def.contacts_link_type
             link_name = module_def.contacts_link_name
-    except:
+    except Exception:
         return {
             'module_key': module,
             'error_retrieving_records': True
@@ -501,7 +501,7 @@ def get_related_user_records(module, user):
                 query=filter_query,
                 select_fields=fields_list
             )
-    except:
+    except Exception:
         return None
     return records
 
@@ -574,7 +574,7 @@ def get_default_role():
     default_role = settings.DEFAULT_ROLE
     try:
         return Role.objects.get(name=default_role)
-    except:
+    except Exception:
         role = Role(name=default_role)
         role.save()
         return role
@@ -592,7 +592,7 @@ def create_portal_user(contact):
             },
             status=400
         )
-    except:
+    except Exception:
         pass
     user = User.objects.create_user(
         username=username,
@@ -626,7 +626,7 @@ def disable_portal_user(contact):
         user.is_active = False
         user.save()
         return JsonResponse({"success": True})
-    except:
+    except Exception:
         return JsonResponse(
             {
                 "status": "Error",
@@ -642,7 +642,7 @@ def enable_portal_user(contact):
         user.is_active = True
         user.save()
         return JsonResponse({"success": True})
-    except:
+    except Exception:
         return JsonResponse(
             {
                 "status": "Error",
@@ -659,7 +659,7 @@ def user_can_read_record(user, module, id):
         module_def = ModuleDefinitionFactory.get_module_definition(module)
         if module_def.contacts_link_type == LinkType.NONE:
             return True
-    except:
+    except Exception:
         pass
     return False
 
@@ -716,7 +716,7 @@ def user_is_linked_to_record(user, module, id):
             )
         if records['entry_list'][0]['id'] == id:
             return True
-    except:
+    except Exception:
         pass
     return False
 
@@ -727,7 +727,7 @@ def get_module_labels():
         available_modules = get_available_modules()
         for key, module in available_modules.items():
             module_labels[key] = module['module_label']
-    except:
+    except Exception:
         pass
     return module_labels
 
@@ -755,7 +755,7 @@ def iso_to_datetime(value):
     try:
         return datetime.strptime(value, '%Y-%m-%dT%H:%M')\
             .strftime(settings.SUITECRM_DATETIME_FORMAT)
-    except:
+    except Exception:
         return value
 
 
@@ -864,7 +864,7 @@ def relate_bean_with_contact(bean, contact_id):
             bean['parent_type'] = 'Contacts'
             bean['parent_id'] = contact_id
             SuiteCRM().save_bean(bean)
-    except:
+    except Exception:
         return False
     return True
 
@@ -891,6 +891,6 @@ def relate_bean_with_account(bean, account_id):
             bean['parent_type'] = 'Accounts'
             bean['parent_id'] = account_id
             SuiteCRM().save_bean(bean)
-    except:
+    except Exception:
         return False
     return True

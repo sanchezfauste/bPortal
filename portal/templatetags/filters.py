@@ -32,7 +32,7 @@ register = template.Library()
 def get(dict, key):
     try:
         return dict[key]
-    except:
+    except Exception:
         return ''
 
 
@@ -40,7 +40,7 @@ def get(dict, key):
 def getlist(dict, key):
     try:
         return dict.getlist(key)
-    except:
+    except Exception:
         return ''
 
 
@@ -59,7 +59,7 @@ def get_list_str(values):
 def get_label(dict, key):
     try:
         return dict[key]
-    except:
+    except Exception:
         return key
 
 
@@ -74,7 +74,7 @@ def format_date(value):
         # Translators: Format for date fields following python date format.
         return datetime.strptime(value, settings.SUITECRM_DATE_FORMAT)\
             .strftime(_('%d/%m/%Y'))
-    except:
+    except Exception:
         return value
 
 
@@ -84,7 +84,7 @@ def format_time(value):
         # Translators: Format for time fields following python date format.
         return datetime.strptime(value, settings.SUITECRM_TIME_FORMAT)\
             .strftime(_('%H:%M'))
-    except:
+    except Exception:
         return value
 
 
@@ -94,7 +94,7 @@ def format_datetime(value):
         # Translators: Format for datetime fields following python date format.
         return datetime.strptime(value, settings.SUITECRM_DATETIME_FORMAT)\
             .strftime(_('%d/%m/%Y %H:%M'))
-    except:
+    except Exception:
         return value
 
 
@@ -103,7 +103,7 @@ def iso_datetime(value):
     try:
         return datetime.strptime(value, settings.SUITECRM_DATETIME_FORMAT)\
             .strftime('%Y-%m-%dT%H:%M')
-    except:
+    except Exception:
         return value
 
 

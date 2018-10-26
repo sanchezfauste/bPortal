@@ -35,7 +35,7 @@ class ModuleDefinitionFactory:
             )
             md = getattr(mod_def, module_name)
             return md()
-        except:
+        except Exception:
             pass
         try:
             mod_def = import_module(
@@ -43,6 +43,6 @@ class ModuleDefinitionFactory:
             )
             md = getattr(mod_def, module_name)
             return md()
-        except:
+        except Exception:
             pass
         raise ModuleDefinitionNotFoundException(module_name)
