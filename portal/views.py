@@ -82,7 +82,8 @@ def edit_layouts(request):
 
 @login_required
 @permission_required('is_superuser')
-def edit_roles_generic(request, context={}):
+def edit_roles_generic(request, context=None):
+    context = context or {}
     template = loader.get_template('portal/edit_roles.html')
     context.update(basepage_processor(request))
     context.update({
@@ -251,7 +252,7 @@ def module_remove_record(request, module):
                     "status": "Success",
                     "msg": _("Record deleted successfully.")
                 })
-            except Exception as e:
+            except Exception:
                 return JsonResponse(
                     {
                         "status": "Error",

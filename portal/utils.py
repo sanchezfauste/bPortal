@@ -507,7 +507,8 @@ def get_related_user_records(module, user):
     return records
 
 
-def get_datetime_option_in_mysql_format(option, field_name, params=[]):
+def get_datetime_option_in_mysql_format(option, field_name, params=None):
+    params = params or []
     if option == '=' and params[0]:
         return 'DATE(' + field_name + ') = DATE(\'' + params[0] + '\')'
     if option == 'not_equal' and params[0]:
@@ -740,7 +741,7 @@ def get_available_modules():
         for module in all_modules:
             if module['module_key'] not in FORBIDDEN_MODULES:
                 available_modules[module['module_key']] = module
-    except Exception as e:
+    except Exception:
         pass
     return available_modules
 
