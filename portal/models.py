@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
+
 class Layout(models.Model):
 
     module = models.CharField(max_length=50)
@@ -26,12 +27,14 @@ class Layout(models.Model):
     def __str__(self):
         return self.module + ' - ' + self.view + ' view'
 
+
 class Role(models.Model):
 
     name = models.CharField(max_length=50, primary_key=True)
 
     def __str__(self):
         return self.name
+
 
 class RolePermission(models.Model):
 
@@ -54,6 +57,7 @@ class RolePermission(models.Model):
     def __str__(self):
         return self.role.name + ' - ' + self.action.title() + ' ' + self.module
 
+
 class RoleUser(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -61,6 +65,7 @@ class RoleUser(models.Model):
 
     def __str__(self):
         return self.role.name + ' - ' + self.user.username
+
 
 class UserAttr(models.Model):
 
@@ -79,6 +84,7 @@ class UserAttr(models.Model):
 
     def __str__(self):
         return self.user.username
+
 
 class PortalSetting(models.Model):
 

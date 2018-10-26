@@ -21,6 +21,7 @@
 from abc import ABCMeta, abstractproperty
 from django.conf import settings
 
+
 class ModuleDefinition:
 
     __metaclass__ = ABCMeta

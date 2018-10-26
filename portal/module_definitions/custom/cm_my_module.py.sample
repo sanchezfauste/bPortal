@@ -20,6 +20,7 @@
 
 from portal.module_definitions import ModuleDefinition, LinkType
 
+
 class cm_my_module(ModuleDefinition):
 
     @property

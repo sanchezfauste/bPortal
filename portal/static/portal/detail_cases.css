@@ -1,23 +1,23 @@
 .card {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .contact-update {
-    margin-left: 50px;
+  margin-left: 50px;
 }
 
 .card-header.collapsed .oi-chevron-top {
-    display: none;
+  display: none;
 }
 
 .card-header.collapsed .oi-chevron-bottom {
-    display: inline;
+  display: inline;
 }
 
 .card-header .oi-chevron-top {
-    display: inline;
+  display: inline;
 }
 
 .card-header .oi-chevron-bottom {
-    display: none;
+  display: none;
 }

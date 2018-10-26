@@ -21,6 +21,7 @@
 from portal.module_definitions import ModuleDefinition, LinkType
 from portal.module_definitions.accounts import Accounts as AccountsBase
 
+
 class Accounts(AccountsBase):
 
     @property

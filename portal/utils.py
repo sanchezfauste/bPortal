@@ -33,11 +33,13 @@ from module_definitions import *
 from django.conf import settings
 from datetime import datetime
 
+
 def remove_colon_of_field_labels(module_fields):
     for field in module_fields:
         label = module_fields[field]['label']
         if len(label) > 0 and label[-1] == ':':
             module_fields[field]['label'] = label[:-1]
+
 
 def get_user_role(user):
     try:
@@ -46,10 +48,11 @@ def get_user_role(user):
         default_role = get_default_role()
         if default_role:
             RoleUser(
-                user = user,
-                role = default_role
+                user=user,
+                role=default_role
             ).save()
         return default_role
+
 
 def get_user_accesible_modules(user):
     try:
@@ -62,24 +65,29 @@ def get_user_accesible_modules(user):
         for role_permission in role_permissions:
             module_key = role_permission.module
             modules[module_key] = {
-                "module_key" : module_key,
-                "module_label" : module_key
+                "module_key": module_key,
+                "module_label": module_key
             }
         return modules
     except:
         return OrderedDict()
 
+
 def user_can_read_module(user, module):
     return _user_can_perform_action_on_module(user, "read", module)
+
 
 def user_can_create_module(user, module):
     return _user_can_perform_action_on_module(user, "create", module)
 
+
 def user_can_edit_module(user, module):
     return _user_can_perform_action_on_module(user, "edit", module)
 
+
 def user_can_delete_module(user, module):
     return _user_can_perform_action_on_module(user, "delete", module)
+
 
 def _user_can_perform_action_on_module(user, action, module):
     try:
@@ -92,14 +100,17 @@ def _user_can_perform_action_on_module(user, action, module):
     except:
         return False
 
+
 def get_filter_related(module, field_name, value):
     table = module.lower()
     field_table = table if field_name[-2:] != '_c' else table + '_cstm'
     return field_table + '.' + field_name + ' = \'' + value + '\''
 
+
 def get_filter_parent(module, parent_type, parent_id):
     table = module.lower()
     return 'parent_type = \'' + parent_type + '\' AND parent_id = \'' + parent_id + '\''
+
 
 def get_filter_query(module, fields, parameters):
     table = module.lower()
@@ -113,7 +124,9 @@ def get_filter_query(module, fields, parameters):
                 if field_name + '_1' in parameters:
                     date_filter_params.append(parameters[field_name + '_1'])
                     if field_name + '_2' in parameters:
-                        date_filter_params.append(parameters[field_name + '_2'])
+                        date_filter_params.append(
+                            parameters[field_name + '_2']
+                        )
                 date_filter = get_datetime_option_in_mysql_format(
                     parameters[field_name],
                     field_table + '.' + field_name,
@@ -147,6 +160,7 @@ def get_filter_query(module, fields, parameters):
                 query += field_table + '.' + field_name + ' = ' + value
     return query
 
+
 def get_listview_filter(parameters):
     filters = parameters.copy()
     if 'limit' in filters:
@@ -164,19 +178,20 @@ def get_listview_filter(parameters):
             del filters[key]
     return filters
 
-NON_SORTABLE_FIELD_TYPES=[
+
+NON_SORTABLE_FIELD_TYPES = [
     'html',
     'text',
     'encrypt',
     'relate'
 ]
-NON_SORTABLE_FIELD_NAMES=[
+NON_SORTABLE_FIELD_NAMES = [
     'email1',
     'email2',
     'parent_name'
 ]
 
-NON_FILTERABLE_FIELD_TYPES=[
+NON_FILTERABLE_FIELD_TYPES = [
     'html',
     'text',
     'encrypt',
@@ -184,28 +199,29 @@ NON_FILTERABLE_FIELD_TYPES=[
     'assigned_user_name',
     'id'
 ]
-NON_FILTERABLE_FIELD_NAMES=[
+NON_FILTERABLE_FIELD_NAMES = [
     'email1',
     'email2',
     'parent_name'
 ]
 
 
-FIELD_TYPES_DISALLOWED_ON_VIEWS=[
+FIELD_TYPES_DISALLOWED_ON_VIEWS = [
     'id',
     'function'
 ]
-FIELD_NAMES_DISALLOWED_ON_VIEWS=[
+FIELD_NAMES_DISALLOWED_ON_VIEWS = [
     'modified_user_id',
     'created_by',
     'deleted',
     'assigned_user_id'
 ]
 
-FORBIDDEN_MODULES=[
+FORBIDDEN_MODULES = [
     'Home',
     'Calendar'
 ]
+
 
 def set_sortable_atribute_on_module_fields(module_fields):
     for field_name, field_def in module_fields.items():
@@ -214,6 +230,7 @@ def set_sortable_atribute_on_module_fields(module_fields):
             field_def['sortable'] = False
         else:
             field_def['sortable'] = True
+
 
 def get_filterable_fields(module):
     module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
@@ -224,6 +241,7 @@ def get_filterable_fields(module):
             filterable_fields[field_name] = field_def
     return filterable_fields
 
+
 def get_allowed_module_fields(module):
     available_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
     allowed_fields = OrderedDict()
@@ -232,6 +250,7 @@ def get_allowed_module_fields(module):
                 and field_name not in FIELD_NAMES_DISALLOWED_ON_VIEWS:
             allowed_fields[field_name] = field_def
     return allowed_fields
+
 
 def get_filter_layout(module):
     try:
@@ -246,17 +265,18 @@ def get_filter_layout(module):
     except Exception:
         return OrderedDict()
 
+
 def retrieve_list_view_records(module, arguments, user):
     try:
         module_def = ModuleDefinitionFactory.get_module_definition(module)
     except ModuleDefinitionNotFoundException:
         return {
-            'module_key' : module,
-            'unsupported_module' : True
+            'module_key': module,
+            'unsupported_module': True
         }
     try:
         user_type = user.userattr.user_type
-        if (user_type == 'account' \
+        if (user_type == 'account'
                 and module_def.accounts_link_type != LinkType.CONTACT) \
                 or module_def.contacts_link_type == LinkType.ACCOUNT:
             related_module = 'Accounts'
@@ -270,8 +290,8 @@ def retrieve_list_view_records(module, arguments, user):
             link_name = module_def.contacts_link_name
     except:
         return {
-            'module_key' : module,
-            'error_retrieving_records' : True
+            'module_key': module,
+            'error_retrieving_records': True
         }
     records = []
     module_fields = {}
@@ -325,10 +345,10 @@ def retrieve_list_view_records(module, arguments, user):
                 filter_query += module_def.custom_where
             records = SuiteCRM().get_bean_list(
                 module,
-                max_results = limit,
-                offset = offset,
-                order_by = order_by_string,
-                query = filter_query
+                max_results=limit,
+                offset=offset,
+                order_by=order_by_string,
+                query=filter_query
             )
         elif link_type == LinkType.RELATIONSHIP:
             if module_def.custom_where:
@@ -339,11 +359,11 @@ def retrieve_list_view_records(module, arguments, user):
                 related_module,
                 related_id,
                 link_name,
-                related_fields = ['id'] + fields_list,
-                limit = limit,
-                offset = offset,
-                order_by = order_by_string,
-                related_module_query = filter_query
+                related_fields=['id'] + fields_list,
+                limit=limit,
+                offset=offset,
+                order_by=order_by_string,
+                related_module_query=filter_query
             )
         elif link_type == LinkType.PARENT:
             if filter_query:
@@ -359,10 +379,10 @@ def retrieve_list_view_records(module, arguments, user):
                 filter_query += module_def.custom_where
             records = SuiteCRM().get_bean_list(
                 module,
-                max_results = limit,
-                offset = offset,
-                order_by = order_by_string,
-                query = filter_query
+                max_results=limit,
+                offset=offset,
+                order_by=order_by_string,
+                query=filter_query
             )
         elif link_type == LinkType.NONE:
             if module_def.custom_where:
@@ -371,23 +391,24 @@ def retrieve_list_view_records(module, arguments, user):
                 filter_query += module_def.custom_where
             records = SuiteCRM().get_bean_list(
                 module,
-                max_results = limit,
-                offset = offset,
-                order_by = order_by_string,
-                query = filter_query
+                max_results=limit,
+                offset=offset,
+                order_by=order_by_string,
+                query=filter_query
             )
     except Exception as e:
         print e
 
     return {
-        'module_key' : module,
-        'records' : records,
-        'module_fields' : ordered_module_fields,
-        'filterable_fields' : filterable_fields,
-        'current_filters' : get_listview_filter(arguments),
-        'order_by' : order_by,
-        'order' : order
+        'module_key': module,
+        'records': records,
+        'module_fields': ordered_module_fields,
+        'filterable_fields': filterable_fields,
+        'current_filters': get_listview_filter(arguments),
+        'order_by': order_by,
+        'order': order
     }
+
 
 # Function used to populate dropdowns
 def get_related_user_records(module, user):
@@ -395,7 +416,7 @@ def get_related_user_records(module, user):
     try:
         module_def = ModuleDefinitionFactory.get_module_definition(module)
         user_type = user.userattr.user_type
-        if (user_type == 'account' \
+        if (user_type == 'account'
                 and module_def.accounts_link_type != LinkType.CONTACT) \
                 or module_def.contacts_link_type == LinkType.ACCOUNT:
             related_module = 'Accounts'
@@ -426,9 +447,9 @@ def get_related_user_records(module, user):
                 filter_query += module_def.custom_dropdown_where
             records = SuiteCRM().get_bean_list(
                 module,
-                order_by = order_by,
-                select_fields = fields_list,
-                query = filter_query
+                order_by=order_by,
+                select_fields=fields_list,
+                query=filter_query
             )
         elif link_type == LinkType.RELATIONSHIP:
             filter_query = ''
@@ -442,9 +463,9 @@ def get_related_user_records(module, user):
                 related_module,
                 related_id,
                 link_name,
-                related_fields = fields_list,
-                order_by = order_by,
-                related_module_query = filter_query
+                related_fields=fields_list,
+                order_by=order_by,
+                related_module_query=filter_query
             )
         elif link_type == LinkType.PARENT:
             filter_query = get_filter_parent(
@@ -462,9 +483,9 @@ def get_related_user_records(module, user):
                 filter_query += module_def.custom_dropdown_where
             records = SuiteCRM().get_bean_list(
                 module,
-                order_by = order_by,
-                query = filter_query,
-                select_fields = fields_list
+                order_by=order_by,
+                query=filter_query,
+                select_fields=fields_list
             )
         elif link_type == LinkType.NONE:
             filter_query = ''
@@ -476,15 +497,16 @@ def get_related_user_records(module, user):
                 filter_query += module_def.custom_dropdown_where
             records = SuiteCRM().get_bean_list(
                 module,
-                order_by = order_by,
-                query = filter_query,
-                select_fields = fields_list
+                order_by=order_by,
+                query=filter_query,
+                select_fields=fields_list
             )
     except:
         return None
     return records
 
-def get_datetime_option_in_mysql_format(option, field_name, params = []):
+
+def get_datetime_option_in_mysql_format(option, field_name, params=[]):
     if option == '=' and params[0]:
         return 'DATE(' + field_name + ') = DATE(\'' + params[0] + '\')'
     if option == 'not_equal' and params[0]:
@@ -498,39 +520,42 @@ def get_datetime_option_in_mysql_format(option, field_name, params = []):
             + '\') AND DATE(\'' + params[1] + '\')'
     if option == 'last_7_days':
         return 'DATE(' + field_name + ') >= DATE_ADD(UTC_DATE(), INTERVAL - 6 DAY)' \
-                + ' AND ' + 'DATE(' + field_name + ') <= UTC_DATE()'
+            + ' AND ' + 'DATE(' + field_name + ') <= UTC_DATE()'
     if option == 'next_7_days':
         return 'DATE(' + field_name + ') >= UTC_DATE() ' \
-                + ' AND ' + 'DATE(' + field_name + ') <= DATE_ADD(UTC_DATE(), INTERVAL + 6 DAY)'
+            + ' AND ' + 'DATE(' + field_name + \
+            ') <= DATE_ADD(UTC_DATE(), INTERVAL + 6 DAY)'
     if option == 'last_30_days':
         return 'DATE(' + field_name + ') >= DATE_ADD(UTC_DATE(), INTERVAL - 29 DAY)' \
-                + ' AND ' + 'DATE(' + field_name + ') <= UTC_DATE()'
+            + ' AND ' + 'DATE(' + field_name + ') <= UTC_DATE()'
     if option == 'next_30_days':
         return 'DATE(' + field_name + ') >= UTC_DATE() ' \
-                + ' AND ' + 'DATE(' + field_name + ') <= DATE_ADD(UTC_DATE(), INTERVAL + 29 DAY)'
+            + ' AND ' + 'DATE(' + field_name + \
+            ') <= DATE_ADD(UTC_DATE(), INTERVAL + 29 DAY)'
     if option == 'last_month':
         return 'YEAR(' + field_name \
-                + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL - 1 MONTH)) ' \
-                + 'AND MONTH(' + field_name \
-                + ') = MONTH(DATE_ADD(UTC_DATE(), INTERVAL - 1 MONTH))'
+            + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL - 1 MONTH)) ' \
+            + 'AND MONTH(' + field_name \
+            + ') = MONTH(DATE_ADD(UTC_DATE(), INTERVAL - 1 MONTH))'
     if option == 'this_month':
         return 'YEAR(' + field_name + ') = YEAR(UTC_DATE()) AND MONTH(' \
-                + field_name + ') = MONTH(UTC_DATE())'
+            + field_name + ') = MONTH(UTC_DATE())'
     if option == 'next_month':
         return 'YEAR(' + field_name \
-                + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL + 1 MONTH)) ' \
-                + 'AND MONTH(' + field_name \
-                + ') = MONTH(DATE_ADD(UTC_DATE(), INTERVAL + 1 MONTH))'
+            + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL + 1 MONTH)) ' \
+            + 'AND MONTH(' + field_name \
+            + ') = MONTH(DATE_ADD(UTC_DATE(), INTERVAL + 1 MONTH))'
     if option == 'last_year':
         return 'YEAR(' + field_name \
-                + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL - 1 YEAR))'
+            + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL - 1 YEAR))'
     if option == 'this_year':
         return 'YEAR(' + field_name \
-                + ') = YEAR(UTC_DATE())'
+            + ') = YEAR(UTC_DATE())'
     if option == 'next_year':
         return 'YEAR(' + field_name \
-                + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL + 1 YEAR))'
+            + ') = YEAR(DATE_ADD(UTC_DATE(), INTERVAL + 1 YEAR))'
     return None
+
 
 def get_multienum_filter_in_mysql_format(field_name, values):
     if len(values) > 0:
@@ -544,6 +569,7 @@ def get_multienum_filter_in_mysql_format(field_name, values):
     else:
         return None
 
+
 def get_default_role():
     default_role = settings.DEFAULT_ROLE
     try:
@@ -553,65 +579,78 @@ def get_default_role():
         role.save()
         return role
 
+
 def create_portal_user(contact):
     username = contact['email1']
     password = User.objects.make_random_password()
     try:
-        user = User.objects.get(username = username)
-        return JsonResponse({
-            "status" : "Error",
-            "error" : "An account with this email already exists"
-        }, status = 400)
+        user = User.objects.get(username=username)
+        return JsonResponse(
+            {
+                "status": "Error",
+                "error": "An account with this email already exists"
+            },
+            status=400
+        )
     except:
         pass
     user = User.objects.create_user(
-        username = username,
-        email = username,
-        password = password,
-        first_name = contact['first_name'],
-        last_name = contact['last_name']
-     )
+        username=username,
+        email=username,
+        password=password,
+        first_name=contact['first_name'],
+        last_name=contact['last_name']
+    )
     UserAttr(
-        user = user,
-        contact_id = contact['id'],
-        account_id = contact['account_id']
+        user=user,
+        contact_id=contact['id'],
+        account_id=contact['account_id']
     ).save()
     default_role = get_default_role()
     if default_role:
         RoleUser(
-            user = user,
-            role = default_role
+            user=user,
+            role=default_role
         ).save()
     contact2 = Bean('Contacts')
     contact2['id'] = contact['id']
     contact2['joomla_account_id'] = user.id
     contact2['joomla_account_access'] = password
     SuiteCRM().save_bean(contact2)
-    return JsonResponse({"success" : True})
+    return JsonResponse({"success": True})
+
 
 def disable_portal_user(contact):
     try:
-        user = User.objects.get(username = contact['email1'])
+        user = User.objects.get(username=contact['email1'])
         user.is_active = False
         user.save()
-        return JsonResponse({"success" : True})
+        return JsonResponse({"success": True})
     except:
-        return JsonResponse({
-            "status" : "Error",
-            "error" : "Error dissabling account"
-        }, status = 400)
+        return JsonResponse(
+            {
+                "status": "Error",
+                "error": "Error dissabling account"
+            },
+            status=400
+        )
+
 
 def enable_portal_user(contact):
     try:
-        user = User.objects.get(username = contact['email1'])
+        user = User.objects.get(username=contact['email1'])
         user.is_active = True
         user.save()
-        return JsonResponse({"success" : True})
+        return JsonResponse({"success": True})
     except:
-        return JsonResponse({
-            "status" : "Error",
-            "error" : "Error enabling account"
-        }, status = 400)
+        return JsonResponse(
+            {
+                "status": "Error",
+                "error": "Error enabling account"
+            },
+            status=400
+        )
+
 
 def user_can_read_record(user, module, id):
     try:
@@ -624,11 +663,12 @@ def user_can_read_record(user, module, id):
         pass
     return False
 
+
 def user_is_linked_to_record(user, module, id):
     try:
         module_def = ModuleDefinitionFactory.get_module_definition(module)
         user_type = user.userattr.user_type
-        if (user_type == 'account' \
+        if (user_type == 'account'
                 and module_def.accounts_link_type != LinkType.CONTACT) \
                 or module_def.contacts_link_type == LinkType.ACCOUNT:
             related_module = 'Accounts'
@@ -650,17 +690,17 @@ def user_is_linked_to_record(user, module, id):
             )
             records = SuiteCRM().get_bean_list(
                 module,
-                max_results = 1,
-                query = filter_query
+                max_results=1,
+                query=filter_query
             )
         elif link_type == LinkType.RELATIONSHIP:
             records = SuiteCRM().get_relationships(
                 related_module,
                 related_id,
                 link_name,
-                related_fields = ['id'],
-                limit = 1,
-                related_module_query = module.lower() + '.id = \'' + id + '\''
+                related_fields=['id'],
+                limit=1,
+                related_module_query=module.lower() + '.id = \'' + id + '\''
             )
         elif module_def.contacts_link_type == LinkType.PARENT:
             filter_query = module.lower() + '.id = \'' + id + '\' AND '
@@ -671,14 +711,15 @@ def user_is_linked_to_record(user, module, id):
             )
             records = SuiteCRM().get_bean_list(
                 module,
-                max_results = 1,
-                query = filter_query
+                max_results=1,
+                query=filter_query
             )
         if records['entry_list'][0]['id'] == id:
             return True
     except:
         pass
     return False
+
 
 def get_module_labels():
     module_labels = {}
@@ -689,6 +730,7 @@ def get_module_labels():
     except:
         pass
     return module_labels
+
 
 def get_available_modules():
     available_modules = OrderedDict()
@@ -701,11 +743,13 @@ def get_available_modules():
         pass
     return available_modules
 
+
 def encode_multienum(values):
     if len(values) > 0:
         return '^' + '^,^'.join(values) + '^'
     else:
         return ''
+
 
 def iso_to_datetime(value):
     try:
@@ -713,6 +757,7 @@ def iso_to_datetime(value):
             .strftime(settings.SUITECRM_DATETIME_FORMAT)
     except:
         return value
+
 
 def get_module_view_fields(module, view):
     ordered_module_fields = []
@@ -732,6 +777,7 @@ def get_module_view_fields(module, view):
     except Exception:
         pass
     return ordered_module_fields
+
 
 def get_bean_from_post(module, view, data):
     module_fields = SuiteCRMCached().get_module_fields(module)['module_fields']
@@ -773,10 +819,11 @@ def get_bean_from_post(module, view, data):
                 bean[field] = value
     return bean
 
+
 def relate_bean_with_user(bean, user):
     result = {
-        'contact_related' : False,
-        'account_related' : False
+        'contact_related': False,
+        'account_related': False
     }
     try:
         result['contact_related'] = relate_bean_with_contact(
@@ -794,6 +841,7 @@ def relate_bean_with_user(bean, user):
         pass
     return result
 
+
 def relate_bean_with_contact(bean, contact_id):
     try:
         module = bean.module
@@ -808,7 +856,7 @@ def relate_bean_with_contact(bean, contact_id):
                 'Contacts',
                 contact_id,
                 module_def.contacts_link_name,
-                related_ids = [bean['id']]
+                related_ids=[bean['id']]
             )
             if result['created'] != 1:
                 return False
@@ -819,6 +867,7 @@ def relate_bean_with_contact(bean, contact_id):
     except:
         return False
     return True
+
 
 def relate_bean_with_account(bean, account_id):
     try:
@@ -834,7 +883,7 @@ def relate_bean_with_account(bean, account_id):
                 'Accounts',
                 account_id,
                 module_def.accounts_link_name,
-                related_ids = [bean['id']]
+                related_ids=[bean['id']]
             )
             if result['created'] != 1:
                 return False

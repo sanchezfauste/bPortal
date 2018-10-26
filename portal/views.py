@@ -49,11 +49,13 @@ from django.urls import reverse
 
 # Create your views here.
 
+
 @login_required
 def index(request):
     template = loader.get_template('portal/index.html')
     context = basepage_processor(request)
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 def modules(request):
@@ -61,9 +63,10 @@ def modules(request):
     template = loader.get_template('portal/modules.html')
     context = basepage_processor(request)
     context.update({
-        'modules' : modules
+        'modules': modules
     })
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 @permission_required('is_superuser')
@@ -72,20 +75,22 @@ def edit_layouts(request):
     template = loader.get_template('portal/edit_layouts.html')
     context = basepage_processor(request)
     context.update({
-        'available_modules' : modules
+        'available_modules': modules
     })
     return HttpResponse(template.render(context, request))
 
+
 @login_required
 @permission_required('is_superuser')
-def edit_roles_generic(request, context = {}):
+def edit_roles_generic(request, context={}):
     template = loader.get_template('portal/edit_roles.html')
     context.update(basepage_processor(request))
     context.update({
-        'roles' : Role.objects.all(),
-        'default_role' : get_default_role()
+        'roles': Role.objects.all(),
+        'default_role': get_default_role()
     })
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 @permission_required('is_superuser')
@@ -93,9 +98,10 @@ def edit_users(request):
     template = loader.get_template('portal/edit_users.html')
     context = basepage_processor(request)
     context.update({
-        'users' : User.objects.all()
+        'users': User.objects.all()
     })
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 @permission_required('is_superuser')
@@ -110,47 +116,50 @@ def edit_user(request, user_id):
                 user.roleuser.save()
             except Exception:
                 RoleUser(
-                    user = user,
-                    role = role
+                    user=user,
+                    role=role
                 ).save()
             try:
                 user.userattr.user_type = request.POST['user_type']
                 user.userattr.save()
             except Exception:
                 UserAttr(
-                    user = user,
-                    user_type = request.POST['user_type']
+                    user=user,
+                    user_type=request.POST['user_type']
                 ).save()
             context.update({
-                'success_msg' : True,
-                'msg' : _('User settings updated successfully.')
+                'success_msg': True,
+                'msg': _('User settings updated successfully.')
             })
         except:
             context.update({
-                'error_msg' : True,
-                'msg' : _('Error while saving user settings.')
+                'error_msg': True,
+                'msg': _('Error while saving user settings.')
             })
     template = loader.get_template('portal/edit_user.html')
     context.update({
-        'user' : User.objects.get(id=user_id),
-        'roles' : Role.objects.all(),
+        'user': User.objects.get(id=user_id),
+        'roles': Role.objects.all(),
         'user_types': UserAttr.USER_TYPE_CHOISES
     })
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 def user_profile(request):
     context = basepage_processor(request)
     template = loader.get_template('portal/user_profile.html')
     context.update({
-        'user' : request.user
+        'user': request.user
     })
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 @permission_required('is_superuser')
 def edit_roles(request):
     return edit_roles_generic(request)
+
 
 @login_required
 def module_list(request, module):
@@ -171,25 +180,27 @@ def module_list(request, module):
         context = basepage_processor(request)
         context.update(records)
         context.update({
-            'user_can_edit' : user_can_edit_module(request.user, module),
-            'user_can_delete' : user_can_delete_module(request.user, module),
-            'user_can_create' : user_can_create_module(request.user, module)
+            'user_can_edit': user_can_edit_module(request.user, module),
+            'user_can_delete': user_can_delete_module(request.user, module),
+            'user_can_create': user_can_create_module(request.user, module)
         })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
         context = basepage_processor(request)
     return HttpResponse(template.render(context, request))
 
+
 @login_required
 def user_records(request, module):
     records = get_related_user_records(module, request.user)
     records_json = {
-        'records' : []
+        'records': []
     }
     if records and 'entry_list' in records:
         for record in records['entry_list']:
             records_json['records'].append(record.json)
     return JsonResponse(records_json)
+
 
 @login_required
 def module_detail(request, module, id):
@@ -202,27 +213,28 @@ def module_detail(request, module, id):
             if module == 'Cases':
                 record = get_case(id)
                 context.update({
-                    'case_updates' : get_case_updates(id)
+                    'case_updates': get_case_updates(id)
                 })
             elif module == 'AOS_Invoices' or module == 'AOS_Quotes' or module == 'AOS_Contracts':
                 record = get_aos_quotes_record(module, id)
                 context.update({
-                    'pdf_template_enabled' : True if get_pdf_template_id(module) else None
+                    'pdf_template_enabled': True if get_pdf_template_id(module) else None
                 })
             else:
                 record = SuiteCRM().get_bean(module, id)
         except:
             pass
         context.update({
-            'module_key' : module,
-            'module_fields' : ordered_module_fields,
-            'record' : record,
-            'user_can_edit' : user_can_edit_module(request.user, module),
-            'user_can_delete' : user_can_delete_module(request.user, module)
+            'module_key': module,
+            'module_fields': ordered_module_fields,
+            'record': record,
+            'user_can_edit': user_can_edit_module(request.user, module),
+            'user_can_delete': user_can_delete_module(request.user, module)
         })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 def module_remove_record(request, module):
@@ -236,23 +248,33 @@ def module_remove_record(request, module):
             try:
                 SuiteCRM().save_bean(bean)
                 return JsonResponse({
-                    "status" : "Success",
-                    "msg" : _("Record deleted successfully.")
+                    "status": "Success",
+                    "msg": _("Record deleted successfully.")
                 })
             except Exception as e:
-                return JsonResponse({
-                    "status" : "Error",
-                    "error" : _("Error deleting record.")
-                }, status = 400)
+                return JsonResponse(
+                    {
+                        "status": "Error",
+                        "error": _("Error deleting record.")
+                    },
+                    status=400
+                )
         else:
-            return JsonResponse({
-                "status" : "Error",
-                "error" : _("Insufficient permissions.")
-            }, status = 400)
-    return JsonResponse({
-        "status" : "Error",
-        "error" : _("Invalid request.")
-    }, status = 400)
+            return JsonResponse(
+                {
+                    "status": "Error",
+                    "error": _("Insufficient permissions.")
+                },
+                status=400
+            )
+    return JsonResponse(
+        {
+            "status": "Error",
+            "error": _("Invalid request.")
+        },
+        status=400
+    )
+
 
 def create_case_add_attachments(request, bean_case):
     try:
@@ -284,6 +306,7 @@ def create_case_add_attachments(request, bean_case):
         pass
     return False
 
+
 @login_required
 def module_create(request, module):
     context = basepage_processor(request)
@@ -302,7 +325,7 @@ def module_create(request, module):
                 relate_result = relate_bean_with_user(bean, request.user)
                 context.update(relate_result)
                 context.update({
-                    'record_created_successfully' : True
+                    'record_created_successfully': True
                 })
                 if module == 'Cases':
                     create_case_add_attachments(request, bean)
@@ -317,15 +340,16 @@ def module_create(request, module):
             except Exception as e:
                 print e
                 context.update({
-                    'error_on_create' : True
+                    'error_on_create': True
                 })
         context.update({
-            'module_key' : module,
-            'module_fields' : ordered_module_fields
+            'module_key': module,
+            'module_fields': ordered_module_fields
         })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 def module_edit(request, module, id):
@@ -345,7 +369,7 @@ def module_edit(request, module, id):
                     pass
                 SuiteCRM().save_bean(bean)
                 context.update({
-                    'record_edited' : True
+                    'record_edited': True
                 })
                 url = reverse(
                     'module_detail',
@@ -357,22 +381,23 @@ def module_edit(request, module, id):
                 return HttpResponseRedirect(url)
             except:
                 context.update({
-                    'error_on_save' : True
+                    'error_on_save': True
                 })
         try:
             record = SuiteCRM().get_bean(module, id)
         except Exception:
             context.update({
-                'error_retrieving_bean' : True
+                'error_retrieving_bean': True
             })
         context.update({
-            'module_key' : module,
-            'module_fields' : ordered_module_fields,
-            'record' : record
+            'module_key': module,
+            'module_fields': ordered_module_fields,
+            'record': record
         })
     else:
         template = loader.get_template('portal/insufficient_permissions.html')
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 def close_case(request):
@@ -400,6 +425,7 @@ def close_case(request):
         template = loader.get_template('portal/insufficient_permissions.html')
         return HttpResponse(template.render(context, request))
 
+
 @login_required
 def reopen_case(request):
     if user_can_read_module(request.user, 'Cases') and request.method == 'POST' \
@@ -426,6 +452,7 @@ def reopen_case(request):
         template = loader.get_template('portal/insufficient_permissions.html')
         return HttpResponse(template.render(context, request))
 
+
 @login_required
 def add_case_update(request):
     if user_can_read_module(request.user, 'Cases') and request.method == 'POST':
@@ -434,10 +461,13 @@ def add_case_update(request):
                 and user_is_linked_to_case(request.user, request.POST['case-id']):
             update_case_text = request.POST['update-case-text'].strip()
             if not update_case_text:
-                return JsonResponse({
-                    "status" : "Error",
-                    "error" : _("Empty case updates are not allowed.")
-                }, status = 400)
+                return JsonResponse(
+                    {
+                        "status": "Error",
+                        "error": _("Empty case updates are not allowed.")
+                    },
+                    status=400
+                )
             case_update = Bean('AOP_Case_Updates')
             case_update['contact_id'] = request.user.userattr.contact_id
             case_update['case_id'] = request.POST['case-id']
@@ -461,35 +491,48 @@ def add_case_update(request):
                                 base64.b64encode(f.read())
                             )
                         else:
-                            return JsonResponse({
-                                "status" : "Error",
-                                "error" : _("An error occurred while uploading the attachment(s).")
-                            }, status = 400)
+                            return JsonResponse(
+                                {
+                                    "status": "Error",
+                                    "error": _("An error occurred while uploading the attachment(s).")
+                                },
+                                status=400
+                            )
                 else:
-                    return JsonResponse({
-                        "status" : "Error",
-                        "error" : _("An error occurred while creating the case update.")
-                    }, status = 400)
+                    return JsonResponse(
+                        {
+                            "status": "Error",
+                            "error": _("An error occurred while creating the case update.")
+                        },
+                        status=400
+                    )
                 return JsonResponse({
-                    "status" : "Success",
-                    "msg" : _("The case update has been added successfully."),
-                    "case_update" : render_to_string(
+                    "status": "Success",
+                    "msg": _("The case update has been added successfully."),
+                    "case_update": render_to_string(
                         'portal/module_detail_case_update.html',
                         {
-                            "update" : get_case_update(case_update['id']),
-                            "show" : True
+                            "update": get_case_update(case_update['id']),
+                            "show": True
                         }
                     )
                 })
             except:
-                return JsonResponse({
-                    "status" : "Error",
-                    "error" : _("An error occurred while updating the case.")
-                }, status = 400)
-    return JsonResponse({
-        "status" : "Error",
-        "error" : _("Invalid request.")
-    }, status = 400)
+                return JsonResponse(
+                    {
+                        "status": "Error",
+                        "error": _("An error occurred while updating the case.")
+                    },
+                    status=400
+                )
+    return JsonResponse(
+        {
+            "status": "Error",
+            "error": _("Invalid request.")
+        },
+        status=400
+    )
+
 
 @login_required
 def note_attachment(request, id):
@@ -500,31 +543,37 @@ def note_attachment(request, id):
             content_type='application/octet-stream'
         )
         response['Content-Disposition'] = "attachment; filename=%s" \
-                % attachment['filename']
+            % attachment['filename']
         return response
     else:
         raise Http404(_("The requested file was not found."))
+
 
 @login_required
 @permission_required('is_superuser')
 def edit_list_layout(request, module):
     return list_layout(request, module, 'list')
 
+
 @login_required
 @permission_required('is_superuser')
 def edit_filter_layout(request, module):
     return list_layout(request, module, 'filter')
-    
+
+
 def list_layout(request, module, layout):
     if request.method == 'POST':
         post_data = json.loads(request.body.decode("utf-8"))
         try:
             selected_fields = post_data['selected_fields']
         except KeyError:
-            return JsonResponse({
-                "status" : "Error",
-                "error" : _("Please specify 'selected_fields'.")
-            }, status = 400)
+            return JsonResponse(
+                {
+                    "status": "Error",
+                    "error": _("Please specify 'selected_fields'.")
+                },
+                status=400
+            )
         view = None
         try:
             view = Layout.objects.get(module=module, view=layout)
@@ -533,8 +582,8 @@ def list_layout(request, module, layout):
         view.fields = json.dumps(selected_fields)
         view.save()
         return JsonResponse({
-            "status" : "Success",
-            "msg" : _("Layout updated successfully")
+            "status": "Success",
+            "msg": _("Layout updated successfully")
         })
     elif request.method == 'GET':
         if layout == 'filter':
@@ -553,27 +602,31 @@ def list_layout(request, module, layout):
             pass
         context = basepage_processor(request)
         context.update({
-            'module_key' : module,
-            'module_fields' : module_fields,
-            'available_fields' : available_fields,
+            'module_key': module,
+            'module_fields': module_fields,
+            'available_fields': available_fields,
             'layout': layout
         })
         return HttpResponse(template.render(context, request))
+
 
 @login_required
 @permission_required('is_superuser')
 def edit_detail_layout(request, module):
     return edit_layout(request, module, 'detail')
 
+
 @login_required
 @permission_required('is_superuser')
 def edit_edit_layout(request, module):
     return edit_layout(request, module, 'edit')
 
+
 @login_required
 @permission_required('is_superuser')
 def edit_create_layout(request, module):
     return edit_layout(request, module, 'create')
+
 
 def edit_layout(request, module, layout):
     if request.method == 'POST':
@@ -581,10 +634,13 @@ def edit_layout(request, module, layout):
         try:
             selected_fields = post_data['selected_fields']
         except KeyError:
-            return JsonResponse({
-                "status" : "Error",
-                "error" : _("Please specify 'selected_fields'.")
-            }, status = 400)
+            return JsonResponse(
+                {
+                    "status": "Error",
+                    "error": _("Please specify 'selected_fields'.")
+                },
+                status=400
+            )
         view = None
         try:
             view = Layout.objects.get(module=module, view=layout)
@@ -593,8 +649,8 @@ def edit_layout(request, module, layout):
         view.fields = json.dumps(selected_fields)
         view.save()
         return JsonResponse({
-            "status" : "Success",
-            "msg" : _("Layout updated successfully")
+            "status": "Success",
+            "msg": _("Layout updated successfully")
         })
     elif request.method == 'GET':
         available_fields = get_allowed_module_fields(module)
@@ -615,12 +671,13 @@ def edit_layout(request, module, layout):
             pass
         context = basepage_processor(request)
         context.update({
-            'module_key' : module,
-            'module_fields' : module_fields,
-            'available_fields' : available_fields,
-            'layout' : layout
+            'module_key': module,
+            'module_fields': module_fields,
+            'available_fields': available_fields,
+            'layout': layout
         })
         return HttpResponse(template.render(context, request))
+
 
 @login_required
 @permission_required('is_superuser')
@@ -639,11 +696,11 @@ def edit_role(request, role):
             module_key = module[0]
             if module_key in module_labels:
                 module_permissions[module_key] = {
-                    'module_label' : module_labels[module_key],
-                    'read' : False,
-                    'create' : False,
-                    'edit' : False,
-                    'delete' : False
+                    'module_label': module_labels[module_key],
+                    'read': False,
+                    'create': False,
+                    'edit': False,
+                    'delete': False
                 }
                 del module_labels[module_key]
         for role_permission in role_permissions:
@@ -653,18 +710,18 @@ def edit_role(request, role):
                 module_permissions[module][action] = True
         for module_key in module_labels:
             module_permissions[module_key] = {
-                'module_label' : module_labels[module_key],
-                'read' : False,
-                'create' : False,
-                'edit' : False,
-                'delete' : False
+                'module_label': module_labels[module_key],
+                'read': False,
+                'create': False,
+                'edit': False,
+                'delete': False
             }
         template = loader.get_template('portal/edit_role.html')
         context = basepage_processor(request)
         context.update({
-            'module_permissions' : module_permissions,
-            'role' : role,
-            'role_bean' : role_bean
+            'module_permissions': module_permissions,
+            'role': role,
+            'role_bean': role_bean
         })
         return HttpResponse(template.render(context, request))
     elif request.method == 'POST':
@@ -673,17 +730,23 @@ def edit_role(request, role):
         try:
             permissions = post_data['permissions']
         except KeyError:
-            return JsonResponse({
-                "status" : "Error",
-                "error" : _("Please specify 'permissions'.")
-            }, status = 400)
+            return JsonResponse(
+                {
+                    "status": "Error",
+                    "error": _("Please specify 'permissions'.")
+                },
+                status=400
+            )
         try:
             role_bean = Role.objects.get(name=role)
         except:
-            return JsonResponse({
-                "status" : "Error",
-                "error" : _('Role \'%(role)s\' does not exist.') % {'role': role}
-            }, status = 400)
+            return JsonResponse(
+                {
+                    "status": "Error",
+                    "error": _('Role \'%(role)s\' does not exist.') % {'role': role}
+                },
+                status=400
+            )
         RolePermission.objects.filter(role=role).delete()
         for i, permission in enumerate(permissions):
             if permission[2]:
@@ -695,9 +758,10 @@ def edit_role(request, role):
                     order=i
                 ).save()
         return JsonResponse({
-            "status" : "Success",
-            "msg" : _("Role permissions have been updated.")
+            "status": "Success",
+            "msg": _("Role permissions have been updated.")
         })
+
 
 @login_required
 @permission_required('is_superuser')
@@ -711,20 +775,21 @@ def delete_role(request):
             if role != default_role:
                 role.delete()
                 context.update({
-                    'success_msg' : True,
-                    'msg' :  _('\'%(role)s\' role has been removed.') % {'role': role_name}
+                    'success_msg': True,
+                    'msg':  _('\'%(role)s\' role has been removed.') % {'role': role_name}
                 })
             else:
                 context.update({
-                    'error_msg' : True,
-                    'msg' :  _('Default role can not be deleted.')
+                    'error_msg': True,
+                    'msg':  _('Default role can not be deleted.')
                 })
         except:
             context.update({
-                'error_msg' : True,
-                'msg' : _('Role \'%(role)s\' does not exist.') % {'role': role_name}
+                'error_msg': True,
+                'msg': _('Role \'%(role)s\' does not exist.') % {'role': role_name}
             })
     return edit_roles_generic(request, context)
+
 
 @login_required
 @permission_required('is_superuser')
@@ -737,20 +802,21 @@ def create_role(request):
                 r = Role(name=role)
                 r.save()
                 context.update({
-                    'success_msg' : True,
-                    'msg' : _('\'%(role)s\' role has been created.') % {'role': role}
+                    'success_msg': True,
+                    'msg': _('\'%(role)s\' role has been created.') % {'role': role}
                 })
             else:
                 context.update({
-                    'error_msg' : True,
-                    'msg' : _('Error creating role: Invalid role name.')
+                    'error_msg': True,
+                    'msg': _('Error creating role: Invalid role name.')
                 })
         except:
             context.update({
-                'error_msg' : True,
-                'msg' : _('Error creating role.')
+                'error_msg': True,
+                'msg': _('Error creating role.')
             })
     return edit_roles_generic(request, context)
+
 
 def crm_entry_point(request):
     if request.GET['option'] and request.GET['task'] and request.GET['sug']:
@@ -762,15 +828,21 @@ def crm_entry_point(request):
                 ['id', 'first_name', 'last_name', 'email1', 'account_id']
             )
         except:
-            return JsonResponse({
-                "status" : "Error",
-                "error" : _("Error retrieving contact")
-            }, status = 400)
+            return JsonResponse(
+                {
+                    "status": "Error",
+                    "error": _("Error retrieving contact")
+                },
+                status=400
+            )
         if not contact['email1']:
-            return JsonResponse({
-                "status" : "Error",
-                "error" : _("Contact has no valid email")
-            }, status = 400)
+            return JsonResponse(
+                {
+                    "status": "Error",
+                    "error": _("Contact has no valid email")
+                },
+                status=400
+            )
         if request.GET['task'] == 'create':
             return create_portal_user(contact)
         elif request.GET['task'] == 'disable_user':
@@ -778,10 +850,14 @@ def crm_entry_point(request):
         elif request.GET['task'] == 'enable_user':
             return enable_portal_user(contact)
         print request.GET['task']
-    return JsonResponse({
-        "status" : "Error",
-        "error" : _("Invalid request")
-    }, status = 400)
+    return JsonResponse(
+        {
+            "status": "Error",
+            "error": _("Invalid request")
+        },
+        status=400
+    )
+
 
 @login_required
 @permission_required('is_superuser')
@@ -791,14 +867,15 @@ def cache(request):
         if request.POST['action'] == 'clean_cache':
             SuiteCRMCached().clear_cache()
             context.update({
-                'success_msg' : True,
-                'msg' : _('The cache has been cleared.')
+                'success_msg': True,
+                'msg': _('The cache has been cleared.')
             })
     context.update({
-        'cached_calls' : SuiteCRMCached().get_number_of_cached_calls()
+        'cached_calls': SuiteCRMCached().get_number_of_cached_calls()
     })
     template = loader.get_template('portal/cache.html')
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 @permission_required('is_superuser')
@@ -807,17 +884,26 @@ def pdf_templates(request):
     if request.method == 'POST' and 'action' in request.POST:
         if request.POST['action'] == 'update_preferences':
             try:
-                set_pdf_template_id('AOS_Invoices', request.POST['invoice_template'])
-                set_pdf_template_id('AOS_Quotes', request.POST['quote_template'])
-                set_pdf_template_id('AOS_Contracts', request.POST['contract_template'])
+                set_pdf_template_id(
+                    'AOS_Invoices',
+                    request.POST['invoice_template']
+                )
+                set_pdf_template_id(
+                    'AOS_Quotes',
+                    request.POST['quote_template']
+                )
+                set_pdf_template_id(
+                    'AOS_Contracts',
+                    request.POST['contract_template']
+                )
                 context.update({
-                    'success_msg' : True,
-                    'msg' : _('Preferences have been updated correctly.')
+                    'success_msg': True,
+                    'msg': _('Preferences have been updated correctly.')
                 })
             except Exception:
                 context.update({
-                    'error_msg' : True,
-                    'msg' : _('Error updating preferences.')
+                    'error_msg': True,
+                    'msg': _('Error updating preferences.')
                 })
     context.update({
         'aos_invoices_templates': get_aos_invoices_pdf_templates(),
@@ -829,6 +915,7 @@ def pdf_templates(request):
     })
     template = loader.get_template('portal/pdf_templates.html')
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 def get_pdf(request, module, id):
@@ -851,7 +938,7 @@ def get_pdf(request, module, id):
                     content_type='application/octet-stream'
                 )
                 response['Content-Disposition'] = "attachment; filename=%s" \
-                        % pdf['filename']
+                    % pdf['filename']
                 return response
         except Exception:
             context.update({

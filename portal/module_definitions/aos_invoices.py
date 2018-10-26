@@ -21,6 +21,7 @@
 from module_definition import ModuleDefinition
 from link_type import LinkType
 
+
 class AOS_Invoices(ModuleDefinition):
 
     @property

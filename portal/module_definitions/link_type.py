@@ -20,6 +20,7 @@
 
 from enum import Enum
 
+
 class LinkType(Enum):
 
     RELATIONSHIP = 'relationship'

@@ -21,9 +21,10 @@
 from utils import *
 from django.conf import settings
 
+
 def basepage_processor(request):
     return {
-        'modules' : get_user_accesible_modules(request.user),
-        'module_labels' : get_module_labels(),
-        'currency_symbol' : settings.SUITECRM_CURRENCY_SYMBOL
+        'modules': get_user_accesible_modules(request.user),
+        'module_labels': get_module_labels(),
+        'currency_symbol': settings.SUITECRM_CURRENCY_SYMBOL
     }

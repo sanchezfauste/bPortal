@@ -44,10 +44,10 @@ DATABASES = {
 DEFAULT_ROLE = 'default'
 
 # NOTE: This field MUST exist on all modules
-DEFAULT_ORDER_BY_FIELD='date_entered'
+DEFAULT_ORDER_BY_FIELD = 'date_entered'
 
 # NOTE: Allowed values are 'asc' or 'desc'
-DEFAULT_ORDER='desc'
+DEFAULT_ORDER = 'desc'
 
 # Email settings
 EMAIL_HOST = 'smtp.example.com'

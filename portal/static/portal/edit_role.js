@@ -18,28 +18,32 @@
  *************************************************************************/
 
 function save_role_permissions() {
+  var permissions = $("#module_permissions tr td input")
+    .map(function() {
+      return [
+        [
+          $(this).attr("module"),
+          $(this).attr("permission"),
+          $(this).is(":checked")
+        ]
+      ];
+    })
+    .get();
 
-    var permissions = $('#module_permissions tr td input').map(function() {
-        return [[
-            $(this).attr('module'),
-            $(this).attr('permission'),
-            $(this).is(':checked')
-        ]];
-    }).get();
+  var data = {
+    permissions: permissions
+  };
 
-    var data = {"permissions" : permissions};
-
-    $.ajax({
-        type: "POST",
-        data: JSON.stringify(data),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        error: function(response) {
-            alert(response.responseJSON.error);
-        },
-        success: function(response) {
-            alert(response.msg);
-        }
-    });
-
+  $.ajax({
+    type: "POST",
+    data: JSON.stringify(data),
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    error: function(response) {
+      alert(response.responseJSON.error);
+    },
+    success: function(response) {
+      alert(response.msg);
+    }
+  });
 }

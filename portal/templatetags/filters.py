@@ -27,6 +27,7 @@ from django.contrib.staticfiles import finders
 
 register = template.Library()
 
+
 @register.filter(name='get')
 def get(dict, key):
     try:
@@ -34,12 +35,14 @@ def get(dict, key):
     except:
         return ''
 
+
 @register.filter(name='getlist')
 def getlist(dict, key):
     try:
         return dict.getlist(key)
     except:
         return ''
+
 
 @register.filter(name='get_list_str')
 def get_list_str(values):
@@ -51,6 +54,7 @@ def get_list_str(values):
     str += ']'
     return str
 
+
 @register.filter(name='get_label')
 def get_label(dict, key):
     try:
@@ -58,9 +62,11 @@ def get_label(dict, key):
     except:
         return key
 
+
 @register.filter(name='decode')
 def decode(value):
     return HTMLParser.HTMLParser().unescape(value)
+
 
 @register.filter(name='format_date')
 def format_date(value):
@@ -71,6 +77,7 @@ def format_date(value):
     except:
         return value
 
+
 @register.filter(name='format_time')
 def format_time(value):
     try:
@@ -79,6 +86,7 @@ def format_time(value):
             .strftime(_('%H:%M'))
     except:
         return value
+
 
 @register.filter(name='format_datetime')
 def format_datetime(value):
@@ -89,6 +97,7 @@ def format_datetime(value):
     except:
         return value
 
+
 @register.filter(name='iso_datetime')
 def iso_datetime(value):
     try:
@@ -97,11 +106,13 @@ def iso_datetime(value):
     except:
         return value
 
+
 @register.filter(name='unencode_multienum')
 def unencode_multienum(value):
     if len(value) >= 2 and value[0] == '^' and value[-1] == '^':
         value = value[1:-1]
     return value.split('^,^')
+
 
 @register.filter(name='get_module_dark_svg')
 def get_module_dark_svg(module):
@@ -115,6 +126,7 @@ def get_module_dark_svg(module):
     else:
         return default_img
 
+
 @register.filter(name='get_module_light_svg')
 def get_module_light_svg(module):
     custom_module_img = 'portal/img/custom/modules/light/' + module + '.svg'
@@ -127,6 +139,7 @@ def get_module_light_svg(module):
     else:
         return default_img
 
+
 @register.filter(name='get_module_ico')
 def get_module_ico(module):
     custom_module_img = 'portal/img/custom/modules/favicon/' + module + '.ico'
@@ -138,6 +151,7 @@ def get_module_ico(module):
         return module_img
     else:
         return default_img
+
 
 @register.filter(name='add')
 def add(a, b):

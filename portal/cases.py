@@ -63,66 +63,70 @@ USER_FIELDS = [
     'description'
 ]
 
+
 def get_case(case_id):
     return SuiteCRM().get_bean(
         'Cases',
         case_id,
-        link_name_to_fields_array = [
+        link_name_to_fields_array=[
             {
-                'name' : 'notes',
-                'value' : NOTE_FIELDS
+                'name': 'notes',
+                'value': NOTE_FIELDS
             },
             {
-                'name' : 'contacts',
-                'value' : CONTACT_FIELDS
+                'name': 'contacts',
+                'value': CONTACT_FIELDS
             }
         ]
     )
+
 
 def get_case_update(case_update_id):
     return SuiteCRM().get_bean(
         'AOP_Case_Updates',
         case_update_id,
-        link_name_to_fields_array = [
+        link_name_to_fields_array=[
             {
-                'name' : 'notes',
-                'value' : NOTE_FIELDS
+                'name': 'notes',
+                'value': NOTE_FIELDS
             },
             {
-                'name' : 'assigned_user_link',
-                'value' : USER_FIELDS
+                'name': 'assigned_user_link',
+                'value': USER_FIELDS
             },
             {
-                'name' : 'contact',
-                'value' : CONTACT_FIELDS
+                'name': 'contact',
+                'value': CONTACT_FIELDS
             }
         ]
     )
+
 
 def get_case_updates(case_id):
     return SuiteCRM().get_relationships(
         'Cases',
         case_id,
         'aop_case_updates',
-        related_fields = CASE_UPDATE_FIELDS,
-        related_module_link_name_to_fields_array = [
+        related_fields=CASE_UPDATE_FIELDS,
+        related_module_link_name_to_fields_array=[
             {
-                'name' : 'notes',
-                'value' : NOTE_FIELDS
+                'name': 'notes',
+                'value': NOTE_FIELDS
             },
             {
-                'name' : 'assigned_user_link',
-                'value' : USER_FIELDS
+                'name': 'assigned_user_link',
+                'value': USER_FIELDS
             },
             {
-                'name' : 'contact',
-                'value' : CONTACT_FIELDS
+                'name': 'contact',
+                'value': CONTACT_FIELDS
             }
         ],
-        order_by = 'date_entered',
-        related_module_query = 'aop_case_updates.internal = 0 '
-            + 'OR aop_case_updates.internal IS NULL'
+        order_by='date_entered',
+        related_module_query='aop_case_updates.internal = 0 '
+        + 'OR aop_case_updates.internal IS NULL'
     )
+
 
 def user_is_linked_to_case(user, case_id):
     return user_is_linked_to_record(user, 'Cases', case_id)

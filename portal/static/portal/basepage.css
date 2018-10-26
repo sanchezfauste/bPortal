@@ -1,6 +1,6 @@
 body > .container {
-    padding-bottom: 60px;
-    padding-top: 120px;
+  padding-bottom: 60px;
+  padding-top: 120px;
 }
 
 .sortable-ul {
@@ -10,16 +10,16 @@ body > .container {
 }
 
 .scrollable-dropdown {
-    max-height: 600px;
-    overflow-y: auto;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 .selected-arrow {
-    color: gray;
+  color: gray;
 }
 
 .required:after {
-    content:"*";
-    color: #f08377;
-    padding: 10px;
+  content: "*";
+  color: #f08377;
+  padding: 10px;
 }

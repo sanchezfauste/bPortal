@@ -34,14 +34,15 @@ AOS_PRODUCTS_QUOTES_FIELDS = [
     'product_total_price'
 ]
 
+
 def get_aos_quotes_record(module, id):
     return SuiteCRM().get_bean(
         module,
         id,
-        link_name_to_fields_array = [
+        link_name_to_fields_array=[
             {
-                'name' : 'aos_products_quotes',
-                'value' : AOS_PRODUCTS_QUOTES_FIELDS
+                'name': 'aos_products_quotes',
+                'value': AOS_PRODUCTS_QUOTES_FIELDS
             }
         ]
     )

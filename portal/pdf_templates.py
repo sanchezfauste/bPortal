@@ -27,12 +27,14 @@ AOS_PDF_TEMPLATES_FIELDS = [
     'description'
 ]
 
+
 def get_aos_invoices_pdf_templates():
     return SuiteCRM().get_bean_list(
         'AOS_PDF_Templates',
         "aos_pdf_templates.type = 'AOS_Invoices'",
         select_fields=AOS_PDF_TEMPLATES_FIELDS
     )
+
 
 def get_aos_quotes_pdf_templates():
     return SuiteCRM().get_bean_list(
@@ -41,6 +43,7 @@ def get_aos_quotes_pdf_templates():
         select_fields=AOS_PDF_TEMPLATES_FIELDS
     )
 
+
 def get_aos_contracts_pdf_templates():
     return SuiteCRM().get_bean_list(
         'AOS_PDF_Templates',
@@ -48,12 +51,14 @@ def get_aos_contracts_pdf_templates():
         select_fields=AOS_PDF_TEMPLATES_FIELDS
     )
 
+
 def get_pdf_template_id(module):
     try:
         t = PortalSetting.objects.get(name='pdf_template_id_' + module.lower())
         return t.value
     except Exception:
         return None
+
 
 def set_pdf_template_id(module, template_id):
     try:
@@ -63,5 +68,5 @@ def set_pdf_template_id(module, template_id):
     except Exception:
         PortalSetting(
             name='pdf_template_id_' + module.lower(),
-            value = template_id
+            value=template_id
         ).save()
