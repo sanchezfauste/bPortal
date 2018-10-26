@@ -109,7 +109,8 @@ def get_filter_related(module, field_name, value):
 
 def get_filter_parent(module, parent_type, parent_id):
     table = module.lower()
-    return 'parent_type = \'' + parent_type + '\' AND parent_id = \'' + parent_id + '\''
+    return table + '.parent_type = \'' + parent_type + '\' AND ' \
+        + table + '.parent_id = \'' + parent_id + '\''
 
 
 def get_filter_query(module, fields, parameters):
