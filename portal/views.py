@@ -22,7 +22,6 @@
 
 from __future__ import unicode_literals
 
-from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.template import loader
@@ -36,13 +35,11 @@ import json
 from utils import *
 from django.contrib.auth.decorators import login_required, permission_required
 from processors import *
-from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from cases import *
 from aos_quotes_utils import *
 from pdf_templates import *
-import mimetypes
 import base64
 from django.http import Http404
 from django.urls import reverse
