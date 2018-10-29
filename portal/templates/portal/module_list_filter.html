@@ -119,9 +119,9 @@
                                         var el = document.getElementById('filter_{{def.parentenum}}');
                                         if (el) {
                                             el.addEventListener("change", function () {
-                                                update_dynamicenum('filter_{{def.parentenum}}', 'filter_{{def.name}}')
+                                                updateDynamicEnum('filter_{{def.parentenum}}', 'filter_{{def.name}}')
                                             }, false);
-                                            update_dynamicenum('filter_{{def.parentenum}}', 'filter_{{def.name}}');
+                                            updateDynamicEnum('filter_{{def.parentenum}}', 'filter_{{def.name}}');
                                         }
                                     }, 100);
                                 });

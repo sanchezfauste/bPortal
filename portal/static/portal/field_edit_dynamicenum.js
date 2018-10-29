@@ -17,20 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *************************************************************************/
 
-function update_dynamicenum(field, subfield) {
+function updateDynamicEnum(field, subfield) {
   if (document.getElementById(subfield) != null) {
     var de_key = document.getElementById(field).value;
     var selector = document.getElementById(subfield);
 
     var current = [];
     for (var i = 0; i < selector.length; i++) {
-      if (selector.options[i].selected) current.push(selector.options[i].value);
+      if (selector.options[i].selected) {
+        current.push(selector.options[i].value);
+      }
     }
 
     document.getElementById(subfield).innerHTML = "";
 
     for (var key in de_entries[subfield]) {
-      if (key.indexOf(de_key + "_") == 0 || key == "") {
+      if (key.indexOf(de_key + "_") === 0 || key === "") {
         selector.options[selector.options.length] = new Option(
           de_entries[subfield][key],
           key
@@ -40,7 +42,7 @@ function update_dynamicenum(field, subfield) {
 
     for (var item in current) {
       for (var k = 0; k < selector.length; k++) {
-        if (selector.options[k].value == current[item]) {
+        if (selector.options[k].value === current[item]) {
           selector[k].selected = true;
         }
       }

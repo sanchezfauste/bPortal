@@ -25,9 +25,9 @@
                     var el = document.getElementById('{{field.parentenum}}');
                     if (el) {
                         el.addEventListener("change", function () {
-                            update_dynamicenum('{{field.parentenum}}', '{{field.name}}')
+                            updateDynamicEnum('{{field.parentenum}}', '{{field.name}}')
                         }, false);
-                        update_dynamicenum('{{field.parentenum}}', '{{field.name}}');
+                        updateDynamicEnum('{{field.parentenum}}', '{{field.name}}');
                     }
                 });
             {% endif %}
