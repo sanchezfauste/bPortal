@@ -11,10 +11,10 @@
     {% for update in case_updates.entry_list %}
         {% if forloop.first %}
             <button type="button" class="btn btn-primary mb-4 mr-2"
-                onclick="collapse_case_updates();">{% trans "Collapse all updates" %}
+                onclick="collapseCaseUpdates();">{% trans "Collapse all updates" %}
             </button>
             <button type="button" class="btn btn-primary mb-4"
-                onclick="expand_case_updates();">{% trans "Expand all updates" %}
+                onclick="expandCaseUpdates();">{% trans "Expand all updates" %}
             </button>
         {% endif %}
         {% include "portal/module_detail_case_update.html" with show=forloop.last %}

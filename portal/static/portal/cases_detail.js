@@ -56,13 +56,13 @@ $(document).ready(function() {
   });
 });
 
-function collapse_case_updates() {
+function collapseCaseUpdates() {
   $(".case-update-text").each(function() {
     $(this).collapse("hide");
   });
 }
 
-function expand_case_updates() {
+function expandCaseUpdates() {
   $(".case-update-text").each(function() {
     $(this).collapse("show");
   });
