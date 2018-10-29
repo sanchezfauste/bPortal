@@ -40,8 +40,13 @@ fi
 
 source $ENV_PATH/bin/activate
 
-git pull --recurse-submodules
-git submodule update --recursive --remote
+echo -e -n "Updating bPortal to last version...\n"
+git pull
+git submodule update --init
+
+echo -e -n "Update Python dependencies...\n"
+pip install -r $ABSDIR/requirements.txt
+pip install -r $ABSDIR/suitepy/requirements.txt
 
 echo -e -n "Apply DB migrations...\n"
 python $ABSDIR/manage.py migrate
