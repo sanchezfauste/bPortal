@@ -21,7 +21,7 @@
     {% if role_bean %}
 
         {% if module_permissions %}
-            <a href="#" class="btn btn-primary float-right" onclick="save_role_permissions();">{% trans "Save" %}</a><br><br>
+            <a href="#" class="btn btn-primary float-right" onclick="saveRolePermissions();">{% trans "Save" %}</a><br><br>
             <table class="table table-striped">
                 <thead class="thead-inverse">
                     <tr>
@@ -48,7 +48,7 @@
                     {% endfor %}
                 </tbody>
             </table><br>
-            <a href="#" class="btn btn-primary float-right" onclick="save_role_permissions();">{% trans "Save" %}</a><br>
+            <a href="#" class="btn btn-primary float-right" onclick="saveRolePermissions();">{% trans "Save" %}</a><br>
             <script>
                 $( function() {
                     $( "#module_permissions" ).sortable();

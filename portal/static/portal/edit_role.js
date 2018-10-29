@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *************************************************************************/
 
-function save_role_permissions() {
+function saveRolePermissions() {
   var permissions = $("#module_permissions tr td input")
     .map(function() {
       return [
@@ -31,7 +31,7 @@ function save_role_permissions() {
     .get();
 
   var data = {
-    permissions: permissions
+    permissions
   };
 
   $.ajax({
