@@ -1,12 +1,12 @@
-function save_list_layout() {
-  var selected_fields = $("#selected-fields li")
+function saveListLayout() {
+  var selectedFields = $("#selected-fields li")
     .map(function() {
       return $(this).attr("id");
     })
     .get();
 
   var data = {
-    selected_fields: selected_fields
+    selectedFields
   };
 
   $.ajax({
@@ -14,35 +14,35 @@ function save_list_layout() {
     data: JSON.stringify(data),
     contentType: "application/json; charset=utf-8",
     dataType: "json",
-    error: function(response) {
+    error(response) {
       alert(response.responseJSON.error);
     },
-    success: function(response) {
+    success(response) {
       alert(response.msg);
     }
   });
 }
 
 function save_layout_layout() {
-  var selected_fields = [];
+  var selectedFields = [];
   $("#selected-fields div.row").map(function() {
-    selected_fields.push(
+    selectedFields.push(
       $(this)
-        .children("div.col.card.sortable-ul")
-        .map(function() {
-          var children = $(this).children();
-          if (children.length > 0) {
-            return children.attr("id");
-          } else {
-            return "";
-          }
-        })
-        .get()
+      .children("div.col.card.sortable-ul")
+      .map(function() {
+        var children = $(this).children();
+        if (children.length > 0) {
+          return children.attr("id");
+        } else {
+          return "";
+        }
+      })
+      .get()
     );
   });
 
   var data = {
-    selected_fields: selected_fields
+    selectedFields
   };
 
   $.ajax({
@@ -50,16 +50,16 @@ function save_layout_layout() {
     data: JSON.stringify(data),
     contentType: "application/json; charset=utf-8",
     dataType: "json",
-    error: function(response) {
+    error(response) {
       alert(response.responseJSON.error);
     },
-    success: function(response) {
+    success(response) {
       alert(response.msg);
     }
   });
 }
 
-function add_layout_row() {
+function addLayoutRow() {
   $("#selected_fields_list_group").append(
     '\
         <div class="list-group-item justify-content-between">\
@@ -92,7 +92,7 @@ function add_layout_row() {
   });
 }
 
-function add_layout_row2() {
+function addLayoutRow2() {
   $("#selected_fields_list_group").append(
     '\
         <div class="list-group-item justify-content-between">\

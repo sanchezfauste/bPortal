@@ -563,12 +563,12 @@ def list_layout(request, module, layout):
     if request.method == 'POST':
         post_data = json.loads(request.body.decode("utf-8"))
         try:
-            selected_fields = post_data['selected_fields']
+            selected_fields = post_data['selectedFields']
         except KeyError:
             return JsonResponse(
                 {
                     "status": "Error",
-                    "error": _("Please specify 'selected_fields'.")
+                    "error": _("Please specify 'selectedFields'.")
                 },
                 status=400
             )
@@ -630,12 +630,12 @@ def edit_layout(request, module, layout):
     if request.method == 'POST':
         post_data = json.loads(request.body.decode("utf-8"))
         try:
-            selected_fields = post_data['selected_fields']
+            selected_fields = post_data['selectedFields']
         except KeyError:
             return JsonResponse(
                 {
                     "status": "Error",
-                    "error": _("Please specify 'selected_fields'.")
+                    "error": _("Please specify 'selectedFields'.")
                 },
                 status=400
             )
