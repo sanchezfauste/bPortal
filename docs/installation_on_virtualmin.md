@@ -72,7 +72,9 @@ The following dependences are needed by the portal app to connect to the MySQL d
 
 ```bash
 sudo apt-get install libmysqlclient-dev python-dev
+source env/bin/activate
 pip install mysqlclient
+deactivate
 ```
 
 If `mysql_config.cnf` config file does not exist then create it with:
