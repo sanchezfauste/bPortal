@@ -39,10 +39,10 @@ function saveRolePermissions() {
     data: JSON.stringify(data),
     contentType: "application/json; charset=utf-8",
     dataType: "json",
-    error: function(response) {
+    error(response) {
       alert(response.responseJSON.error);
     },
-    success: function(response) {
+    success(response) {
       alert(response.msg);
     }
   });

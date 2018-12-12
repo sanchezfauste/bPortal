@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bPortal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-03 16:24+0200\n"
+"POT-Creation-Date: 2018-11-07 19:26+0100\n"
 "PO-Revision-Date: 2018-02-20 20:25+0100\n"
 "Last-Translator: Marc Sánchez <sanchezfauste@gmail.com>\n"
 "Language-Team: BTACTIC\n"
@@ -30,49 +30,49 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:14
+#: models.py:15
 msgid "List View"
 msgstr "Vista lista"
 
-#: models.py:15
+#: models.py:16
 msgid "Filter View"
 msgstr "Vista filtro"
 
-#: models.py:16
+#: models.py:17
 msgid "Detail View"
 msgstr "Vista detallada"
 
-#: models.py:17
+#: models.py:18
 msgid "Edit View"
 msgstr "Vista edición"
 
-#: models.py:18
+#: models.py:19
 msgid "Create View"
 msgstr "Vista creación"
 
-#: models.py:41 templates/portal/edit_role.html:29
+#: models.py:44 templates/portal/edit_role.html:29
 msgid "Read"
 msgstr "Ver"
 
-#: models.py:42 templates/portal/edit_role.html:30
+#: models.py:45 templates/portal/edit_role.html:30
 #: templates/portal/module_create.html:81 templates/portal/module_list.html:30
 msgid "Create"
 msgstr "Crear"
 
-#: models.py:43 templates/portal/edit_role.html:31
+#: models.py:46 templates/portal/edit_role.html:31
 #: templates/portal/module_detail.html:48 templates/portal/module_list.html:166
 msgid "Edit"
 msgstr "Editar"
 
-#: models.py:44 templates/portal/edit_role.html:32
+#: models.py:47 templates/portal/edit_role.html:32
 msgid "Delete"
 msgstr "Eliminar"
 
-#: models.py:71
+#: models.py:76
 msgid "Single"
 msgstr "Usuario individual"
 
-#: models.py:72
+#: models.py:77
 msgid "Account"
 msgstr "Cuenta de usuario"
 
@@ -603,135 +603,135 @@ msgid "Change my password"
 msgstr "Cambiar mi contraseña"
 
 #. Translators: Format for date fields following python date format.
-#: templatetags/filters.py:70
+#: templatetags/filters.py:76
 msgid "%d/%m/%Y"
 msgstr "%d/%m/%Y"
 
 #. Translators: Format for time fields following python date format.
-#: templatetags/filters.py:79
+#: templatetags/filters.py:86
 msgid "%H:%M"
 msgstr "%H:%M"
 
 #. Translators: Format for datetime fields following python date format.
-#: templatetags/filters.py:88
+#: templatetags/filters.py:96
 msgid "%d/%m/%Y %H:%M"
 msgstr "%d/%m/%Y %H:%M"
 
-#: views.py:126
+#: views.py:130
 msgid "User settings updated successfully."
 msgstr "Se han actualizado las preferencias del usuario."
 
-#: views.py:131
+#: views.py:135
 msgid "Error while saving user settings."
 msgstr "Se ha producido un error al actualizar las preferencias del usuario."
 
-#: views.py:240
+#: views.py:250
 msgid "Record deleted successfully."
 msgstr "Registro eliminado con éxito."
 
-#: views.py:245
+#: views.py:256
 msgid "Error deleting record."
 msgstr "Error al eliminar el registro."
 
-#: views.py:250
+#: views.py:264
 msgid "Insufficient permissions."
 msgstr "Permisos insuficientes."
 
-#: views.py:254 views.py:491
+#: views.py:271 views.py:529
 msgid "Invalid request."
 msgstr "Solicitud no válida."
 
-#: views.py:439
+#: views.py:465
 msgid "Empty case updates are not allowed."
 msgstr "No se permiten las actualizaciones de casos vacías."
 
-#: views.py:466
+#: views.py:495
 msgid "An error occurred while uploading the attachment(s)."
 msgstr "Se produjo un error al cargar los archivos adjuntos."
 
-#: views.py:471
+#: views.py:503
 msgid "An error occurred while creating the case update."
 msgstr "Se produjo un error al crear la actualización del caso."
 
-#: views.py:475
+#: views.py:509
 msgid "The case update has been added successfully."
 msgstr "Se ha actualizado el caso correctamente."
 
-#: views.py:487
+#: views.py:522
 msgid "An error occurred while updating the case."
 msgstr "Se ha producido un error al actualizar el caso."
 
-#: views.py:506 views.py:847
+#: views.py:547 views.py:932
 msgid "The requested file was not found."
 msgstr "No se ha encontrado el fichero solicitado."
 
-#: views.py:526 views.py:586
-msgid "Please specify 'selected_fields'."
-msgstr "Por favor, especifique el campo 'selected_fields'."
+#: views.py:571 views.py:638
+msgid "Please specify 'selectedFields'."
+msgstr "Por favor, especifique el campo 'selectedFields'."
 
-#: views.py:537 views.py:597
+#: views.py:584 views.py:651
 msgid "Layout updated successfully"
 msgstr "Vista actualizada correctamente"
 
-#: views.py:678
+#: views.py:734
 msgid "Please specify 'permissions'."
 msgstr "Por favor, especifique el campo 'permissions'."
 
-#: views.py:685 views.py:725
+#: views.py:744 views.py:787
 #, python-format
 msgid "Role '%(role)s' does not exist."
 msgstr "El rol '%(role)s' no existe."
 
-#: views.py:699
+#: views.py:760
 msgid "Role permissions have been updated."
 msgstr "Se han actualizado los permisos del rol."
 
-#: views.py:715
+#: views.py:777
 #, python-format
 msgid "'%(role)s' role has been removed."
 msgstr "Se ha eliminado el rol '%(role)s'."
 
-#: views.py:720
+#: views.py:782
 msgid "Default role can not be deleted."
 msgstr "No se puede eliminar el rol por defecto."
 
-#: views.py:741
+#: views.py:804
 #, python-format
 msgid "'%(role)s' role has been created."
 msgstr "Se ha creado el rol '%(role)s'."
 
-#: views.py:746
+#: views.py:809
 msgid "Error creating role: Invalid role name."
 msgstr "Error al crear el rol: El nombre no es válido."
 
-#: views.py:751
+#: views.py:814
 msgid "Error creating role."
 msgstr "Error al crear el rol."
 
-#: views.py:767
+#: views.py:832
 msgid "Error retrieving contact"
 msgstr "Error al recuperar el contacto"
 
-#: views.py:772
+#: views.py:840
 msgid "Contact has no valid email"
 msgstr "El contacto no tiene un correo electrónico válido"
 
-#: views.py:783
+#: views.py:854
 msgid "Invalid request"
 msgstr "Solicitud no válida"
 
-#: views.py:795
+#: views.py:869
 msgid "The cache has been cleared."
 msgstr "Se ha limpiado la cache."
 
-#: views.py:815
+#: views.py:899
 msgid "Preferences have been updated correctly."
 msgstr "Se han actualizado las preferencias."
 
-#: views.py:820
+#: views.py:904
 msgid "Error updating preferences."
 msgstr "Error al actualizar las preferencias."
 
-#: views.py:858
+#: views.py:943
 msgid "Error while retrieving document."
 msgstr "Error al recuperar el documento."
