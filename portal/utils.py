@@ -29,7 +29,7 @@ from django.contrib.auth.models import User
 from .models import UserAttr
 from .models import Role, RoleUser
 from suitepy.bean import Bean
-from module_definitions import *
+from .module_definitions import *
 from django.conf import settings
 from datetime import datetime
 
@@ -398,7 +398,7 @@ def retrieve_list_view_records(module, arguments, user):
                 query=filter_query
             )
     except Exception as e:
-        print e
+        print(e)
 
     return {
         'module_key': module,

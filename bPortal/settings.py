@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'es_ES'
+LANGUAGE_CODE = 'es-es'
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'bPortal/locale'),

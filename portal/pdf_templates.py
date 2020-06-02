@@ -19,7 +19,7 @@
 #######################################################################
 
 from suitepy.suitecrm import SuiteCRM
-from models import PortalSetting
+from .models import PortalSetting
 
 AOS_PDF_TEMPLATES_FIELDS = [
     'id',

@@ -1,7 +1,7 @@
 {% load i18n %}
 {% if filterable_fields %}
     {% load filters %}
-    {% load staticfiles %}
+    {% load static %}
     <form
         id="{{ module_key }}_filter"
         action="{% url 'module_list' module_key %}"

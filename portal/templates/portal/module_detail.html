@@ -8,7 +8,7 @@
         {{ module_labels|get_label:module_key }}
     {% endif %}
 {% endblock %}
-{% load staticfiles %}
+{% load static %}
 {% block static_files %}
 <script src="{% static 'portal/session.js' %}"></script>
 {% endblock %}

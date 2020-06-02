@@ -32,14 +32,14 @@ from .models import Layout
 from .models import Role, RolePermission, RoleUser
 from collections import OrderedDict
 import json
-from utils import *
+from .utils import *
 from django.contrib.auth.decorators import login_required, permission_required
-from processors import *
+from .processors import *
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
-from cases import *
-from aos_quotes_utils import *
-from pdf_templates import *
+from .cases import *
+from .aos_quotes_utils import *
+from .pdf_templates import *
 import base64
 from django.http import Http404
 from django.urls import reverse
@@ -336,7 +336,7 @@ def module_create(request, module):
                 )
                 return HttpResponseRedirect(url)
             except Exception as e:
-                print e
+                print(e)
                 context.update({
                     'error_on_create': True
                 })
@@ -847,7 +847,7 @@ def crm_entry_point(request):
             return disable_portal_user(contact)
         elif request.GET['task'] == 'enable_user':
             return enable_portal_user(contact)
-        print request.GET['task']
+        print(request.GET['task'])
     return JsonResponse(
         {
             "status": "Error",

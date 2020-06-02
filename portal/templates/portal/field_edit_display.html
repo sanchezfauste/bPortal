@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load filters %}
-{% load staticfiles %}
+{% load static %}
 
 {% if field.type == 'enum' or field.type == 'dynamicenum' %}
     <select name="{{field.name}}" class="form-control"{% if field.required %} required{% endif %} id="{{field.name}}">

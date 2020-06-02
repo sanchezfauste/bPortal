@@ -19,7 +19,7 @@
 #######################################################################
 
 from django import template
-import HTMLParser
+import html
 from datetime import datetime
 from django.conf import settings
 from django.utils.translation import gettext as _
@@ -65,7 +65,7 @@ def get_label(dict, key):
 
 @register.filter(name='decode')
 def decode(value):
-    return HTMLParser.HTMLParser().unescape(value)
+    return html.unescape(value)
 
 
 @register.filter(name='format_date')

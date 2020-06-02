@@ -18,8 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 
-from module_definition import ModuleDefinition
-from link_type import LinkType
+from .module_definition import ModuleDefinition
+from .link_type import LinkType
 
 
 class Bugs(ModuleDefinition):

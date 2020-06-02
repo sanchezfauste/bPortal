@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #######################################################################
 
-from utils import *
+from .utils import *
 from django.conf import settings
 
 

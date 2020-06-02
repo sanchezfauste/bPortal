@@ -4,7 +4,7 @@
 {% block title %}
     {{ module_labels|get_label:module_key }}
 {% endblock %}
-{% load staticfiles %}
+{% load static %}
 {% block favicon %}
     {% with module_ico=module_key|get_module_ico %}
         <link rel="shortcut icon" href="{% static module_ico %}">

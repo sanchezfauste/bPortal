@@ -19,7 +19,7 @@
 #######################################################################
 
 from suitepy.suitecrm import SuiteCRM
-from utils import *
+from .utils import *
 
 NOTE_FIELDS = [
     'id',

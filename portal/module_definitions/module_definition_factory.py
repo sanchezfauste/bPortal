@@ -19,7 +19,7 @@
 #######################################################################
 
 from abc import ABCMeta
-from module_definition_not_found_exception import ModuleDefinitionNotFoundException
+from .module_definition_not_found_exception import ModuleDefinitionNotFoundException
 from importlib import import_module
 
 
