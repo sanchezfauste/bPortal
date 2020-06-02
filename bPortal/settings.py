@@ -152,6 +152,6 @@ DEFAULT_ORDER = 'desc'
 
 
 try:
-    from custom_settings import *
+    from .custom_settings import *
 except ImportError:
     pass
