@@ -5,7 +5,7 @@ This document describes how to install bPortal on a virtualmin server. This guid
 The folliwing dependences are needed to run bPortal. You can install all dependences with:
 
 ```bash
-sudo apt-get install libapache2-mod-wsgi gettext git
+sudo apt-get install libapache2-mod-wsgi-py3 gettext git
 ```
 
 It's recommended to use `virtualenv` and `pip` packages to manage Python dependences. You can install both dependences with:
